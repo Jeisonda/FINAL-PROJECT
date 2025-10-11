@@ -1,0 +1,73 @@
+[ {
+  "vaccineName" : "Covid-19 Pfizer",
+  "manufacterName" : "Pfizer",
+  "diseaseName" : "Coronavirus",
+  "vaccineType" : "ARNm",
+  "batchNumber" : "A1234",
+  "expirationDate" : 1767139200000,
+  "dose" : 2
+}, {
+  "vaccineName" : "Influenza",
+  "manufacterName" : "Sanofi",
+  "diseaseName" : "Influenza",
+  "vaccineType" : "Inactiva",
+  "batchNumber" : "B5678",
+  "expirationDate" : 1727740800000,
+  "dose" : 1
+}, {
+  "vaccineName" : "Vacuna Tétanos",
+  "manufacterName" : "Sanofi Pasteur",
+  "diseaseName" : "Tétanos, difteria y tosferina",
+  "vaccineType" : "Toxoide",
+  "batchNumber" : "BS123N",
+  "expirationDate" : 1758171600000,
+  "dose" : 1
+}, {
+  "vaccineName" : "Vacuna HPV (Virus del Papiloma Humano)",
+  "manufacterName" : "Merck (Gardasil)",
+  "diseaseName" : "Infecciones por VPH ",
+  "vaccineType" : "Subunidad",
+  "batchNumber" : "AS12324",
+  "expirationDate" : 1764259384781,
+  "dose" : 3
+}, {
+  "vaccineName" : "Vacuna Meningocócica",
+  "manufacterName" : "Pfizer",
+  "diseaseName" : "Enfermedad meningocócica (meningitis)",
+  "vaccineType" : "ARNm",
+  "batchNumber" : "ADB1234S",
+  "expirationDate" : 1765987473059,
+  "dose" : 1
+}, {
+  "vaccineName" : "Fiebre amarilla ",
+  "manufacterName" : "Pfizer",
+  "diseaseName" : "Fiebre Amarilla",
+  "vaccineType" : "Toxoide",
+  "batchNumber" : "fAFDS1",
+  "expirationDate" : 1750827600000,
+  "dose" : 1
+}, {
+  "vaccineName" : "SIDA",
+  "manufacterName" : "asJs",
+  "diseaseName" : "Sida",
+  "vaccineType" : "Toxoide",
+  "batchNumber" : "dv2",
+  "expirationDate" : 1756184400000,
+  "dose" : 2
+}, {
+  "vaccineName" : "VIH",
+  "manufacterName" : "AASDF",
+  "diseaseName" : "Vih",
+  "vaccineType" : "Toxoide",
+  "batchNumber" : "f1",
+  "expirationDate" : 1749531600000,
+  "dose" : 1
+}, {
+  "vaccineName" : "CANCER",
+  "manufacterName" : "NSdg",
+  "diseaseName" : "Cancer",
+  "vaccineType" : "ARNm",
+  "batchNumber" : "f1",
+  "expirationDate" : 1796187600000,
+  "dose" : 1
+} ]
