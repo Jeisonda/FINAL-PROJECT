@@ -1,0 +1,12 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "SYSTEM-OF-VACINATION/lib/com.fasterxml.jackson.databind.jar",
+        "SYSTEM-OF-VACINATION/lib/jackson-annotations-2.1.2.jar",
+        "SYSTEM-OF-VACINATION/lib/jackson-core-2.2.3.jar",
+        "SYSTEM-OF-VACINATION/lib/jcalendar-1.4.jar",
+        "SYSTEM-OF-VACINATION/lib/jgoodies-common-1.2.0.jar",
+        "SYSTEM-OF-VACINATION/lib/jgoodies-looks-2.4.1.jar",
+        "SYSTEM-OF-VACINATION/lib/junit-4.6.jar"
+    ]
+}
