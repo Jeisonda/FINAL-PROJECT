@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 public class DateModel {
-
     private UserModel person;
     private List<VaccineModel> vaccines;
     private Date applicationDate;

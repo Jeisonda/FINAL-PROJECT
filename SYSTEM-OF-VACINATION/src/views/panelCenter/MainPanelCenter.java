@@ -12,12 +12,12 @@ import javax.swing.JPanel;
 public class MainPanelCenter extends JPanel{
  
     private JLabel label_image;
-    private Image iconOriginal, scaletImage;
+    private Image iconOriginal;
+    private Image scaletImage;
     private JLabel label_Title;
     
     public MainPanelCenter(){
         panelConfiguration();
-
     }
 
     private void panelConfiguration(){

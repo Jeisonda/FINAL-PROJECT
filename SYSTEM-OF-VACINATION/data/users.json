@@ -68,4 +68,24 @@
   "documentNumber" : 1049607533,
   "phoneNumber" : 3203472792,
   "bornDate" : 1115701200000
+}, {
+  "firstName" : "Nicolas",
+  "middleName" : "David",
+  "lastName" : "Rojas",
+  "secondLastName" : "Rojas",
+  "documentType" : "CC",
+  "email" : "nicolas@gmial.com",
+  "documentNumber" : 154875345,
+  "phoneNumber" : 320154687,
+  "bornDate" : 1098334800000
+}, {
+  "firstName" : "jnkassfdaf",
+  "middleName" : "wfeew",
+  "lastName" : "asd",
+  "secondLastName" : "asd",
+  "documentType" : "CC",
+  "email" : "4zdsa@gmail.com",
+  "documentNumber" : 23,
+  "phoneNumber" : 45,
+  "bornDate" : 1759899600000
 } ]
