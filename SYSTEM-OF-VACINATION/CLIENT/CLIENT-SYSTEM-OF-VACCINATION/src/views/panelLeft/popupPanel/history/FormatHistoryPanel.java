@@ -39,20 +39,20 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
 
     private PanelTable panelTable;
 
-    private JLabel label_fullName;
-    private JLabel label_fullName_container;
-    private JLabel label_documentNumber;
-    private JLabel label_documentNumber_container;
-    private JLabel label_tipeDocument;
-    private JLabel label_tipeDocument_container;
-    private JLabel label_email;
-    private JLabel label_email_container;
-    private JLabel label_age;
-    private JLabel label_age_container;
+    private JLabel labelFullName;
+    private JLabel labelFullNameContainer;
+    private JLabel labelDocumentNumber;
+    private JLabel labelDocumentNumberContainer;
+    private JLabel labelTipeDocument;
+    private JLabel labelTipeDocumentContainer;
+    private JLabel labelEmail;
+    private JLabel labelEmailContainer;
+    private JLabel labelAge;
+    private JLabel labelAgeContainer;
 
-    private JLabel label_findUser;
+    private JLabel labelFindUser;
 
-    private JTextField txt_findName;
+    private JTextField txtFindName;
 
     private boolean placeholderActivo = true;
 
@@ -82,39 +82,39 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
     }
 
     private void addTxtFindUser() {
-        txt_findName = new JTextField("Ingrese N° de documento");
+        txtFindName = new JTextField("Ingrese N° de documento");
         addEventsTxfUser();
-        txt_findName.setBounds(40, 10, 200, 25);
-        txt_findName.setForeground(Color.gray);
-        txt_findName.setEditable(false);
-        add(txt_findName);
+        txtFindName.setBounds(40, 10, 200, 25);
+        txtFindName.setForeground(Color.gray);
+        txtFindName.setEditable(false);
+        add(txtFindName);
     }
 
     private void addEventsTxfUser() {
-        txt_findName.addMouseListener(new MouseAdapter() {
+        txtFindName.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                txt_findName.setText("");
-                txt_findName.setForeground(Color.BLACK);
-                txt_findName.setEditable(true);
+                txtFindName.setText("");
+                txtFindName.setForeground(Color.BLACK);
+                txtFindName.setEditable(true);
             }
         });
-        txt_findName.addFocusListener(new FocusAdapter() {
+        txtFindName.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                if (txt_findName.getText().isEmpty()) {
-                    txt_findName.setText("Ingrese N° de documento");
-                    txt_findName.setForeground(Color.GRAY);
-                    txt_findName.setEditable(false);
+                if (txtFindName.getText().isEmpty()) {
+                    txtFindName.setText("Ingrese N° de documento");
+                    txtFindName.setForeground(Color.GRAY);
+                    txtFindName.setEditable(false);
                     placeholderActivo = true;
                 }
             }
         });
-        txt_findName.addKeyListener(new KeyAdapter() {
+        txtFindName.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (placeholderActivo) {
-                    txt_findName.setText("");
-                    txt_findName.setEditable(true);
-                    txt_findName.setForeground(Color.black);
+                    txtFindName.setText("");
+                    txtFindName.setEditable(true);
+                    txtFindName.setForeground(Color.black);
                     placeholderActivo = false;
                 }
             }
@@ -123,90 +123,90 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
 
     private void addLabelSearchUser() {
         imageConfiguration();
-        label_findUser = new JLabel();
-        label_findUser.setOpaque(false);
-        label_findUser.setBackground(new Color(220, 220, 220));
-        label_findUser.setBounds(250, 10, 25, 25);
-        label_findUser.setIcon(new ImageIcon(scaletImage));
-        label_findUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        label_findUser.addMouseListener(new MouseAdapter() {
+        labelFindUser = new JLabel();
+        labelFindUser.setOpaque(false);
+        labelFindUser.setBackground(new Color(220, 220, 220));
+        labelFindUser.setBounds(250, 10, 25, 25);
+        labelFindUser.setIcon(new ImageIcon(scaletImage));
+        labelFindUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        labelFindUser.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                presenter.searchUser(txt_findName.getText());
+                presenter.searchUser(txtFindName.getText());
             }
         });
-        add(label_findUser);
+        add(labelFindUser);
 
     }
 
     private void addLabelFullName() {
-        label_fullName = new JLabel("Nombre Completo:");
-        labelConfiguration(label_fullName);
-        label_fullName.setBounds(60, 50, 150, 25);
-        add(label_fullName);
+        labelFullName = new JLabel("Nombre Completo:");
+        labelConfiguration(labelFullName);
+        labelFullName.setBounds(60, 50, 150, 25);
+        add(labelFullName);
     }
 
     private void addLabelFullNameContainer() {
-        label_fullName_container = new JLabel();
-        labelConfiguration(label_fullName_container);
-        label_fullName_container.setBounds(210, 50, 250, 25);
-        add(label_fullName_container);
+        labelFullNameContainer = new JLabel();
+        labelConfiguration(labelFullNameContainer);
+        labelFullNameContainer.setBounds(210, 50, 250, 25);
+        add(labelFullNameContainer);
     }
 
     private void addLabelDocumentoNumber() {
-        label_documentNumber = new JLabel("Número de documento:");
-        labelConfiguration(label_documentNumber);
-        label_documentNumber.setBounds(60, 80, 170, 25);
-        add(label_documentNumber);
+        labelDocumentNumber = new JLabel("Número de documento:");
+        labelConfiguration(labelDocumentNumber);
+        labelDocumentNumber.setBounds(60, 80, 170, 25);
+        add(labelDocumentNumber);
     }
 
     private void addLabelDocumentoNumberContainer() {
-        label_documentNumber_container = new JLabel();
-        labelConfiguration(label_documentNumber_container);
-        label_documentNumber_container.setBounds(235, 80, 200, 25);
-        add(label_documentNumber_container);
+        labelDocumentNumberContainer = new JLabel();
+        labelConfiguration(labelDocumentNumberContainer);
+        labelDocumentNumberContainer.setBounds(235, 80, 200, 25);
+        add(labelDocumentNumberContainer);
     }
 
     private void addLabelTipeDocument() {
-        label_tipeDocument = new JLabel("Tipo de documento:");
-        labelConfiguration(label_tipeDocument);
-        label_tipeDocument.setBounds(60, 110, 150, 25);
-        add(label_tipeDocument);
+        labelTipeDocument = new JLabel("Tipo de documento:");
+        labelConfiguration(labelTipeDocument);
+        labelTipeDocument.setBounds(60, 110, 150, 25);
+        add(labelTipeDocument);
     }
 
     private void addLabelTipeDocumentContainer() {
-        label_tipeDocument_container = new JLabel();
-        labelConfiguration(label_tipeDocument_container);
-        label_tipeDocument_container.setBounds(210, 110, 200, 25);
-        add(label_tipeDocument_container);
+        labelTipeDocumentContainer = new JLabel();
+        labelConfiguration(labelTipeDocumentContainer);
+        labelTipeDocumentContainer.setBounds(210, 110, 200, 25);
+        add(labelTipeDocumentContainer);
     }
 
     private void addLabelAge() {
-        label_age = new JLabel("Fecha de nacimiento:");
-        labelConfiguration(label_age);
-        label_age.setBounds(60, 140, 160, 25);
-        add(label_age);
+        labelAge = new JLabel("Fecha de nacimiento:");
+        labelConfiguration(labelAge);
+        labelAge.setBounds(60, 140, 160, 25);
+        add(labelAge);
     }
 
     private void addLabelAgeContainer() {
-        label_age_container = new JLabel();
-        labelConfiguration(label_age_container);
-        label_age_container.setBounds(220, 140, 300, 25);
-        add(label_age_container);
+        labelAgeContainer = new JLabel();
+        labelConfiguration(labelAgeContainer);
+        labelAgeContainer.setBounds(220, 140, 300, 25);
+        add(labelAgeContainer);
     }
 
     private void addLabelEmail() {
-        label_email = new JLabel("Correo:");
-        labelConfiguration(label_email);
-        label_email.setBounds(60, 170, 60, 25);
-        add(label_email);
+        labelEmail = new JLabel("Correo:");
+        labelConfiguration(labelEmail);
+        labelEmail.setBounds(60, 170, 60, 25);
+        add(labelEmail);
     }
 
     private void addLabelEmailContainer() {
-        label_email_container = new JLabel();
-        labelConfiguration(label_email_container);
-        label_email_container.setBounds(130, 170, 200, 25);
-        add(label_email_container);
+        labelEmailContainer = new JLabel();
+        labelConfiguration(labelEmailContainer);
+        labelEmailContainer.setBounds(130, 170, 200, 25);
+        add(labelEmailContainer);
     }
 
     private void addLabelVaccine() {
@@ -253,11 +253,11 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
     public void fillUserLabels(UserModel user) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fullName = user.getFirstName()+ " " + user.getMiddleName()+ " " + user.getLastName()+ " " + user.getSecondLastName();
-        label_fullName_container.setText(fullName);
-        label_documentNumber_container.setText(String.valueOf(user.getDocumentNumber()));
-        label_tipeDocument_container.setText(user.getDocumentType());
-        label_age_container.setText(sdf.format(user.getBornDate()));
-        label_email_container.setText(user.getEmail());
+        labelFullNameContainer.setText(fullName);
+        labelDocumentNumberContainer.setText(String.valueOf(user.getDocumentNumber()));
+        labelTipeDocumentContainer.setText(user.getDocumentType());
+        labelAgeContainer.setText(sdf.format(user.getBornDate()));
+        labelEmailContainer.setText(user.getEmail());
     }
 
     @Override

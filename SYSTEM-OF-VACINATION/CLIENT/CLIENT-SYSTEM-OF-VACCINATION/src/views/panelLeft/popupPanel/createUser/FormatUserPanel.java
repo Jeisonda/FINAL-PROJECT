@@ -30,29 +30,29 @@ public class FormatUserPanel extends JPanel implements ViewInterface {
     private int arcWidth = 50;
     private int arcHeight = 50;
 
-    private JLabel label_firstName;
-    private JLabel label_middleName;
-    private JLabel label_lastName;
-    private JLabel label_secondLastName;
-    private JLabel label_tipeDocument;
-    private JLabel label_documentNumber;
-    private JLabel label_age;
-    private JLabel label_phoneNumber;
-    private JLabel label_email;
+    private JLabel labelFirstName;
+    private JLabel labelMiddleName;
+    private JLabel labelLastName;
+    private JLabel labelSecondLastName;
+    private JLabel labelTipeDocument;
+    private JLabel labelDocumentNumber;
+    private JLabel labelAge;
+    private JLabel labelPhoneNumber;
+    private JLabel labelEmail;
 
-    private JTextField txt_firstName;
-    private JTextField txt_middleName;
-    private JTextField txt_lastName;
-    private JTextField txt_secondLastName;
-    private JTextField txt_documentNumber;
-    private JTextField txt_phoneNumber;
-    private JTextField txt_email;
+    private JTextField txtFirstName;
+    private JTextField txtMiddleName;
+    private JTextField txtLastName;
+    private JTextField txtSecondLastName;
+    private JTextField txtDocumentNumber;
+    private JTextField txtPhoneNumber;
+    private JTextField txtEmail;
 
     private JDateChooser dateChooser;
 
-    private JComboBox combo_tipeDocument;
+    private JComboBox comboTipeDocument;
 
-    private JButton btn_register;
+    private JButton btnRegister;
 
     private Presenter presenter;
 
@@ -100,90 +100,90 @@ public class FormatUserPanel extends JPanel implements ViewInterface {
     }
 
     private void addLabelFirsName() {
-        label_firstName = new JLabel("Primer Nombre");
-        labelConfiguration(label_firstName);
-        label_firstName.setBounds(60, 20, 200, 20);
-        add(label_firstName);
+        labelFirstName = new JLabel("Primer Nombre");
+        labelConfiguration(labelFirstName);
+        labelFirstName.setBounds(60, 20, 200, 20);
+        add(labelFirstName);
     }
 
     private void addTxtFirstName() {
-        txt_firstName = new JTextField();
-        txt_firstName.setBounds(60, 50, 250, 25);
-        add(txt_firstName);
+        txtFirstName = new JTextField();
+        txtFirstName.setBounds(60, 50, 250, 25);
+        add(txtFirstName);
     }
 
     private void addLabelMiddleName() {
-        label_middleName = new JLabel("Segundo Nombre");
-        labelConfiguration(label_middleName);
-        label_middleName.setBounds(360, 20, 200, 25);
-        add(label_middleName);
+        labelMiddleName = new JLabel("Segundo Nombre");
+        labelConfiguration(labelMiddleName);
+        labelMiddleName.setBounds(360, 20, 200, 25);
+        add(labelMiddleName);
     }
 
     private void addTxtMiddleName() {
-        txt_middleName = new JTextField();
-        txt_middleName.setBounds(360, 50, 250, 25);
-        add(txt_middleName);
+        txtMiddleName = new JTextField();
+        txtMiddleName.setBounds(360, 50, 250, 25);
+        add(txtMiddleName);
     }
 
     private void addLabelLastName() {
-        label_lastName = new JLabel("Primer Apellido");
-        labelConfiguration(label_lastName);
-        label_lastName.setBounds(60, 80, 200, 20);
-        add(label_lastName);
+        labelLastName = new JLabel("Primer Apellido");
+        labelConfiguration(labelLastName);
+        labelLastName.setBounds(60, 80, 200, 20);
+        add(labelLastName);
     }
 
     private void addTxtLastName() {
-        txt_lastName = new JTextField();
-        txt_lastName.setBounds(60, 110, 250, 25);
-        add(txt_lastName);
+        txtLastName = new JTextField();
+        txtLastName.setBounds(60, 110, 250, 25);
+        add(txtLastName);
     }
 
     private void addLabelSecondLastName() {
-        label_secondLastName = new JLabel("Segundo Apellido");
-        labelConfiguration(label_secondLastName);
-        label_secondLastName.setBounds(360, 80, 200, 25);
-        add(label_secondLastName);
+        labelSecondLastName = new JLabel("Segundo Apellido");
+        labelConfiguration(labelSecondLastName);
+        labelSecondLastName.setBounds(360, 80, 200, 25);
+        add(labelSecondLastName);
     }
 
     private void addtxtSecondLastName() {
-        txt_secondLastName = new JTextField();
-        txt_secondLastName.setBounds(360, 110, 250, 25);
-        add(txt_secondLastName);
+        txtSecondLastName = new JTextField();
+        txtSecondLastName.setBounds(360, 110, 250, 25);
+        add(txtSecondLastName);
     }
 
     private void addLabelTipeDocumento() {
-        label_tipeDocument = new JLabel("Tipo de documento");
-        labelConfiguration(label_tipeDocument);
-        label_tipeDocument.setBounds(60, 140, 200, 25);
-        add(label_tipeDocument);
+        labelTipeDocument = new JLabel("Tipo de documento");
+        labelConfiguration(labelTipeDocument);
+        labelTipeDocument.setBounds(60, 140, 200, 25);
+        add(labelTipeDocument);
     }
 
     private void addComboTipeDocument() {
         String[] items = {"CC", "TI ", "PAS"};
-        combo_tipeDocument = new JComboBox<>(items);
-        combo_tipeDocument.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        combo_tipeDocument.setBounds(60, 170, 250, 25);
-        add(combo_tipeDocument);
+        comboTipeDocument = new JComboBox<>(items);
+        comboTipeDocument.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        comboTipeDocument.setBounds(60, 170, 250, 25);
+        add(comboTipeDocument);
     }
 
     private void addLabelDocumentNumber() {
-        label_documentNumber = new JLabel("N° documento");
-        labelConfiguration(label_documentNumber);
-        label_documentNumber.setBounds(360, 140, 200, 25);
-        add(label_documentNumber);
+        labelDocumentNumber = new JLabel("N° documento");
+        labelConfiguration(labelDocumentNumber);
+        labelDocumentNumber.setBounds(360, 140, 200, 25);
+        add(labelDocumentNumber);
     }
 
     private void addTxtDocumentoNumber() {
-        txt_documentNumber = new JTextField();
-        txt_documentNumber.setBounds(360, 170, 250, 25);
-        add(txt_documentNumber);
+        txtDocumentNumber = new JTextField();
+        txtDocumentNumber.setBounds(360, 170, 250, 25);
+        add(txtDocumentNumber);
     }
 
     private void addLabelAge() {
-        label_age = new JLabel("Fecha de nacimiento");
-        labelConfiguration(label_age);
-        label_age.setBounds(60, 200, 200, 25);
-        add(label_age);
+        labelAge = new JLabel("Fecha de nacimiento");
+        labelConfiguration(labelAge);
+        labelAge.setBounds(60, 200, 200, 25);
+        add(labelAge);
     }
 
     private void addTxtAge() {
@@ -194,57 +194,57 @@ public class FormatUserPanel extends JPanel implements ViewInterface {
     }
 
     private void addLabelPhoneNumber() {
-        label_phoneNumber = new JLabel("Telefono");
-        labelConfiguration(label_phoneNumber);
-        label_phoneNumber.setBounds(360, 200, 200, 25);
-        add(label_phoneNumber);
+        labelPhoneNumber = new JLabel("Telefono");
+        labelConfiguration(labelPhoneNumber);
+        labelPhoneNumber.setBounds(360, 200, 200, 25);
+        add(labelPhoneNumber);
     }
 
     private void addTxtPhoneNumber() {
-        txt_phoneNumber = new JTextField();
-        txt_phoneNumber.setBounds(360, 230, 250, 25);
-        add(txt_phoneNumber);
+        txtPhoneNumber = new JTextField();
+        txtPhoneNumber.setBounds(360, 230, 250, 25);
+        add(txtPhoneNumber);
     }
 
     private void addLabelEmail() {
-        label_email = new JLabel("Correo");
-        labelConfiguration(label_email);
-        label_email.setBounds(60, 260, 200, 25);
-        add(label_email);
+        labelEmail = new JLabel("Correo");
+        labelConfiguration(labelEmail);
+        labelEmail.setBounds(60, 260, 200, 25);
+        add(labelEmail);
     }
 
     private void addTxtEmail() {
-        txt_email = new JTextField();
-        txt_email.setBounds(60, 290, 550, 25);
-        add(txt_email);
+        txtEmail = new JTextField();
+        txtEmail.setBounds(60, 290, 550, 25);
+        add(txtEmail);
     }
 
     private void addButtonRegister() {
-        btn_register = new JButton("Registrar");
-        btn_register.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        btn_register.setBounds(270, 360, 150, 30);
-        btn_register.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn_register.addActionListener(new ActionListener() {
+        btnRegister = new JButton("Registrar");
+        btnRegister.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        btnRegister.setBounds(270, 360, 150, 30);
+        btnRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnRegister.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                presenter.createUser(txt_firstName.getText(), txt_middleName.getText(), txt_lastName.getText(),
-                        txt_secondLastName.getText(), combo_tipeDocument.getSelectedItem().toString(),
-                        txt_documentNumber.getText(),
-                        dateChooser.getDate(), txt_phoneNumber.getText(), txt_email.getText());
+                presenter.createUser(txtFirstName.getText(), txtMiddleName.getText(), txtLastName.getText(),
+                        txtSecondLastName.getText(), comboTipeDocument.getSelectedItem().toString(),
+                        txtDocumentNumber.getText(),
+                        dateChooser.getDate(), txtPhoneNumber.getText(), txtEmail.getText());
 
-                txt_firstName.setText("");
-                txt_middleName.setText("");
-                txt_lastName.setText("");
-                txt_secondLastName.setText("");
-                combo_tipeDocument.setSelectedIndex(0);
-                txt_documentNumber.setText("");
+                txtFirstName.setText("");
+                txtMiddleName.setText("");
+                txtLastName.setText("");
+                txtSecondLastName.setText("");
+                comboTipeDocument.setSelectedIndex(0);
+                txtDocumentNumber.setText("");
                 dateChooser.setDate(null); 
-                txt_phoneNumber.setText("");
-                txt_email.setText("");
+                txtPhoneNumber.setText("");
+                txtEmail.setText("");
             }
 
         });
-        add(btn_register);
+        add(btnRegister);
     }
 
     private void labelConfiguration(JLabel label) {

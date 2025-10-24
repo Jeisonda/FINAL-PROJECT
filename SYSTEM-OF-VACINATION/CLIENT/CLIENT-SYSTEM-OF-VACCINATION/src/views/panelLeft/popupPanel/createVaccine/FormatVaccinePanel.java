@@ -34,26 +34,26 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
     private int arcWidth = 30;
     private int arcHeight = 30;
 
-    private JLabel label_NameVaccine;
-    private JLabel label_manufacterName;
-    private JLabel label_diseaseName;
-    private JLabel label_expirationDate;
-    private JLabel label_tipeVacination;
-    private JLabel label_batchNumber;
+    private JLabel labelNameVaccine;
+    private JLabel labelManufacterName;
+    private JLabel labelDiseaseName;
+    private JLabel labelExpirationDate;
+    private JLabel labelTipeVacination;
+    private JLabel labelBatchNumber;
     private JLabel label_dose;
 
-    private JTextField txt_NameVacination;
-    private JTextField txt_manufacterName;
-    private JTextField txt_diseaseName;
-    private JTextField txt_batchNumber;
-    private JTextField txt_dose;
-    private JTextField txt_vaccineId;
+    private JTextField txtNameVacination;
+    private JTextField txtManufacterName;
+    private JTextField txtDiseaseName;
+    private JTextField txtBatchNumber;
+    private JTextField txtDose;
+    private JTextField txtVaccineId;
 
     private JDateChooser dateChooser;
 
-    private JComboBox combo_tipeVaccine;
+    private JComboBox comboTipeVaccine;
 
-    private JButton btn_register;
+    private JButton btnRegister;
 
     private FormatVaccinationPanel vaccine;
 
@@ -102,49 +102,49 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
     }
 
     private void addLabelNameVacination() {
-        label_NameVaccine = new JLabel("Nombre Vacuna");
-        labelConfiguration(label_NameVaccine);
-        label_NameVaccine.setBounds(60, 20, 200, 20);
-        add(label_NameVaccine);
+        labelNameVaccine = new JLabel("Nombre Vacuna");
+        labelConfiguration(labelNameVaccine);
+        labelNameVaccine.setBounds(60, 20, 200, 20);
+        add(labelNameVaccine);
     }
 
     private void addTxtFirstName() {
-        txt_NameVacination = new JTextField();
-        txt_NameVacination.setBounds(60, 50, 250, 25);
-        add(txt_NameVacination);
+        txtNameVacination = new JTextField();
+        txtNameVacination.setBounds(60, 50, 250, 25);
+        add(txtNameVacination);
     }
 
     private void addLabelMiddleName() {
-        label_manufacterName = new JLabel("Nombre fabricante");
-        labelConfiguration(label_manufacterName);
-        label_manufacterName.setBounds(360, 20, 200, 25);
-        add(label_manufacterName);
+        labelManufacterName = new JLabel("Nombre fabricante");
+        labelConfiguration(labelManufacterName);
+        labelManufacterName.setBounds(360, 20, 200, 25);
+        add(labelManufacterName);
     }
 
     private void addTxtMiddleName() {
-        txt_manufacterName = new JTextField();
-        txt_manufacterName.setBounds(360, 50, 250, 25);
-        add(txt_manufacterName);
+        txtManufacterName = new JTextField();
+        txtManufacterName.setBounds(360, 50, 250, 25);
+        add(txtManufacterName);
     }
 
     private void addLabelLastName() {
-        label_diseaseName = new JLabel("Enfermedad Objetivo");
-        labelConfiguration(label_diseaseName);
-        label_diseaseName.setBounds(60, 80, 200, 25);
-        add(label_diseaseName);
+        labelDiseaseName = new JLabel("Enfermedad Objetivo");
+        labelConfiguration(labelDiseaseName);
+        labelDiseaseName.setBounds(60, 80, 200, 25);
+        add(labelDiseaseName);
     }
 
     private void addTxtLastName() {
-        txt_diseaseName = new JTextField();
-        txt_diseaseName.setBounds(60, 110, 250, 25);
-        add(txt_diseaseName);
+        txtDiseaseName = new JTextField();
+        txtDiseaseName.setBounds(60, 110, 250, 25);
+        add(txtDiseaseName);
     }
 
     private void addLabelExpirationDate() {
-        label_expirationDate = new JLabel("Fecha de vencimiento");
-        labelConfiguration(label_expirationDate);
-        label_expirationDate.setBounds(360, 80, 200, 25);
-        add(label_expirationDate);
+        labelExpirationDate = new JLabel("Fecha de vencimiento");
+        labelConfiguration(labelExpirationDate);
+        labelExpirationDate.setBounds(360, 80, 200, 25);
+        add(labelExpirationDate);
     }
 
     private void addtxtExpirationDate() {
@@ -155,31 +155,31 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
     }
 
     private void addLabelVaccineType() {
-        label_tipeVacination = new JLabel("Tipo de vacuna");
-        labelConfiguration(label_tipeVacination);
-        label_tipeVacination.setBounds(60, 140, 200, 25);
-        add(label_tipeVacination);
+        labelTipeVacination = new JLabel("Tipo de vacuna");
+        labelConfiguration(labelTipeVacination);
+        labelTipeVacination.setBounds(60, 140, 200, 25);
+        add(labelTipeVacination);
     }
 
     private void addComboVaccineType() {
         String[] items = { "ARNm", "Inactiva", "Atenue", "Subunidad", "Toxoide", "Vector Viral" };
-        combo_tipeVaccine = new JComboBox<>(items);
-        combo_tipeVaccine.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        combo_tipeVaccine.setBounds(60, 170, 250, 25);
-        add(combo_tipeVaccine);
+        comboTipeVaccine = new JComboBox<>(items);
+        comboTipeVaccine.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        comboTipeVaccine.setBounds(60, 170, 250, 25);
+        add(comboTipeVaccine);
     }
 
     private void addLabelDocumentNumber() {
-        label_batchNumber = new JLabel("N° de lote");
-        labelConfiguration(label_batchNumber);
-        label_batchNumber.setBounds(360, 140, 200, 25);
-        add(label_batchNumber);
+        labelBatchNumber = new JLabel("N° de lote");
+        labelConfiguration(labelBatchNumber);
+        labelBatchNumber.setBounds(360, 140, 200, 25);
+        add(labelBatchNumber);
     }
 
     private void addTxtDocumentoNumber() {
-        txt_batchNumber = new JTextField();
-        txt_batchNumber.setBounds(360, 170, 250, 25);
-        add(txt_batchNumber);
+        txtBatchNumber = new JTextField();
+        txtBatchNumber.setBounds(360, 170, 250, 25);
+        add(txtBatchNumber);
     }
 
     private void addLabelAge() {
@@ -190,37 +190,37 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
     }
 
     private void addTxtAge() {
-        txt_dose = new JTextField();
-        txt_dose.setBounds(60, 230, 120, 25);
-        add(txt_dose);
+        txtDose = new JTextField();
+        txtDose.setBounds(60, 230, 120, 25);
+        add(txtDose);
     }
 
     private void addButtonRegister() {
-        btn_register = new JButton("Registrar");
-        btn_register.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        btn_register.setBounds(270, 360, 150, 30);
-        btn_register.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn_register.addActionListener(new ActionListener() {
+        btnRegister = new JButton("Registrar");
+        btnRegister.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        btnRegister.setBounds(270, 360, 150, 30);
+        btnRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnRegister.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                presenter.createVaccine(txt_NameVacination.getText(), txt_manufacterName.getText(),
-                        txt_diseaseName.getText(), dateChooser.getDate(),
-                        combo_tipeVaccine.getSelectedItem().toString(), txt_batchNumber.getText(), txt_dose.getText());
+                presenter.createVaccine(txtNameVacination.getText(), txtManufacterName.getText(),
+                        txtDiseaseName.getText(), dateChooser.getDate(),
+                        comboTipeVaccine.getSelectedItem().toString(), txtBatchNumber.getText(), txtDose.getText());
 
-                txt_NameVacination.setText("");
-                txt_manufacterName.setText("");
-                txt_diseaseName.setText("");
+                txtNameVacination.setText("");
+                txtManufacterName.setText("");
+                txtDiseaseName.setText("");
                 dateChooser.setDate(null);
-                combo_tipeVaccine.setSelectedIndex(0);
-                txt_batchNumber.setText("");
-                txt_dose.setText("");
+                comboTipeVaccine.setSelectedIndex(0);
+                txtBatchNumber.setText("");
+                txtDose.setText("");
              
                 vaccine.update();
 
             }
 
         });
-        add(btn_register);
+        add(btnRegister);
     }
 
     private void labelConfiguration(JLabel label) {

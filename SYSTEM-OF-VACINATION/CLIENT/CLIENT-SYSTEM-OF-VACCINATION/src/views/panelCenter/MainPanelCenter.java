@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 
 public class MainPanelCenter extends JPanel{
  
-    private JLabel label_image;
+    private JLabel labelImage;
     private Image iconOriginal, scaletImage;
-    private JLabel label_Title;
+    private JLabel labelTitle;
     
     public MainPanelCenter(){
         panelConfiguration();
@@ -32,10 +32,10 @@ public class MainPanelCenter extends JPanel{
 
     private void addImage(){
         imageConfiguration();
-        label_image = new JLabel();
-        label_image.setIcon(new ImageIcon(scaletImage)); 
-        label_image.setBounds(0,0,740,592);
-        add(label_image);
+        labelImage = new JLabel();
+        labelImage.setIcon(new ImageIcon(scaletImage)); 
+        labelImage.setBounds(0,0,740,592);
+        add(labelImage);
     }
     
     private void imageConfiguration(){
@@ -44,14 +44,14 @@ public class MainPanelCenter extends JPanel{
     }
 
     private void addTitleLabel(){
-        label_Title = new JLabel("<html><div style='text-align: center;'>CLÍNICA DE VACUNAS<br>ATENAS</div></html>");
-        label_Title.setBounds(180,440,400,90);
-        label_Title.setFont(new Font("Comic Sans MS", Font.PLAIN, 29));
-        label_Title.setOpaque(true);
-        label_Title.setHorizontalAlignment(JLabel.CENTER);
-        label_Title.setVerticalAlignment(JLabel.CENTER);
-        label_Title.setBackground(new Color(204,255,255));
-        add(label_Title);
+        labelTitle = new JLabel("<html><div style='text-align: center;'>CLÍNICA DE VACUNAS<br>ATENAS</div></html>");
+        labelTitle.setBounds(180,440,400,90);
+        labelTitle.setFont(new Font("Comic Sans MS", Font.PLAIN, 29));
+        labelTitle.setOpaque(true);
+        labelTitle.setHorizontalAlignment(JLabel.CENTER);
+        labelTitle.setVerticalAlignment(JLabel.CENTER);
+        labelTitle.setBackground(new Color(204,255,255));
+        add(labelTitle);
 
     }
 }

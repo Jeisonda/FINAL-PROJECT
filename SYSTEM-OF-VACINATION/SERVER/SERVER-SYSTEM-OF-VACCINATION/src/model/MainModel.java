@@ -10,11 +10,9 @@ import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import interfaces.ViewInterface;
 import persistence.ConfigGlobal;
 
 public class MainModel {
-    private ViewInterface view;
 
     public MainModel(ViewInterface view){
         this.view = view;

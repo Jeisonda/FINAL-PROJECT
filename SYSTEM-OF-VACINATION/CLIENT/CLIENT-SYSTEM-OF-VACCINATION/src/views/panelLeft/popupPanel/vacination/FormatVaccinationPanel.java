@@ -40,35 +40,35 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
 
     private boolean placeholderActivo = true;
 
-    private JLabel label_fullName;
-    private JLabel label_fullName_container;
-    private JLabel label_documentNumber;
-    private JLabel label_documentNumber_container;
-    private JLabel label_tipeDocument;
-    private JLabel label_tipeDocument_container;
-    private JLabel label_email;
-    private JLabel label_email_container;
-    private JLabel label_age;
-    private JLabel label_age_container;
-    private JLabel label_dose;
-    private JLabel label_dose_container;
-    private JLabel label_vaccineName;
-    private JLabel label_vaccineName_container;
-    private JLabel label_batchNumber;
-    private JLabel label_batchNumber_container;
-    private JLabel label_expirationDate;
-    private JLabel label_expirationDate_container;
-    private JLabel label_diseaseName;
-    private JLabel label_diseaseName_container;
-    private JLabel label_findUser;
-    private JLabel label_findVaccine;
+    private JLabel labelFullName;
+    private JLabel labelFullNameFontainer;
+    private JLabel labelDocumentNumber;
+    private JLabel labelDocumentNumberContainer;
+    private JLabel labelTipeDocument;
+    private JLabel labelTipeDocumentContainer;
+    private JLabel labelEmail;
+    private JLabel labelEmailContainer;
+    private JLabel labelAge;
+    private JLabel labelAgeContainer;
+    private JLabel labelDose;
+    private JLabel labelDoseContainer;
+    private JLabel labelVaccineName;
+    private JLabel labelVaccineNameContainer;
+    private JLabel labelBatchNumber;
+    private JLabel labelBatchNumberContainer;
+    private JLabel labelExpirationDate;
+    private JLabel labelExpirationDateContainer;
+    private JLabel labelDiseaseName;
+    private JLabel labelDiseaseNameContainer;
+    private JLabel labelFindUser;
+    private JLabel labelFindVaccine;
 
-    private JTextField txt_findUser;
-    private JComboBox combo_findVaccine;
+    private JTextField txtFindUser;
+    private JComboBox comboFindVaccine;
 
     private Presenter presenter;
 
-    private JButton btn_vaccinate;
+    private JButton btnVaccinate;
 
     private Image iconOriginal, scaletImage;
 
@@ -112,44 +112,44 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
     }
 
     private void addTxtFindUser() {
-        txt_findUser = new JTextField("Ingrese N° de documento");
+        txtFindUser = new JTextField("Ingrese N° de documento");
         addEventsTxfUser();
-        txt_findUser.setBounds(40, 10, 200, 25);
-        txt_findUser.setForeground(Color.gray);
-        txt_findUser.setEditable(false);
-        add(txt_findUser);
+        txtFindUser.setBounds(40, 10, 200, 25);
+        txtFindUser.setForeground(Color.gray);
+        txtFindUser.setEditable(false);
+        add(txtFindUser);
     }
 
     private void addEventsTxfUser() {
-        txt_findUser.addMouseListener(new MouseAdapter() {
+        txtFindUser.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                txt_findUser.setText("");
-                txt_findUser.setForeground(Color.BLACK);
-                txt_findUser.setEditable(true);
+                txtFindUser.setText("");
+                txtFindUser.setForeground(Color.BLACK);
+                txtFindUser.setEditable(true);
             }
         });
-        txt_findUser.addFocusListener(new FocusAdapter() {
+        txtFindUser.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                if (txt_findUser.getText().isEmpty()) {
-                    txt_findUser.setText("Ingrese N° de documento");
-                    txt_findUser.setForeground(Color.GRAY);
-                    txt_findUser.setEditable(false);
+                if (txtFindUser.getText().isEmpty()) {
+                    txtFindUser.setText("Ingrese N° de documento");
+                    txtFindUser.setForeground(Color.GRAY);
+                    txtFindUser.setEditable(false);
                     placeholderActivo = true;
                 }
             }
         });
-        txt_findUser.addKeyListener(new KeyAdapter() {
+        txtFindUser.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent e) {
                 if (placeholderActivo) {
-                    txt_findUser.setText("");
-                    txt_findUser.setEditable(true);
-                    txt_findUser.setForeground(Color.black);
+                    txtFindUser.setText("");
+                    txtFindUser.setEditable(true);
+                    txtFindUser.setForeground(Color.black);
                     placeholderActivo = false;
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    btn_vaccinate.doClick();
+                    btnVaccinate.doClick();
                 }
             }
         });
@@ -157,97 +157,97 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
 
     private void addLabelSearchUser() {
         imageConfiguration();
-        label_findUser = new JLabel();
-        label_findUser.setOpaque(false);
-        label_findUser.setBackground(new Color(220, 220, 220));
-        label_findUser.setBounds(250, 10, 25, 25);
-        label_findUser.setIcon(new ImageIcon(scaletImage));
-        label_findUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        label_findUser.addMouseListener(new MouseAdapter() {
+        labelFindUser = new JLabel();
+        labelFindUser.setOpaque(false);
+        labelFindUser.setBackground(new Color(220, 220, 220));
+        labelFindUser.setBounds(250, 10, 25, 25);
+        labelFindUser.setIcon(new ImageIcon(scaletImage));
+        labelFindUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        labelFindUser.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                presenter.searchUserById(txt_findUser.getText());
+                presenter.searchUserById(txtFindUser.getText());
             }
         });
-        add(label_findUser);
+        add(labelFindUser);
 
     }
 
     private void addLabelFullName() {
-        label_fullName = new JLabel("Nombre Completo:");
-        labelConfiguration(label_fullName);
-        label_fullName.setBounds(60, 50, 120, 25);
-        add(label_fullName);
+        labelFullName = new JLabel("Nombre Completo:");
+        labelConfiguration(labelFullName);
+        labelFullName.setBounds(60, 50, 120, 25);
+        add(labelFullName);
     }
 
     private void addLabelFullNameContainer() {
-        label_fullName_container = new JLabel("");
-        labelConfiguration(label_fullName_container);
-        label_fullName_container.setBounds(200, 50, 250, 25);
-        add(label_fullName_container);
+        labelFullNameFontainer = new JLabel("");
+        labelConfiguration(labelFullNameFontainer);
+        labelFullNameFontainer.setBounds(200, 50, 250, 25);
+        add(labelFullNameFontainer);
     }
 
     private void addLabelDocumentoNumber() {
-        label_documentNumber = new JLabel("Número de documento:");
-        labelConfiguration(label_documentNumber);
-        label_documentNumber.setBounds(60, 80, 150, 25);
-        add(label_documentNumber);
+        labelDocumentNumber = new JLabel("Número de documento:");
+        labelConfiguration(labelDocumentNumber);
+        labelDocumentNumber.setBounds(60, 80, 150, 25);
+        add(labelDocumentNumber);
     }
 
     private void addLabelDocumentoNumberContainer() {
-        label_documentNumber_container = new JLabel("");
-        labelConfiguration(label_documentNumber_container);
-        label_documentNumber_container.setBounds(220, 80, 200, 25);
-        add(label_documentNumber_container);
+        labelDocumentNumberContainer = new JLabel("");
+        labelConfiguration(labelDocumentNumberContainer);
+        labelDocumentNumberContainer.setBounds(220, 80, 200, 25);
+        add(labelDocumentNumberContainer);
     }
 
     private void addLabelTipeDocument() {
-        label_tipeDocument = new JLabel("Tipo de documento:");
-        labelConfiguration(label_tipeDocument);
-        label_tipeDocument.setBounds(60, 110, 130, 25);
-        add(label_tipeDocument);
+        labelTipeDocument = new JLabel("Tipo de documento:");
+        labelConfiguration(labelTipeDocument);
+        labelTipeDocument.setBounds(60, 110, 130, 25);
+        add(labelTipeDocument);
     }
 
     private void addLabelTipeDocumentContainer() {
-        label_tipeDocument_container = new JLabel("");
-        labelConfiguration(label_tipeDocument_container);
-        label_tipeDocument_container.setBounds(205, 110, 200, 25);
-        add(label_tipeDocument_container);
+        labelTipeDocumentContainer = new JLabel("");
+        labelConfiguration(labelTipeDocumentContainer);
+        labelTipeDocumentContainer.setBounds(205, 110, 200, 25);
+        add(labelTipeDocumentContainer);
     }
 
     private void addLabelAge() {
-        label_age = new JLabel("Fecha de Nacimiento:");
-        labelConfiguration(label_age);
-        label_age.setBounds(60, 140, 145, 25);
-        add(label_age);
+        labelAge = new JLabel("Fecha de Nacimiento:");
+        labelConfiguration(labelAge);
+        labelAge.setBounds(60, 140, 145, 25);
+        add(labelAge);
     }
 
     private void addLabelAgeContainer() {
-        label_age_container = new JLabel("");
-        labelConfiguration(label_age_container);
-        label_age_container.setBounds(206, 140, 200, 25);
-        add(label_age_container);
+        labelAgeContainer = new JLabel("");
+        labelConfiguration(labelAgeContainer);
+        labelAgeContainer.setBounds(206, 140, 200, 25);
+        add(labelAgeContainer);
     }
 
     private void addLabelEmail() {
-        label_email = new JLabel("Correo:");
-        labelConfiguration(label_email);
-        label_email.setBounds(60, 170, 50, 25);
-        add(label_email);
+        labelEmail = new JLabel("Correo:");
+        labelConfiguration(labelEmail);
+        labelEmail.setBounds(60, 170, 50, 25);
+        add(labelEmail);
     }
 
     private void addLabelEmailContainer() {
-        label_email_container = new JLabel("");
-        labelConfiguration(label_email_container);
-        label_email_container.setBounds(120, 170, 250, 25);
-        add(label_email_container);
+        labelEmailContainer = new JLabel("");
+        labelConfiguration(labelEmailContainer);
+        labelEmailContainer.setBounds(120, 170, 250, 25);
+        add(labelEmailContainer);
     }
 
     private void addComboFindVaccine() { 
-        combo_findVaccine = new JComboBox<>();
+        comboFindVaccine = new JComboBox<>();
         refreshComboFindVaccine();
-        combo_findVaccine.setBounds(40, 200, 200, 25);
-        add(combo_findVaccine);
+        comboFindVaccine.setBounds(40, 200, 200, 25);
+        add(comboFindVaccine);
     }
 
     public void refreshComboFindVaccine() {
@@ -256,112 +256,112 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
         for (String name : vaccineNames) {
             model.addElement(name);
         }
-        combo_findVaccine.setModel(model);
+        comboFindVaccine.setModel(model);
     }
 
     private void addLabelImageFindVaccine() {
         imageConfiguration();
-        label_findVaccine = new JLabel();
-        label_findVaccine.setOpaque(false);
-        label_findVaccine.setBackground(new Color(220, 220, 220));
-        label_findVaccine.setBounds(250, 200, 25, 25);
-        label_findVaccine.setIcon(new ImageIcon(scaletImage));
-        label_findVaccine.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        label_findVaccine.addMouseListener(new MouseAdapter() {
+        labelFindVaccine = new JLabel();
+        labelFindVaccine.setOpaque(false);
+        labelFindVaccine.setBackground(new Color(220, 220, 220));
+        labelFindVaccine.setBounds(250, 200, 25, 25);
+        labelFindVaccine.setIcon(new ImageIcon(scaletImage));
+        labelFindVaccine.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        labelFindVaccine.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                presenter.searchVaccineByName(combo_findVaccine.getSelectedItem().toString());
+                presenter.searchVaccineByName(comboFindVaccine.getSelectedItem().toString());
             }
         });
-        add(label_findVaccine);
+        add(labelFindVaccine);
     }
 
     private void addLabelId() {
-        label_dose = new JLabel("Dosis:");
-        labelConfiguration(label_dose);
-        label_dose.setBounds(60, 240, 40, 25);
-        add(label_dose);
+        labelDose = new JLabel("Dosis:");
+        labelConfiguration(labelDose);
+        labelDose.setBounds(60, 240, 40, 25);
+        add(labelDose);
     }
 
     private void addLabelIdContainer() {
-        label_dose_container = new JLabel("");
-        labelConfiguration(label_dose_container);
-        label_dose_container.setBounds(100, 240, 200, 25);
-        add(label_dose_container);
+        labelDoseContainer = new JLabel("");
+        labelConfiguration(labelDoseContainer);
+        labelDoseContainer.setBounds(100, 240, 200, 25);
+        add(labelDoseContainer);
     }
 
     private void addLabelVaccineName() {
-        label_vaccineName = new JLabel("Nombre de Vacuna:");
-        labelConfiguration(label_vaccineName);
-        label_vaccineName.setBounds(60, 270, 150, 25);
-        add(label_vaccineName);
+        labelVaccineName = new JLabel("Nombre de Vacuna:");
+        labelConfiguration(labelVaccineName);
+        labelVaccineName.setBounds(60, 270, 150, 25);
+        add(labelVaccineName);
     }
 
     private void addLabelVaccineNameContainer() {
-        label_vaccineName_container = new JLabel("");
-        labelConfiguration(label_vaccineName_container);
-        label_vaccineName_container.setBounds(200, 270, 300, 25);
-        add(label_vaccineName_container);
+        labelVaccineNameContainer = new JLabel("");
+        labelConfiguration(labelVaccineNameContainer);
+        labelVaccineNameContainer.setBounds(200, 270, 300, 25);
+        add(labelVaccineNameContainer);
     }
 
     private void addLabelBatch() {
-        label_batchNumber = new JLabel("N° de lote:");
-        labelConfiguration(label_batchNumber);
-        label_batchNumber.setBounds(60, 300, 80, 25);
-        add(label_batchNumber);
+        labelBatchNumber = new JLabel("N° de lote:");
+        labelConfiguration(labelBatchNumber);
+        labelBatchNumber.setBounds(60, 300, 80, 25);
+        add(labelBatchNumber);
     }
 
     private void addLabelBatchContainer() {
-        label_batchNumber_container = new JLabel("");
-        labelConfiguration(label_batchNumber_container);
-        label_batchNumber_container.setBounds(150, 300, 200, 25);
-        add(label_batchNumber_container);
+        labelBatchNumberContainer = new JLabel("");
+        labelConfiguration(labelBatchNumberContainer);
+        labelBatchNumberContainer.setBounds(150, 300, 200, 25);
+        add(labelBatchNumberContainer);
     }
 
     private void addLabelExpirationDate() {
-        label_expirationDate = new JLabel("Fecha de vencimiento:");
-        labelConfiguration(label_expirationDate);
-        label_expirationDate.setBounds(60, 330, 150, 25);
-        add(label_expirationDate);
+        labelExpirationDate = new JLabel("Fecha de vencimiento:");
+        labelConfiguration(labelExpirationDate);
+        labelExpirationDate.setBounds(60, 330, 150, 25);
+        add(labelExpirationDate);
     }
 
     private void addLabelExpirationDateContainer() {
-        label_expirationDate_container = new JLabel("");
-        labelConfiguration(label_expirationDate_container);
-        label_expirationDate_container.setBounds(210, 330, 200, 25);
-        add(label_expirationDate_container);
+        labelExpirationDateContainer = new JLabel("");
+        labelConfiguration(labelExpirationDateContainer);
+        labelExpirationDateContainer.setBounds(210, 330, 200, 25);
+        add(labelExpirationDateContainer);
     }
 
     private void addLabelDisease() {
-        label_diseaseName = new JLabel("Enfermedad Objetivo:");
-        labelConfiguration(label_diseaseName);
-        label_diseaseName.setBounds(60, 360, 250, 25);
-        add(label_diseaseName);
+        labelDiseaseName = new JLabel("Enfermedad Objetivo:");
+        labelConfiguration(labelDiseaseName);
+        labelDiseaseName.setBounds(60, 360, 250, 25);
+        add(labelDiseaseName);
     }
 
     private void addLabelDiseaseContainer() {
-        label_diseaseName_container = new JLabel("");
-        labelConfiguration(label_diseaseName_container);
-        label_diseaseName_container.setBounds(215, 360, 300, 25);
-        add(label_diseaseName_container);
+        labelDiseaseNameContainer = new JLabel("");
+        labelConfiguration(labelDiseaseNameContainer);
+        labelDiseaseNameContainer.setBounds(215, 360, 300, 25);
+        add(labelDiseaseNameContainer);
     }
 
     private void addBtnVaccined() {
-        btn_vaccinate = new JButton("Vacunar");
-        btn_vaccinate.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        btn_vaccinate.setBounds(270, 420, 150, 30);
-        btn_vaccinate.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btn_vaccinate.addActionListener(new ActionListener() {
+        btnVaccinate = new JButton("Vacunar");
+        btnVaccinate.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        btnVaccinate.setBounds(270, 420, 150, 30);
+        btnVaccinate.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnVaccinate.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Date applicationDate = new Date();
-                presenter.vaccined(txt_findUser.getText(), combo_findVaccine.getSelectedItem().toString(),
+                presenter.vaccined(txtFindUser.getText(), comboFindVaccine.getSelectedItem().toString(),
                         applicationDate);
             }
 
         });
-        add(btn_vaccinate);
+        add(btnVaccinate);
     }
 
     private void labelConfiguration(JLabel label) {
@@ -400,11 +400,11 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String fullName = user.getFirstName() + " " + user.getMiddleName() + " " + user.getLastName() + " "
                     + user.getSecondLastName();
-            label_fullName_container.setText(fullName);
-            label_documentNumber_container.setText(String.valueOf(user.getDocumentNumber()));
-            label_tipeDocument_container.setText(user.getDocumentType());
-            label_age_container.setText(sdf.format(user.getBornDate()));
-            label_email_container.setText(user.getEmail());
+            labelFullNameFontainer.setText(fullName);
+            labelDocumentNumberContainer.setText(String.valueOf(user.getDocumentNumber()));
+            labelTipeDocumentContainer.setText(user.getDocumentType());
+            labelAgeContainer.setText(sdf.format(user.getBornDate()));
+            labelEmailContainer.setText(user.getEmail());
         }
 
         @Override
@@ -414,11 +414,11 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
         @Override
         public void fillVaccineLabels(VaccineModel vaccine) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            label_vaccineName_container.setText(vaccine.getVaccineName());
-            label_batchNumber_container.setText(vaccine.getBatchNumber());
-            label_expirationDate_container.setText(sdf.format(vaccine.getExpirationDate()));
-            label_diseaseName_container.setText(vaccine.getDiseaseName());
-            label_dose_container.setText(String.valueOf(vaccine.getDose()));
+            labelVaccineNameContainer.setText(vaccine.getVaccineName());
+            labelBatchNumberContainer.setText(vaccine.getBatchNumber());
+            labelExpirationDateContainer.setText(sdf.format(vaccine.getExpirationDate()));
+            labelDiseaseNameContainer.setText(vaccine.getDiseaseName());
+            labelDoseContainer.setText(String.valueOf(vaccine.getDose()));
         }
 
         public void update(){

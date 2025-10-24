@@ -13,11 +13,8 @@ import model.VaccineModel;
 public class Presenter implements PresenterInterface {
 
     private ViewInterface view;
-    private MainModel model;
-
     public Presenter(ViewInterface view) {
         this.view = view;
-        model = new MainModel(view);
     }
 
     @Override
