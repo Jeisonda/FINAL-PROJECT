@@ -1,8 +1,8 @@
-package model;
+package co.edu.uptc.model;
 
 import java.util.Date;
 
-public class VaccineModel {
+public class Vaccine implements Comparable<Vaccine> {
    
     private String vaccineName;
     private String manufacterName;
@@ -10,10 +10,21 @@ public class VaccineModel {
     private String vaccineType;
     private String batchNumber;
     private Date expirationDate;
-    private int dose;
+    private int totalDose;
 
-    public VaccineModel(){
+    public Vaccine(){
 
+    }
+
+    public Vaccine(String vaccineName, String manufacterName, String diseaseName, String vaccineType,
+            String batchNumber, Date expirationDate, int totalDose) {
+        this.vaccineName = vaccineName;
+        this.manufacterName = manufacterName;
+        this.diseaseName = diseaseName;
+        this.vaccineType = vaccineType;
+        this.batchNumber = batchNumber;
+        this.expirationDate = expirationDate;
+        this.totalDose = totalDose;
     }
 
     public String getVaccineName() {
@@ -64,23 +75,17 @@ public class VaccineModel {
         this.expirationDate = expirationDate;
     }
 
-    public int getDose() {
-        return dose;
+    public int getTotalDose() {
+        return totalDose;
     }
 
-    public void setDose(int dose) {
-        this.dose = dose;
+    public void setTotalDose(int dose) {
+        this.totalDose = totalDose;
     }
 
-    public VaccineModel(String vaccineName, String manufacterName, String diseaseName, String vaccineType,
-            String batchNumber, Date expirationDate, int dose) {
-        this.vaccineName = vaccineName;
-        this.manufacterName = manufacterName;
-        this.diseaseName = diseaseName;
-        this.vaccineType = vaccineType;
-        this.batchNumber = batchNumber;
-        this.expirationDate = expirationDate;
-        this.dose = dose;
+    @Override
+    public int compareTo(Vaccine compareVaccine){
+        return vaccineName.compareTo(compareVaccine.getVaccineName());
     }
     
 }

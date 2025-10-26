@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 import views.MainFrame;
 
 public class MainPanelLeft extends JPanel {
-    private JLabel label_create_user;
-    private JLabel label_create_vacination;
-    private JLabel label_vacination;
-    private JLabel label_history;
-    private JLabel label_main;
+    private JLabel labelCreateUser;
+    private JLabel labelCreateVacination;
+    private JLabel labelVacination;
+    private JLabel labelHistory;
+    private JLabel labelMain;
 
     private MainFrame main;
 
@@ -43,104 +43,104 @@ public class MainPanelLeft extends JPanel {
     }
 
     private void addLabelCreateUser(){
-        label_create_user = new JLabel("CREAR USUARIO");
-        label_create_user.setBounds(0,80,200,30);
-        labelConfiguration(label_create_user);
-        label_create_user.addMouseListener(new MouseAdapter() {
+        labelCreateUser = new JLabel("CREAR USUARIO");
+        labelCreateUser.setBounds(0,80,200,30);
+        labelConfiguration(labelCreateUser);
+        labelCreateUser.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 main.changePanelCenter("createUser");
             }
             
             public void mouseEntered(MouseEvent e){
-                label_create_user.setBackground(new Color(14,128,110));
+                labelCreateUser.setBackground(new Color(14,128,110));
             }
 
             public void mouseExited(MouseEvent e){
-                label_create_user.setBackground(new Color(14,128,136));
+                labelCreateUser.setBackground(new Color(14,128,136));
             }
         });
-        add(label_create_user);
+        add(labelCreateUser);
     }
 
     private void addLabelCreateVacination(){
-        label_create_vacination = new JLabel("CREAR VACUNA");
-        label_create_vacination.setBounds(0, 130, 200, 30);
-        labelConfiguration(label_create_vacination);
-        label_create_vacination.addMouseListener(new MouseAdapter() {
+        labelCreateVacination = new JLabel("CREAR VACUNA");
+        labelCreateVacination.setBounds(0, 130, 200, 30);
+        labelConfiguration(labelCreateVacination);
+        labelCreateVacination.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                    main.changePanelCenter("createVacination");
             }
             
             public void mouseEntered(MouseEvent e){
-                label_create_vacination.setBackground(new Color(14,128,110));
+                labelCreateVacination.setBackground(new Color(14,128,110));
             }
 
             public void mouseExited(MouseEvent e){
-                label_create_vacination.setBackground(new Color(14,128,136));
+                labelCreateVacination.setBackground(new Color(14,128,136));
             }
         });
-        add(label_create_vacination);
+        add(labelCreateVacination);
     }
 
     private void addLabelVacination(){
-        label_vacination = new JLabel("VACUNAR");
-        label_vacination.setBounds(0, 180, 200, 30);
-        labelConfiguration(label_vacination);
-        label_vacination.addMouseListener(new MouseAdapter() {
+        labelVacination = new JLabel("VACUNAR");
+        labelVacination.setBounds(0, 180, 200, 30);
+        labelConfiguration(labelVacination);
+        labelVacination.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 main.changePanelCenter("vacination");
             }
 
             public void mouseEntered(MouseEvent e){
-                label_vacination.setBackground(new Color(14,128,110));
+                labelVacination.setBackground(new Color(14,128,110));
             }
 
             public void mouseExited(MouseEvent e){
-                label_vacination.setBackground(new Color(14,128,136));
+                labelVacination.setBackground(new Color(14,128,136));
             }
         });
-        add(label_vacination);
+        add(labelVacination);
     }
 
     private void addLabelHistory(){
-        label_history = new JLabel("HISTORIA");
-        label_history.setBounds(0, 230, 200, 30);
-        labelConfiguration(label_history);
-        label_history.addMouseListener(new MouseAdapter() {
+        labelHistory = new JLabel("HISTORIA");
+        labelHistory.setBounds(0, 230, 200, 30);
+        labelConfiguration(labelHistory);
+        labelHistory.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 main.changePanelCenter("history");
             }
             
             public void mouseEntered(MouseEvent e){
-                label_history.setBackground(new Color(14,128,110));
+                labelHistory.setBackground(new Color(14,128,110));
             }
 
             public void mouseExited(MouseEvent e){
-                label_history.setBackground(new Color(14,128,136));
+                labelHistory.setBackground(new Color(14,128,136));
             }
         });
-        add(label_history);
+        add(labelHistory);
 
     }
 
     private void addlabelMain(){
-        label_main = new JLabel("INICIO");
-        label_main.setBounds(0,280,200,30);
-        labelConfiguration(label_main);
-        label_main.addMouseListener(new MouseAdapter() {
+        labelMain = new JLabel("INICIO");
+        labelMain.setBounds(0,280,200,30);
+        labelConfiguration(labelMain);
+        labelMain.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e){
                 main.changePanelCenter("main");
             }
             
             public void mouseEntered(MouseEvent e){
-                label_main.setBackground(new Color(14,128,110));
+                labelMain.setBackground(new Color(14,128,110));
             }
 
             public void mouseExited(MouseEvent e){
-                label_main.setBackground(new Color(14,128,136));
+                labelMain.setBackground(new Color(14,128,136));
             }
         });
-        add(label_main);
+        add(labelMain);
     }
 
     private void labelConfiguration(JLabel label){

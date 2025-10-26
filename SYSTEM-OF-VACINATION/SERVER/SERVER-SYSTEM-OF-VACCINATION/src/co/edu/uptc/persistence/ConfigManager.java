@@ -1,4 +1,4 @@
-package persistence;
+package co.edu.uptc.persistence;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

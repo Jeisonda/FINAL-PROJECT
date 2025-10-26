@@ -1,4 +1,4 @@
-package model;
+package co.edu.uptc.model;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,19 +10,23 @@ import java.util.List;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import interfaces.ViewInterface;
+import co.edu.uptc.structures.BinaryTree;
 import persistence.ConfigGlobal;
 
-public class MainModel {
-    private ViewInterface view;
+public class VaccineModel {
+    private BinaryTree<Person> person;
+    private BinaryTree<Vaccine> vaccines;
 
-    public MainModel(ViewInterface view){
+    public VaccineModel() {
+    }
+
+    public VaccineModel(ViewInterface view){
         this.view = view;
     }
 
-    public List<UserModel> createUser(String firstName, String middleName, String lastName, String seconLastName, 
+    public List<Person> createUser(String firstName, String middleName, String lastName, String seconLastName, 
     String documentType, String documentNumber, Date bornDate, String phoneNumber, String email){
-        List<UserModel> users = loadJsonUser();
+        List<Person> users = loadJsonUser();
         long docNum = Long.parseLong(documentNumber);
     
         if (userExist(users, docNum)) {
@@ -30,7 +34,7 @@ public class MainModel {
             return users;
         }
 
-        UserModel newUser = new UserModel();
+        Person newUser = new Person();
         newUser.setFirstName(firstName);
         newUser.setMiddleName(middleName);
         newUser.setLastName(seconLastName);
@@ -45,14 +49,14 @@ public class MainModel {
         return users;
     }
 
-    public List<VaccineModel> createVaccine(String vaccineName, String manuName, String disease, Date expiDate, String vaccineType, 
+    public List<Vaccine> createVaccine(String vaccineName, String manuName, String disease, Date expiDate, String vaccineType, 
     String batchNumber, String dose){
         String name = vaccineName;
-        List<VaccineModel> vaccines = loadJsonVaccine();
+        List<Vaccine> vaccines = loadJsonVaccine();
         if (vaccineExist(vaccines, name)) {
             view.showErrorMessage("Esta vacuna ya existe");
         }
-        VaccineModel newVaccine = new VaccineModel();
+        Vaccine newVaccine = new Vaccine();
         newVaccine.setVaccineName(vaccineName);
         newVaccine.setManufacterName(manuName);
         newVaccine.setDiseaseName(disease);
@@ -69,13 +73,13 @@ public class MainModel {
 
 
     public void vaccinate(long documentNumber, String vaccineName, Date applicationDate){
-        UserModel user = getUserByDocument(documentNumber);
+        Person user = getUserByDocument(documentNumber);
         if (user == null) {
             view.showErrorMessage("Usuario no encontrado");
             return;
         }
 
-        VaccineModel vaccine = getVaccineByName(vaccineName);
+        Vaccine vaccine = getVaccineByName(vaccineName);
         if (vaccine == null) {
             view.showErrorMessage("Vacuna no encontrada");
             return;
@@ -91,10 +95,10 @@ public class MainModel {
 
         int currentDoseNumber = appliedDoses + 1;
 
-        List<DateModel> history = loadJsonHistory();
+        List<Vaccinate> history = loadJsonHistory();
 
-        DateModel exixtingRecord = null;
-        for (DateModel record : history) {
+        Vaccinate exixtingRecord = null;
+        for (Vaccinate record : history) {
             if (record.getPerson().getDocumentNumber() == documentNumber &&
                 isSameDay(record.getApplicationDate(), applicationDate)) {
                 exixtingRecord = record;
@@ -102,12 +106,12 @@ public class MainModel {
             }
         }
 
-        VaccineModel vaccineWithDose = createVaccineWithDoseNumber(vaccine, currentDoseNumber);
+        Vaccine vaccineWithDose = createVaccineWithDoseNumber(vaccine, currentDoseNumber);
         if (exixtingRecord != null) {
             exixtingRecord.getVaccines().add(vaccineWithDose);
             view.showConfirmMessage("Vacunar agregada al registro existente");
         }else{
-            DateModel newRecord = new DateModel();
+            Vaccinate newRecord = new Vaccinate();
             newRecord.setPerson(user);
             newRecord.setVaccines(new ArrayList<>(List.of(vaccineWithDose)));
             newRecord.setApplicationDate(applicationDate);
@@ -118,8 +122,8 @@ public class MainModel {
         saveJsonHistory(history);
     }
 
-    private VaccineModel createVaccineWithDoseNumber(VaccineModel originalVaccine, int doseNumber){
-        VaccineModel vaccineWithDose = new VaccineModel();
+    private Vaccine createVaccineWithDoseNumber(Vaccine originalVaccine, int doseNumber){
+        Vaccine vaccineWithDose = new Vaccine();
         vaccineWithDose.setVaccineName(originalVaccine.getVaccineName());
         vaccineWithDose.setManufacterName(originalVaccine.getManufacterName());
         vaccineWithDose.setDiseaseName(originalVaccine.getDiseaseName());
@@ -131,16 +135,16 @@ public class MainModel {
     }
     public List<String> getVaccineNames(){
         List<String> vaccineNames = new ArrayList<>();
-        List<VaccineModel> vaccines = loadJsonVaccine();
-        for (VaccineModel vaccine : vaccines) {
+        List<Vaccine> vaccines = loadJsonVaccine();
+        for (Vaccine vaccine : vaccines) {
             vaccineNames.add(vaccine.getVaccineName());
         }
         return vaccineNames;
     }
 
-    public VaccineModel getVaccineByName(String vaccineName){
-        List<VaccineModel> vaccines = loadJsonVaccine();
-        for (VaccineModel vaccineModel : vaccines) {
+    public Vaccine getVaccineByName(String vaccineName){
+        List<Vaccine> vaccines = loadJsonVaccine();
+        for (Vaccine vaccineModel : vaccines) {
             if (vaccineModel.getVaccineName().equalsIgnoreCase(vaccineName)) {
                 return vaccineModel;
             }
@@ -148,10 +152,10 @@ public class MainModel {
         return null;
     }
 
-    public List<DateModel> getVaccinesForUsers(long documentNumber){
-        List<DateModel> appliedHistory = new ArrayList<>();
-        List<DateModel> history = loadJsonHistory();
-        for (DateModel dateModel : history) {
+    public List<Vaccinate> getVaccinesForUsers(long documentNumber){
+        List<Vaccinate> appliedHistory = new ArrayList<>();
+        List<Vaccinate> history = loadJsonHistory();
+        for (Vaccinate dateModel : history) {
             if (dateModel.getPerson().getDocumentNumber() == documentNumber) {
                 appliedHistory.add(dateModel);
             }
@@ -159,9 +163,9 @@ public class MainModel {
         return appliedHistory;
     }
 
-    public UserModel getUserByDocument(long documentNumber){
-        List<UserModel> users = loadJsonUser();
-        for (UserModel userModel : users) {
+    public Person getUserByDocument(long documentNumber){
+        List<Person> users = loadJsonUser();
+        for (Person userModel : users) {
             if (userModel.getDocumentNumber() == documentNumber) {
                 return userModel;
             }
@@ -169,11 +173,11 @@ public class MainModel {
         return null;
     }
 
-    public void updateVaccineFromTable(int rowIndex, VaccineModel  updateVaccine, Date applicationDate, long documentNumber){
-        List<DateModel> history = loadJsonHistory();
-        for (DateModel record : history) {
+    public void updateVaccineFromTable(int rowIndex, Vaccine  updateVaccine, Date applicationDate, long documentNumber){
+        List<Vaccinate> history = loadJsonHistory();
+        for (Vaccinate record : history) {
             if (record.getPerson().getDocumentNumber() == documentNumber && isSameDay(record.getApplicationDate(), applicationDate) ) {
-                List<VaccineModel> vaccines = record.getVaccines();
+                List<Vaccine> vaccines = record.getVaccines();
                 if (rowIndex < vaccines.size()) {
                     vaccines.set(rowIndex, updateVaccine);
                     saveJsonHistory(history);  
@@ -183,10 +187,10 @@ public class MainModel {
         }
     }
 
-    private List<UserModel> loadJsonUser() {
+    private List<Person> loadJsonUser() {
         try (FileReader reader = new FileReader(ConfigGlobal.userData)) {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(reader, new TypeReference<List<UserModel>>() {
+            return mapper.readValue(reader, new TypeReference<List<Person>>() {
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,10 +198,10 @@ public class MainModel {
         }
     }
 
-    private List<VaccineModel> loadJsonVaccine() {
+    private List<Vaccine> loadJsonVaccine() {
         try (FileReader reader = new FileReader(ConfigGlobal.vaccineData)) {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(reader, new TypeReference<List<VaccineModel>>() {
+            return mapper.readValue(reader, new TypeReference<List<Vaccine>>() {
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -205,10 +209,10 @@ public class MainModel {
         }
     }
 
-    private List<DateModel> loadJsonHistory() {
+    private List<Vaccinate> loadJsonHistory() {
         try (FileReader reader = new FileReader(ConfigGlobal.historyData)) {
             ObjectMapper mapper = new ObjectMapper();
-            return mapper.readValue(reader, new TypeReference<List<DateModel>>() {
+            return mapper.readValue(reader, new TypeReference<List<Vaccinate>>() {
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -216,7 +220,7 @@ public class MainModel {
         }
     }
 
-    private void saveJsonUser(List<UserModel> data){
+    private void saveJsonUser(List<Person> data){
         try (FileWriter writer = new FileWriter(ConfigGlobal.userData)) {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writerWithDefaultPrettyPrinter().writeValue(writer, data);
@@ -225,7 +229,7 @@ public class MainModel {
         }
     }
 
-    private void saveJsonVaccine(List<VaccineModel> data){
+    private void saveJsonVaccine(List<Vaccine> data){
         try (FileWriter writer = new FileWriter(ConfigGlobal.vaccineData)) {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writerWithDefaultPrettyPrinter().writeValue(writer, data);
@@ -234,7 +238,7 @@ public class MainModel {
         }
     }
 
-    private void saveJsonHistory(List<DateModel> data){
+    private void saveJsonHistory(List<Vaccinate> data){
         try (FileWriter writer = new FileWriter(ConfigGlobal.historyData)) {
             ObjectMapper mapper = new ObjectMapper();
             mapper.writerWithDefaultPrettyPrinter().writeValue(writer, data);
@@ -243,8 +247,8 @@ public class MainModel {
         }
     }
 
-    private boolean userExist(List<UserModel> users, long documentNumber){
-        for (UserModel user : users) {
+    private boolean userExist(List<Person> users, long documentNumber){
+        for (Person user : users) {
             if (user.getDocumentNumber() == documentNumber) {
                 return true;
             }
@@ -253,8 +257,8 @@ public class MainModel {
     }
 
 
-    private boolean vaccineExist(List<VaccineModel> vaccines, String vaccineName){
-        for (VaccineModel vaccine : vaccines) {
+    private boolean vaccineExist(List<Vaccine> vaccines, String vaccineName){
+        for (Vaccine vaccine : vaccines) {
             if (vaccine.getVaccineName().equalsIgnoreCase(vaccineName)) {
                 return true;
             }
@@ -273,11 +277,11 @@ public class MainModel {
 
     private int countAppledDoses(long documentNumber, String vaccineName){
         int count = 0;
-        List<DateModel> history = loadJsonHistory();
+        List<Vaccinate> history = loadJsonHistory();
 
-        for (DateModel record : history) {
+        for (Vaccinate record : history) {
             if (record.getPerson().getDocumentNumber() == documentNumber) {
-                for (VaccineModel vaccine : record.getVaccines()) {
+                for (Vaccine vaccine : record.getVaccines()) {
                     if (vaccine.getVaccineName().equalsIgnoreCase(vaccineName)) {
                         count++;
                     }

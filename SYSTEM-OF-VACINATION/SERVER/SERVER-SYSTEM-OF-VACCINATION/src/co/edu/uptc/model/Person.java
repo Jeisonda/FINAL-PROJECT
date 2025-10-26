@@ -1,8 +1,10 @@
-package model;
+package co.edu.uptc.model;
 
 import java.util.Date;
+import co.edu.uptc.structures.BinaryTree;
+import co.edu.uptc.model.Vaccinate;
 
-public class UserModel {
+public class Person implements Comparable<Person> {
     private String firstName;
     private String middleName;
     private String lastName;
@@ -12,6 +14,23 @@ public class UserModel {
     private long documentNumber;
     private long phoneNumber;
     private Date bornDate;
+    private BinaryTree<Vaccinate> myVacinations;
+    
+    public Person(String firstName, String middleName, String lastName, String secondLastName, String documentType,
+    String email, long documentNumber, long phoneNumber, Date bornDate) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.secondLastName = secondLastName;
+        this.documentType = documentType;
+        this.email = email;
+        this.documentNumber = documentNumber;
+        this.phoneNumber = phoneNumber;
+        this.bornDate = bornDate;
+    }
+    
+    public Person() {
+    }
 
     public String getFirstName() {
         return firstName;
@@ -85,20 +104,8 @@ public class UserModel {
         this.bornDate = bornDate;
     }
 
-    public UserModel() {
+    @Override
+    public int compareTo(Person comparePerson){
+        return firstName.compareTo(comparePerson.getFirstName());
     }
-
-    public UserModel(String firstName, String middleName, String lastName, String secondLastName, String documentType,
-            String email, long documentNumber, long phoneNumber, Date bornDate) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.secondLastName = secondLastName;
-        this.documentType = documentType;
-        this.email = email;
-        this.documentNumber = documentNumber;
-        this.phoneNumber = phoneNumber;
-        this.bornDate = bornDate;
-    }
-
 }

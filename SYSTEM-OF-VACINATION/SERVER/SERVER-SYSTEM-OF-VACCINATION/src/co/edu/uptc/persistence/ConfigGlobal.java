@@ -1,4 +1,4 @@
-package persistence;
+package co.edu.uptc.persistence;
 
 public class ConfigGlobal {
     static ConfigManager configManager = new ConfigManager("src/resources/application.properties");
