@@ -10,10 +10,14 @@ public class Vaccinate implements Comparable<Vaccinate>{
     public Vaccinate() {
     }
 
-    public Vaccinate(Person person, Vaccine vaccine, Date applicationDate , int dose) {
+    public Vaccinate(Vaccine vaccine, Date applicationDate , int dose) {
         this.vaccine = vaccine;
         this.applicationDate = applicationDate;
         this.dose = dose;
+    }
+
+    public Vaccinate(Vaccine vaccine) {
+        this.vaccine = vaccine;
     }
 
     public Date getApplicationDate() {

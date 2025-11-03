@@ -3,7 +3,6 @@ package co.edu.uptc.model;
 import java.util.Date;
 
 public class Vaccine implements Comparable<Vaccine> {
-   
     private String vaccineName;
     private String manufacterName;
     private String diseaseName;
@@ -25,6 +24,10 @@ public class Vaccine implements Comparable<Vaccine> {
         this.batchNumber = batchNumber;
         this.expirationDate = expirationDate;
         this.totalDose = totalDose;
+    }
+
+    public Vaccine(String vaccineName) {
+        this.vaccineName = vaccineName;
     }
 
     public String getVaccineName() {

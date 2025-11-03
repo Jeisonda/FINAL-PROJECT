@@ -12,10 +12,11 @@ public class Control {
     private ServerSocket serverSocket;
 
     public Control(VaccineModel model) throws IOException {
-        serverSocket = new ServerSocket(PORT);
-        while (true) {
-            socket = serverSocket.accept();
-            new Presenter(socket, model).start();
-        }
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            while (true) {
+                socket = serverSocket.accept();
+                new Presenter(socket, model).start();
+            }
+        } catch (IOException e) { e.printStackTrace();}
     }
 }

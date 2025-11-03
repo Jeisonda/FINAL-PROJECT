@@ -51,7 +51,7 @@ public class BinaryTree<T extends Comparable<T>> {
         return false;
     }
 
-    public T getWord (T value) {
+    public T get (T value) {
         if (isEmpty()) return null;
         Node<T> currrent = root;
         while (currrent != null) {

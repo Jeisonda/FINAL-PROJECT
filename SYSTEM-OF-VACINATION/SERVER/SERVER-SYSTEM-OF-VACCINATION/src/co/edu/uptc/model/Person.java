@@ -11,13 +11,13 @@ public class Person implements Comparable<Person> {
     private String secondLastName;
     private String documentType;
     private String email;
-    private long documentNumber;
-    private long phoneNumber;
+    private String documentNumber;
+    private String phoneNumber;
     private Date bornDate;
     private BinaryTree<Vaccinate> myVacinations;
     
     public Person(String firstName, String middleName, String lastName, String secondLastName, String documentType,
-    String email, long documentNumber, long phoneNumber, Date bornDate) {
+    String email, String documentNumber, String phoneNumber, Date bornDate) {
         this.firstName = firstName;
         this.middleName = middleName;
         this.lastName = lastName;
@@ -30,6 +30,10 @@ public class Person implements Comparable<Person> {
     }
     
     public Person() {
+    }
+
+    public Person(String documentNumber) {
+        this.documentNumber = documentNumber;
     }
 
     public String getFirstName() {
@@ -80,19 +84,19 @@ public class Person implements Comparable<Person> {
         this.email = email;
     }
 
-    public long getDocumentNumber() {
+    public String getDocumentNumber() {
         return documentNumber;
     }
 
-    public void setDocumentNumber(long documentNumber) {
+    public void setDocumentNumber(String documentNumber) {
         this.documentNumber = documentNumber;
     }
 
-    public long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -104,8 +108,16 @@ public class Person implements Comparable<Person> {
         this.bornDate = bornDate;
     }
 
+    public BinaryTree<Vaccinate> getMyVacinations() {
+        return myVacinations;
+    }
+
+    public void setMyVacinations(BinaryTree<Vaccinate> myVacinations) {
+        this.myVacinations = myVacinations;
+    }
+    
     @Override
     public int compareTo(Person comparePerson){
-        return firstName.compareTo(comparePerson.getFirstName());
+        return documentNumber.compareTo(comparePerson.getDocumentNumber());
     }
 }
