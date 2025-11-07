@@ -1,26 +1,25 @@
 package co.edu.uptc.net.dto;
 
-
-public class Response {
-    private String status; // "OK" o "ERROR"
+public class Response<T> {
+    private boolean success;
     private String message;
-    private String data; // JSON (si devuelve algo)
+    private T data;
 
-    public Response(String status, String message, String data) {
-        this.status = status;
+    public Response(boolean success, String message, T data) {
+        this.success = success;
         this.message = message;
         this.data = data;
     }
 
-    public String getStatus() {
-        return status;
+    public boolean isSuccess() {
+        return success;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public String getData() {
+    public T getData() {
         return data;
     }
 }

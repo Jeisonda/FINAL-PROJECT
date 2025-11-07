@@ -23,21 +23,16 @@ public class VaccineModel {
     //     this.view = view;
     // }
 
-    public boolean createUser(String firstName, String middleName, String lastName, String seconLastName, 
-    String documentType, String documentNumber, Date bornDate, String phoneNumber, String email){
-        if (userExist(documentNumber)) return false;
-        Person newPerson = new Person(firstName, middleName, lastName, seconLastName, documentType, email, documentNumber,
-            phoneNumber, bornDate);
-        persons.add(newPerson);
+    public boolean createUser(Person person) {
+        if (userExist(person.getDocumentNumber())) return false;
+        persons.add(person);
         saveJsonUser(persons);
         return true;
     }
 
-    public boolean createVaccine(String vaccineName, String manufacterName, String diseaseName, String vaccineType,
-            String batchNumber, Date expirationDate, String totalDose){
-        if (vaccineExist(vaccineName)) return false;
-        Vaccine newVaccine = new Vaccine(vaccineName, manufacterName, diseaseName, vaccineType, batchNumber, expirationDate, Integer.parseInt(totalDose));
-        vaccines.add(newVaccine);
+    public boolean createVaccine(Vaccine vaccine) {
+        if (vaccineExist(vaccine.getVaccineName())) return false;
+        vaccines.add(vaccine);
         saveJsonVaccine(vaccines);
         return true;
     }
@@ -131,19 +126,52 @@ public class VaccineModel {
         return persons.get(tempPerson);
     }
 
-    public void updateVaccineFromTable(int rowIndex, Vaccine  updateVaccine, Date applicationDate, long documentNumber){
-        List<Vaccinate> history = loadJsonHistory();
-        for (Vaccinate record : history) {
-            if (record.getPerson().getDocumentNumber() == documentNumber && isSameDay(record.getApplicationDate(), applicationDate) ) {
-                List<Vaccine> vaccines = record.getVaccines();
-                if (rowIndex < vaccines.size()) {
-                    vaccines.set(rowIndex, updateVaccine);
-                    saveJsonHistory(history);  
-                    return;
-                }
+    public void updateVaccineFromTable(int rowIndex, Vaccine updatedVaccine, Date applicationDate, String documentNumber) {
+        Person person = getUserByDocument(documentNumber);
+        if (person == null || person.getMyVacinations() == null) {
+            return;
+        }
+
+        // Convertir el árbol a lista para iterar
+        List<Vaccinate> vaccinateList = person.getMyVacinations().inOrder();
+        if (rowIndex < 0 || rowIndex >= vaccinateList.size()) {
+            return;
+        }
+
+        // Buscar el registro por fecha
+        for (Vaccinate record : vaccinateList) {
+            if (isSameDay(record.getApplicationDate(), applicationDate)) {
+                // Actualiza la vacuna en la posición indicada
+                record.setVaccine(updatedVaccine);
+                break;
             }
         }
+
+        // Reconstruir el árbol con los cambios
+        BinaryTree<Vaccinate> updatedTree = new BinaryTree<>();
+        for (Vaccinate v : vaccinateList) {
+            updatedTree.add(v);
+        }
+        person.setMyVacinations(updatedTree);
+
+        // Guardar cambios
+        saveJsonUser(persons);
     }
+
+
+    // public void updateVaccineFromTable(int rowIndex, Vaccine  updateVaccine, Date applicationDate, String documentNumber) {
+    //     BinaryTree<Vaccinate> vaccinate = getUserByDocument(documentNumber).getMyVacinations();
+    //     for (Vaccinate record : history) {
+    //         if (record.getPerson().getDocumentNumber() == documentNumber && isSameDay(record.getApplicationDate(), applicationDate) ) {
+    //             List<Vaccine> vaccines = record.getVaccines();
+    //             if (rowIndex < vaccines.size()) {
+    //                 vaccines.set(rowIndex, updateVaccine);
+    //                 saveJsonHistory(history);
+    //                 return;
+    //             }
+    //         }
+    //     }
+    // }
 
     private List<Person> loadJsonUser() {
         try (FileReader reader = new FileReader(ConfigGlobal.userData)) {
@@ -223,7 +251,6 @@ public class VaccineModel {
         cal1.setTime(date1);
         Calendar cal2 = Calendar.getInstance();
         cal2.setTime(date2);
-
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) && cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
