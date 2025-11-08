@@ -2,6 +2,8 @@ package co.edu.uptc.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Vaccine implements Comparable<Vaccine> {
     private String vaccineName;
     private String manufacterName;
@@ -9,6 +11,7 @@ public class Vaccine implements Comparable<Vaccine> {
     private String vaccineType;
     private String batchNumber;
     private Date expirationDate;
+    @JsonProperty("dose")
     private int totalDose;
 
     public Vaccine(){
@@ -82,7 +85,7 @@ public class Vaccine implements Comparable<Vaccine> {
     }
 
     public void setTotalDose(int dose) {
-        this.totalDose = totalDose;
+        this.totalDose = dose;
     }
 
     @Override

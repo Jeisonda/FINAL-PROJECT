@@ -1,8 +1,12 @@
 package co.edu.uptc.model;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import co.edu.uptc.structures.BinaryTree;
-import co.edu.uptc.model.Vaccinate;
 
 public class Person implements Comparable<Person> {
     private String firstName;
@@ -14,8 +18,17 @@ public class Person implements Comparable<Person> {
     private String documentNumber;
     private String phoneNumber;
     private Date bornDate;
-    private BinaryTree<Vaccinate> myVacinations;
+    // Este campo NO se deserializa directamente
+    @JsonIgnore
+    private BinaryTree<Vaccinate> myVacinations = new BinaryTree<>();
+
+    // Este sí se carga desde JSON como una lista normal
+    @JsonProperty("myVaccinations")
+    private List<Vaccinate> tempVaccinateList;
     
+    public Person() {
+    }
+
     public Person(String firstName, String middleName, String lastName, String secondLastName, String documentType,
     String email, String documentNumber, String phoneNumber, Date bornDate) {
         this.firstName = firstName;
@@ -28,10 +41,16 @@ public class Person implements Comparable<Person> {
         this.phoneNumber = phoneNumber;
         this.bornDate = bornDate;
     }
-    
-    public Person() {
-    }
 
+    public void rebuildTreeFromTempList() {
+        if (tempVaccinateList != null) {
+            myVacinations = new BinaryTree<>();
+            for (Vaccinate v : tempVaccinateList) {
+                myVacinations.add(v);
+            }
+        }
+    }
+    
     public Person(String documentNumber) {
         this.documentNumber = documentNumber;
     }
@@ -114,6 +133,14 @@ public class Person implements Comparable<Person> {
 
     public void setMyVacinations(BinaryTree<Vaccinate> myVacinations) {
         this.myVacinations = myVacinations;
+    }
+
+    public List<Vaccinate> getTempVaccinateList() {
+        return tempVaccinateList;
+    }
+
+    public void setTempVaccinateList(List<Vaccinate> tempVaccinateList) {
+        this.tempVaccinateList = tempVaccinateList;
     }
     
     @Override

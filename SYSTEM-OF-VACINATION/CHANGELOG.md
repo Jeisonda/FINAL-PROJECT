@@ -54,3 +54,31 @@ Security (Seguridad): Para correcciones de vulnerabilidades.
 ### Server: 
 
 - Algun que otro metodo del modelo fueron despreciados y estarán comentados en caso de una futura actualización que utilice estos
+
+## [0.2] - 08/11/2025
+
+### Fixed
+
+### Server:
+
+- Se a actualizado el servidor para que funcione sin errores
+- Se ha modificado conexion entre modelo y persistencia
+- Se modificaron rutas en config para funcionar correctamente
+
+## Add
+
+### Server:
+
+- Se ha agregado una clase pojo para unir person con sus demas clases
+- Se ha agregado a vacinate el atributo documentNumber de la persona
+- Se implementaron hilos en controlador
+- El servidor primero carga datos y luego solicita el puerto para despues funcionar
+- Se agregaron 2 JSON correspondientes al modelo que remplazan los que antes estaban
+
+## Deleted
+
+### Server
+
+- Se eliminaron las 3 clases dto que eran incoherentes
+- Se elimino la clase mapeo, simplificandola a PersonData
+- Se eliminaron 3 JSON anteriores de data

@@ -69,7 +69,6 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public ArrayList<T> inOrder() {
         ArrayList<T> resultList = new ArrayList<>();
-        resultList.clear();
         inOrder(root, resultList);
         return resultList;
     } 
@@ -84,7 +83,6 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public ArrayList<T> postOrder() {
         ArrayList<T> resultList = new ArrayList<>();
-        resultList.clear();
         postOrder(root, resultList);
         return resultList;
     } 
@@ -99,7 +97,6 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public ArrayList<T> preOrder() {
         ArrayList<T> resultList = new ArrayList<>();
-        resultList.clear();
         preOrder(root, resultList);
         return resultList;
     } 

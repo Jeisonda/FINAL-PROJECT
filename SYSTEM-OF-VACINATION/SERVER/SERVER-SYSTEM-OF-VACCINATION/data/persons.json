@@ -1,0 +1,226 @@
+[
+  {
+    "firstName": "Juan",
+    "middleName": "Carlos",
+    "lastName": "Pérez",
+    "secondLastName": "Gómez",
+    "documentType": "CC",
+    "email": "juanperez@gmail.com",
+    "documentNumber": 1049607535,
+    "phoneNumber": 3101234567,
+    "bornDate": 642729600000,
+    "myVaccinations": [
+      {
+        "applicationDate": 1718409600000,
+        "vaccine": {
+          "vaccineName": "Covid-19 Pfizer",
+          "manufacterName": "Pfizer",
+          "diseaseName": "Coronavirus",
+          "vaccineType": "mRNA",
+          "batchNumber": "A1234",
+          "expirationDate": 1767139200000,
+          "dose": 2
+        }
+      },
+      {
+        "applicationDate": 1748534880505,
+        "vaccine": {
+          "vaccineName": "Vacuna Meningocócica",
+          "manufacterName": "Pfizer",
+          "diseaseName": "Enfermedad meningocócica (meningitis)",
+          "vaccineType": "ARNm",
+          "batchNumber": "ADB1234S",
+          "expirationDate": 1765987473059,
+          "dose": 1
+        }
+      }
+    ]
+  },
+  {
+    "firstName": "Ana",
+    "middleName": "María",
+    "lastName": "López",
+    "secondLastName": "Martínez",
+    "documentType": "TI",
+    "email": "ana@gmail.com",
+    "documentNumber": 1056953626,
+    "phoneNumber": 3209876543,
+    "bornDate": 816998400000,
+    "myVaccinations": [
+      {
+        "applicationDate": 1716163200000,
+        "vaccine": {
+          "vaccineName": "Influenza",
+          "manufacterName": "Sanofi",
+          "diseaseName": "Influenza",
+          "vaccineType": "Inactivated",
+          "batchNumber": "B5678",
+          "expirationDate": 1727740800000,
+          "dose": 1
+        }
+      }
+    ]
+  },
+  {
+    "firstName": "Jeison",
+    "middleName": "Daniel",
+    "lastName": "Perez",
+    "secondLastName": "Jimenez",
+    "documentType": "CC",
+    "email": "jeison.perez@uptc.edu.co",
+    "documentNumber": 1049607536,
+    "phoneNumber": 3203472792,
+    "bornDate": 1115701200000,
+    "myVaccinations": [
+      {
+        "applicationDate": 1748534241355,
+        "vaccine": {
+          "vaccineName": "Influenza",
+          "manufacterName": "Sanofi",
+          "diseaseName": "Influenza",
+          "vaccineType": "Inactiva",
+          "batchNumber": "B5678",
+          "expirationDate": 1727672400000,
+          "dose": 1
+        }
+      },
+      {
+        "applicationDate": 1749483328056,
+        "vaccine": {
+          "vaccineName": "Vacuna Tétanos",
+          "manufacterName": "Sanofi Pasteur",
+          "diseaseName": "Tétanos, difteria y tosferina",
+          "vaccineType": "Toxoide",
+          "batchNumber": "BS123N",
+          "expirationDate": 1758171600000,
+          "dose": 1
+        }
+      }
+    ]
+  },
+  {
+    "firstName": "Maria",
+    "middleName": "Valentina",
+    "lastName": "Sarmiento",
+    "secondLastName": "Sarmiento",
+    "documentType": "CC",
+    "email": "valentina.castellanos@uptc.edu.co",
+    "documentNumber": 1234567890,
+    "phoneNumber": 3173540929,
+    "bornDate": 1097855380567,
+    "myVaccinations": [
+      {
+        "applicationDate": 1748620273848,
+        "vaccine": {
+          "vaccineName": "Vacuna HPV (Virus del Papiloma Humano)",
+          "manufacterName": "Merck (Gardasil)",
+          "diseaseName": "Infecciones por VPH",
+          "vaccineType": "Subunidad",
+          "batchNumber": "AS12324",
+          "expirationDate": 1764259384781,
+          "dose": 3
+        }
+      }
+    ]
+  },
+  {
+    "firstName": "Jorge",
+    "middleName": "Enrique",
+    "lastName": "Moreno",
+    "secondLastName": "Moreno",
+    "documentType": "CC",
+    "email": "fincaycosecha@gmail.com",
+    "documentNumber": 74334893,
+    "phoneNumber": 3112279267,
+    "bornDate": 489042000000,
+    "myVaccinations": [
+      {
+        "applicationDate": 1748639696261,
+        "vaccine": {
+          "vaccineName": "Covid-19 Pfizer",
+          "manufacterName": "Pfizer",
+          "diseaseName": "Coronavirus",
+          "vaccineType": "ARNm",
+          "batchNumber": "A1234",
+          "expirationDate": 1767139200000,
+          "dose": 2
+        }
+      }
+    ]
+  },
+  {
+    "firstName": "Israel",
+    "middleName": "",
+    "lastName": "Guio",
+    "secondLastName": "Guio",
+    "documentType": "CC",
+    "email": "fincaycosecha@gmail.com",
+    "documentNumber": 6752094,
+    "phoneNumber": 3112279267,
+    "bornDate": -637814441202,
+    "myVaccinations": [
+      {
+        "applicationDate": 1748640019441,
+        "vaccine": {
+          "vaccineName": "Influenza",
+          "manufacterName": "Sanofi",
+          "diseaseName": "Influenza",
+          "vaccineType": "Inactiva",
+          "batchNumber": "B5678",
+          "expirationDate": 1727740800000,
+          "dose": 1
+        }
+      }
+    ]
+  },
+  {
+    "firstName": "Daniel",
+    "middleName": "",
+    "lastName": "Jimenez",
+    "secondLastName": "Jimenez",
+    "documentType": "CC",
+    "email": "daniel@gmail.com",
+    "documentNumber": 1049607533,
+    "phoneNumber": 3203472792,
+    "bornDate": 1115701200000,
+    "myVaccinations": [
+      {
+        "applicationDate": 1749484342274,
+        "vaccine": {
+          "vaccineName": "Covid-19 Pfizer",
+          "manufacterName": "Pfizer",
+          "diseaseName": "Coronavirus",
+          "vaccineType": "ARNm",
+          "batchNumber": "A1234",
+          "expirationDate": 1767139200000,
+          "dose": 1
+        }
+      }
+    ]
+  },
+  {
+    "firstName": "Nicolas",
+    "middleName": "David",
+    "lastName": "Rojas",
+    "secondLastName": "Rojas",
+    "documentType": "CC",
+    "email": "nicolas@gmail.com",
+    "documentNumber": 154875345,
+    "phoneNumber": 320154687,
+    "bornDate": 1098334800000,
+    "myVaccinations": [
+      {
+        "applicationDate": 1760292064292,
+        "vaccine": {
+          "vaccineName": "Vacuna HPV (Virus del Papiloma Humano)",
+          "manufacterName": "Merck (Gardasil)",
+          "diseaseName": "Infecciones por VPH",
+          "vaccineType": "Subunidad",
+          "batchNumber": "AS12324",
+          "expirationDate": 1764259384781,
+          "dose": 1
+        }
+      }
+    ]
+  }
+]
