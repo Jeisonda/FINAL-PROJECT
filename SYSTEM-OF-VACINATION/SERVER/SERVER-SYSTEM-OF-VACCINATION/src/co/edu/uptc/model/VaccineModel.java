@@ -79,10 +79,9 @@ public class VaccineModel {
         int appliedDoses = getAppledDoses(documentNumber, vaccineName);
         int totalDoses = vaccine.getTotalDose();
 
-        if (appliedDoses >= totalDoses) {
+        if (appliedDoses >= totalDoses)
             return new OperationResult(false,
                     "Esta persona ya recibió todas las dosis (" + totalDoses + ") de la vacuna " + vaccineName);
-        }
 
         int currentDoseNumber = appliedDoses + 1;
 
