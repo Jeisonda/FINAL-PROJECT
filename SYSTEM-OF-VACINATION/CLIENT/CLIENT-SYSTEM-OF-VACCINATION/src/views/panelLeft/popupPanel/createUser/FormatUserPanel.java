@@ -20,9 +20,9 @@ import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 
 import interfaces.ViewInterface;
-import model.DateModel;
-import model.UserModel;
-import model.VaccineModel;
+import pojos.Person;
+import pojos.Vaccinate;
+import pojos.Vaccine;
 import presenter.Presenter;
 
 public class FormatUserPanel extends JPanel implements ViewInterface {
@@ -264,20 +264,22 @@ public class FormatUserPanel extends JPanel implements ViewInterface {
         JOptionPane.showMessageDialog(null, message, "SUCCES", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    @Override
-    public void fillUserLabels(UserModel user) {
-    }
 
-    @Override
-    public void fillVaccineTable(List<DateModel> vaccines) {
-    }
-
-    @Override
-    public void fillVaccineLabels(VaccineModel vaccine) {
-    }
 
     @Override
     public void refreshComboFindVaccine() {
+    }
+
+    @Override
+    public void fillUserLabels(Person person) {
+    }
+
+    @Override
+    public void fillVaccineLabels(Vaccine vaccine) {
+    }
+
+    @Override
+    public void fillVaccineTable(List<Vaccinate> vaccines) {
     }
 }
 

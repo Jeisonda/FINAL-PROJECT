@@ -31,6 +31,11 @@ Security (Seguridad): Para correcciones de vulnerabilidades.
 - Se creo calse en  FilesPersistence para agregar lectura de json y eliminar este del modelo
 - Se agrego arbol binario de personas y vacunas en clase VaccineModel para tener registro de datos de base de datos en el proyecto por lado del servidor
 
+#### Cliente
+- Se añadió la clase `UpdateVaccinatePayLoad` que sirve para transportar toda la información necesario para actualizar un registro de vacunación desde el cliente hacia el servidor 
+- Se añadieron los paquetes `POJOS`, `NET/DTO` y `NETWORK`
+
+
 ## [0.1] - 03/11/2025
 
 ### Fixed
@@ -41,6 +46,10 @@ Security (Seguridad): Para correcciones de vulnerabilidades.
 - Se realizaron cambios en clase ModelVaccination, preparando dejar listo para actualizar el presenter
 - Se simplifico logica del modelo
 - Queda pendiente terminar de mejorar modelo, actualizar presenter y reestructurar logica jsons en persistence, podiblemente con uso de gson
+
+#### Cliente:
+- Se arreglaron todos los metodos del presenter para que funcinonen eficientemente con el servidor.
+- Se arreglaron e implementaron correctamente los metodos de la `ViewInterface`.
 
 ### Aded 
 

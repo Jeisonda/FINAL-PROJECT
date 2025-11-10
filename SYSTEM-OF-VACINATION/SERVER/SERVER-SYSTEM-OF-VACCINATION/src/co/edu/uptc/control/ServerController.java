@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.io.IOException;
 import java.net.Socket;
-import com.google.gson.Gson;
 import co.edu.uptc.model.Person;
 import co.edu.uptc.model.Vaccinate;
 import co.edu.uptc.model.Vaccine;

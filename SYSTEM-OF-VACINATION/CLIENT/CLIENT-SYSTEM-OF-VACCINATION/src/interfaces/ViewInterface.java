@@ -2,15 +2,16 @@ package interfaces;
 
 import java.util.List;
 
-import model.DateModel;
-import model.UserModel;
-import model.VaccineModel;
+import pojos.Person;
+import pojos.Vaccinate;
+import pojos.Vaccine;
+
 
 public interface ViewInterface {
     void showErrorMessage(String message);
     void showConfirmMessage(String message);
-    void fillUserLabels(UserModel user);
-    void fillVaccineLabels(VaccineModel vaccine);
-    void fillVaccineTable(List<DateModel> vaccines);
+    void fillUserLabels(Person person);
+    void fillVaccineLabels(Vaccine vaccine);
+    void fillVaccineTable(List<Vaccinate> vaccines);
     void refreshComboFindVaccine();
 }

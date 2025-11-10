@@ -29,9 +29,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import interfaces.ViewInterface;
-import model.DateModel;
-import model.UserModel;
-import model.VaccineModel;
+import pojos.Person;
+import pojos.Vaccinate;
+import pojos.Vaccine;
 import presenter.Presenter;
 
 public class FormatVaccinationPanel extends JPanel implements ViewInterface {
@@ -396,23 +396,23 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
         }
 
         @Override
-        public void fillUserLabels(UserModel user) {
+        public void fillUserLabels(Person person) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            String fullName = user.getFirstName() + " " + user.getMiddleName() + " " + user.getLastName() + " "
-                    + user.getSecondLastName();
+            String fullName = person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName() + " "
+                    + person.getSecondLastName();
             labelFullNameFontainer.setText(fullName);
-            labelDocumentNumberContainer.setText(String.valueOf(user.getDocumentNumber()));
-            labelTipeDocumentContainer.setText(user.getDocumentType());
-            labelAgeContainer.setText(sdf.format(user.getBornDate()));
-            labelEmailContainer.setText(user.getEmail());
+            labelDocumentNumberContainer.setText(String.valueOf(person.getDocumentNumber()));
+            labelTipeDocumentContainer.setText(person.getDocumentType());
+            labelAgeContainer.setText(sdf.format(person.getBornDate()));
+            labelEmailContainer.setText(person.getEmail());
         }
 
         @Override
-        public void fillVaccineTable(List<DateModel> vaccines) {
+        public void fillVaccineTable(List<Vaccinate> vaccines) {
         }
 
         @Override
-        public void fillVaccineLabels(VaccineModel vaccine) {
+        public void fillVaccineLabels(Vaccine vaccine) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             labelVaccineNameContainer.setText(vaccine.getVaccineName());
             labelBatchNumberContainer.setText(vaccine.getBatchNumber());
