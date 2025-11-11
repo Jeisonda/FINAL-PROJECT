@@ -1,4 +1,4 @@
-package net.dto;
+package co.edu.uptc.net.dto;
 
 public class Response<T> {
     private boolean succes;

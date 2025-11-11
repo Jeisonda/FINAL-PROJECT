@@ -12,12 +12,10 @@ import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
 
-import com.fasterxml.jackson.databind.AnnotationIntrospector.Pair;
-
 import co.edu.uptc.interfaces.ViewInterface;
-import co.edu.uptc.model.DateModel;
-import co.edu.uptc.model.UserModel;
-import co.edu.uptc.model.VaccineModel;
+import co.edu.uptc.pojos.Person;
+import co.edu.uptc.pojos.Vaccinate;
+import co.edu.uptc.pojos.Vaccine;
 import co.edu.uptc.presenter.Presenter;
 
 public class PanelTable extends JPanel implements ViewInterface{
@@ -25,13 +23,12 @@ public class PanelTable extends JPanel implements ViewInterface{
     private JTable table;
     private JScrollPane scrollPane;
     private Presenter presenter;
-    private List<DateModel> dateModelList;
-    private List<VaccineModel> vaccineModelList;
+
+    private List<Vaccinate> vaccinateList;
 
     public PanelTable() {
         setLayout(new BorderLayout());
-        dateModelList = new ArrayList<>();
-        vaccineModelList = new ArrayList<>();
+        vaccinateList = new ArrayList<>();
         presenter = new Presenter(this);
         initComponents();
     }
@@ -41,7 +38,8 @@ public class PanelTable extends JPanel implements ViewInterface{
     }
 
     private void addTable() {
-        String[] columns = { "DOSIS", "NOMBRE", "N°LOTE","LABORATORIO", "FECHA VENCIMIENTO", "ENFERMEDAD OBJETIVO", "FECHA VACUNACIÓN"};
+        String[] columns = { "DOSIS", "NOMBRE", "N°LOTE","LABORATORIO", "FECHA VENCIMIENTO", 
+        "ENFERMEDAD OBJETIVO", "FECHA VACUNACIÓN"};
         DefaultTableModel model = new DefaultTableModel(columns, 0){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -60,12 +58,12 @@ public class PanelTable extends JPanel implements ViewInterface{
         model.addTableModelListener(e->{
             if (e.getType() == TableModelEvent.UPDATE) {
                 int row = e.getFirstRow();
-                if (row >= 0 && presenter != null && row < vaccineModelList.size()) {
+                if (row >= 0 && presenter != null && row < vaccinateList.size()) {
                     try {
                         DefaultTableModel m = (DefaultTableModel) table.getModel();
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-                        VaccineModel updated = new VaccineModel();
+                        Vaccine updated = new Vaccine();
                         updated.setDose(Integer.parseInt(m.getValueAt(row, 0).toString()));
                         updated.setVaccineName(m.getValueAt(row, 1).toString());
                         updated.setBatchNumber(m.getValueAt(row, 2).toString());
@@ -74,9 +72,9 @@ public class PanelTable extends JPanel implements ViewInterface{
                         updated.setDiseaseName(m.getValueAt(row, 5).toString());
 
                         Date appicationDate = sdf.parse(m.getValueAt(row, 6).toString());
-                        long docNum = dateModelList.get(row).getPerson().getDocumentNumber();
+                        String docNum = vaccinateList.get(row).getDocumentNumber();
 
-                        presenter.updateVaccineFromTable(row, updated, appicationDate, docNum);
+                        presenter.updateVaccineFromTable(row, updated, appicationDate, Long.parseLong(docNum));
                     } catch (Exception ex) {
                         showErrorMessage("Error al actualizar");
                     }
@@ -86,28 +84,24 @@ public class PanelTable extends JPanel implements ViewInterface{
 
     }
 
-    public void fillTable(List<DateModel> vaccines){
+    public void fillTable(List<Vaccinate> vaccines){
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         model.setRowCount(0);
-        dateModelList.clear();
-        vaccineModelList.clear();
+        vaccinateList.clear();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        for (DateModel dateModel : vaccines) {
-            String applicationDate = sdf.format(dateModel.getApplicationDate());
-            for (VaccineModel v : dateModel.getVaccines()) {
-                Object[] row = {
-                    v.getDose(),
-                    v.getVaccineName(),
-                    v.getBatchNumber(),
-                    v.getManufacterName(),
-                    sdf.format(v.getExpirationDate()),
-                    v.getDiseaseName(),
-                    applicationDate
-                };
-                model.addRow(row);
-                dateModelList.add(dateModel);
-                vaccineModelList.add(v);
-            }
+        for (Vaccinate vaccinate : vaccines) {
+            Vaccine v = vaccinate.getVaccine();
+            Object[] row = {
+                vaccinate.getDose(),
+                v.getVaccineName(),
+                v.getBatchNumber(),
+                v.getManufacterName(),
+                sdf.format(v.getExpirationDate()),
+                v.getDiseaseName(),
+                sdf.format(vaccinate.getApplicationDate())
+            };
+            model.addRow(row);
+            vaccinateList.add(vaccinate);
         }
     }
 
@@ -120,15 +114,15 @@ public class PanelTable extends JPanel implements ViewInterface{
     }
 
     @Override
-    public void fillUserLabels(UserModel user) {
+    public void fillUserLabels(Person person) {
     }
 
     @Override
-    public void fillVaccineTable(List<DateModel> vaccines) {
+    public void fillVaccineTable(List<Vaccinate> vaccines) {
     }
 
     @Override
-    public void fillVaccineLabels(VaccineModel vaccine) {
+    public void fillVaccineLabels(Vaccine vaccine) {
 
     }
 
