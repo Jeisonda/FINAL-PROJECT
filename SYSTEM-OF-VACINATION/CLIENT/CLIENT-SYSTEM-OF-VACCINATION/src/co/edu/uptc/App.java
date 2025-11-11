@@ -1,4 +1,5 @@
-import views.MainFrame;
+package co.edu.uptc;
+import co.edu.uptc.views.MainFrame;
 
 public class App {
     public static void main(String[] args) throws Exception {

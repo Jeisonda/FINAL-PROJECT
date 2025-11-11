@@ -41,12 +41,15 @@ public class MainFrame extends JFrame{
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        System.out.println("he");
         initComponents(); 
     }
     
     public void initComponents(){
         addContentPanel();
+        System.out.println("aca");
         addPanelLeft();
+        System.out.println("estoy");
     }
     
     private void addPanelLeft(){
@@ -60,9 +63,13 @@ public class MainFrame extends JFrame{
         createUserPanel = new CreateUserPanel();
         vacinationPanel = new VaccinatePanel(this);
         vaccine = new FormatVaccinationPanel(vacinationPanel);
+        System.out.println("d");
         vacinationPanel.setFormatPanel(vaccine);
+        System.out.println("a");
         createVacinationPanel = new CreateVaccinePanel(vaccine);
+        System.out.println("b");
         historyPanel = new HistoryPanel();
+        System.out.println("n");
 
         contentPanel.add(panelCenter, "main");
         contentPanel.add(createUserPanel, "createUser");
