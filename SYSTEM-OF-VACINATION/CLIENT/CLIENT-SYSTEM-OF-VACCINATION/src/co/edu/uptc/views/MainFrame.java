@@ -1,8 +1,10 @@
 package co.edu.uptc.views;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import co.edu.uptc.presenter.Presenter;
 import co.edu.uptc.views.panelCenter.MainPanelCenter;
 import co.edu.uptc.views.panelLeft.MainPanelLeft;
 import co.edu.uptc.views.panelLeft.popupPanel.createUser.CreateUserPanel;
@@ -15,8 +17,10 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame {
     private Image icon;
     private JPanel contentPanel;
     private MainPanelCenter panelCenter;
@@ -26,8 +30,10 @@ public class MainFrame extends JFrame{
     private VaccinatePanel vacinationPanel;
     private HistoryPanel historyPanel;
     public FormatVaccinationPanel vaccine;
+    private Presenter presenter;
 
-    public MainFrame(){
+    public MainFrame(Presenter presenter){
+        this.presenter = presenter;
         frameConfiguration();
     }
     
@@ -35,21 +41,19 @@ public class MainFrame extends JFrame{
         System.out.println("llegue");
         setSize(940,630);
         setTitle("ATENAS");
-        icon = Toolkit.getDefaultToolkit().getImage("src/images/partenon 64x64.png");
+        icon = Toolkit.getDefaultToolkit().getImage("images/partenon.png");
         setIconImage(icon);
         setResizable(false);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        System.out.println("he");
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         initComponents(); 
+        addCloseBehavior();
     }
     
     public void initComponents(){
         addContentPanel();
-        System.out.println("aca");
         addPanelLeft();
-        System.out.println("estoy");
     }
     
     private void addPanelLeft(){
@@ -88,4 +92,29 @@ public class MainFrame extends JFrame{
         repaint();
     }
 
+    private void addCloseBehavior() {
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int option = JOptionPane.showConfirmDialog(
+                    MainFrame.this,
+                    "¿Desea cerrar la aplicación?",
+                    "Confirmar salida",
+                    JOptionPane.YES_NO_OPTION
+                );
+
+                if (option == JOptionPane.YES_OPTION) {
+                    try {
+                        presenter.sendCloseMessage();
+                        presenter.closeConnection(); 
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    } finally {
+                        dispose();
+                        System.exit(0);
+                    }
+                }
+            }
+        });
+    }
 }

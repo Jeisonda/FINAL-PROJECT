@@ -12,20 +12,20 @@ public class Vaccine implements Comparable<Vaccine> {
     private String batchNumber;
     private Date expirationDate;
     @JsonProperty("dose")
-    private int totalDose;
+    private int dose;
 
     public Vaccine(){
     }
 
     public Vaccine(String vaccineName, String manufacterName, String diseaseName, String vaccineType,
-            String batchNumber, Date expirationDate, int totalDose) {
+            String batchNumber, Date expirationDate, int dose) {
         this.vaccineName = vaccineName;
         this.manufacterName = manufacterName;
         this.diseaseName = diseaseName;
         this.vaccineType = vaccineType;
         this.batchNumber = batchNumber;
         this.expirationDate = expirationDate;
-        this.totalDose = totalDose;
+        this.dose = dose;
     }
 
     public Vaccine(String vaccineName) {
@@ -80,12 +80,12 @@ public class Vaccine implements Comparable<Vaccine> {
         this.expirationDate = expirationDate;
     }
 
-    public int getTotalDose() {
-        return totalDose;
+    public int getDose() {
+        return dose;
     }
 
-    public void setTotalDose(int dose) {
-        this.totalDose = dose;
+    public void setDose(int dose) {
+        this.dose = dose;
     }
 
     @Override

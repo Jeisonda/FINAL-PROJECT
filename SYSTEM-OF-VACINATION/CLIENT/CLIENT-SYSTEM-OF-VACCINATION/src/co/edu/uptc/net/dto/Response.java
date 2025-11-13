@@ -1,24 +1,24 @@
 package co.edu.uptc.net.dto;
 
 public class Response<T> {
-    private boolean succes;
+    private boolean success;
     private String message;
     private T data;
 
     public Response() {}
 
-    public Response(boolean succes, String message, T data) {
-        this.succes = succes;
+    public Response(boolean s, String message, T data) {
+        this.success = success;
         this.message = message;
         this.data = data;
     }
 
-    public boolean isSucces() {
-        return succes;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setSucces(boolean succes) {
-        this.succes = succes;
+    public void setSuccess(boolean succes) {
+        this.success = succes;
     }
 
     public String getMessage() {

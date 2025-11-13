@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 
 import co.edu.uptc.interfaces.ViewInterface;
 import co.edu.uptc.pojos.Person;
+import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
 import co.edu.uptc.pojos.Vaccine;
 import co.edu.uptc.presenter.Presenter;
@@ -232,7 +233,7 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
     }
 
     private void imageConfiguration() {
-        iconOriginal = new ImageIcon("src/images/buscar 64x64.png").getImage();
+        iconOriginal = new ImageIcon("images/buscar.png").getImage();
         scaletImage = iconOriginal.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
     }
 
@@ -249,14 +250,14 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
         panelTable.fillTable(vaccines);
     }
 
-    public void fillUserLabels(Person person) {
+    public void fillUserLabels(PersonData person) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String fullName = person.getFirstName()+ " " + person.getMiddleName()+ " " + person.getLastName()+ " " + person.getSecondLastName();
+        String fullName = person.getPerson().getFirstName()+ " " + person.getPerson().getMiddleName()+ " " + person.getPerson().getLastName()+ " " + person.getPerson().getSecondLastName();
         labelFullNameContainer.setText(fullName);
-        labelDocumentNumberContainer.setText(String.valueOf(person.getDocumentNumber()));
-        labelTipeDocumentContainer.setText(person.getDocumentType());
-        labelAgeContainer.setText(sdf.format(person.getBornDate()));
-        labelEmailContainer.setText(person.getEmail());
+        labelDocumentNumberContainer.setText(String.valueOf(person.getPerson().getDocumentNumber()));
+        labelTipeDocumentContainer.setText(person.getPerson().getDocumentType());
+        labelAgeContainer.setText(sdf.format(person.getPerson().getBornDate()));
+        labelEmailContainer.setText(person.getPerson().getEmail());
     }
 
     @Override
@@ -276,6 +277,4 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
     @Override
     public void refreshComboFindVaccine() {
     }
-
-
 }

@@ -39,7 +39,7 @@ public class MainPanelCenter extends JPanel{
     }
     
     private void imageConfiguration(){
-        iconOriginal = new ImageIcon("src/images/imagenPrincipal.png").getImage();
+        iconOriginal = new ImageIcon("images/imagenPrincipal.png").getImage();
         scaletImage = iconOriginal.getScaledInstance(740, 592, Image.SCALE_SMOOTH);
     }
 

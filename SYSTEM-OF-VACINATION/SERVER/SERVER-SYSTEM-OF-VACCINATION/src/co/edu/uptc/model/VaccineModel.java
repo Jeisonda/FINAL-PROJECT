@@ -28,10 +28,6 @@ public class VaccineModel {
             p.rebuildTreeFromTempList(); // reconstruir el árbol
             persons.add(p);
         }
-        ArrayList<Person> ar = persons.inOrder();
-        for (Person per : ar) {
-            System.out.println(per.getDocumentNumber());
-        }
     }
 
     public void saveUsersData() {
@@ -77,7 +73,7 @@ public class VaccineModel {
             return operationResult;
 
         int appliedDoses = getAppledDoses(documentNumber, vaccineName);
-        int totalDoses = vaccine.getTotalDose();
+        int totalDoses = vaccine.getDose();
 
         if (appliedDoses >= totalDoses)
             return new OperationResult(false,
@@ -107,7 +103,6 @@ public class VaccineModel {
         }
     }
 
-    //////////////////////////
     private OperationResult validations(String documentNumber, String vaccineName) {
         Person person = getUserByDocument(documentNumber);
         if (person == null) {
@@ -232,6 +227,19 @@ public class VaccineModel {
 
     private int getAppledDoses(String documentNumber, String vaccineName) {
         Person person = getUserByDocument(documentNumber);
-        return person.getMyVacinations().get(new Vaccinate(new Vaccine(vaccineName))).getDose();
+        if (person == null || person.getMyVacinations() == null) {
+            return 0;
+        }
+
+        int appliedDoses = 0;
+        List<Vaccinate> vaccinateList = person.getMyVacinations().inOrder();
+
+        for (Vaccinate record : vaccinateList) {
+            if (record.getVaccine() != null &&
+                    record.getVaccine().getVaccineName().equalsIgnoreCase(vaccineName)) {
+                appliedDoses++;
+            }
+        }
+        return appliedDoses;
     }
 }

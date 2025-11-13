@@ -22,6 +22,7 @@ import com.toedter.calendar.JDateChooser;
 
 import co.edu.uptc.interfaces.ViewInterface;
 import co.edu.uptc.pojos.Person;
+import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
 import co.edu.uptc.pojos.Vaccine;
 import co.edu.uptc.presenter.Presenter;
@@ -250,7 +251,7 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
     }
 
     @Override
-    public void fillUserLabels(Person person) {
+    public void fillUserLabels(PersonData person) {
     }
 
     @Override
