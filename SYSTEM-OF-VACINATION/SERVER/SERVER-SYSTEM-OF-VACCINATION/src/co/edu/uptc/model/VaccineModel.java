@@ -21,11 +21,9 @@ public class VaccineModel {
 
     public void loadUsersData() {
         persons = new BinaryTree<>();
-
         List<Person> loadedPersons = repository.loadUsers();
-
         for (Person p : loadedPersons) {
-            p.rebuildTreeFromTempList(); // reconstruir el árbol
+            p.rebuildTreeFromTempList();
             persons.add(p);
         }
     }
@@ -36,9 +34,7 @@ public class VaccineModel {
 
     public void loadVaccinesData() {
         vaccines = new BinaryTree<>();
-
         List<Vaccine> loadedVaccines = repository.loadVaccines();
-
         for (Vaccine v : loadedVaccines) {
             vaccines.add(v);
         }
@@ -52,7 +48,6 @@ public class VaccineModel {
         if (userExist(person.getDocumentNumber()))
             return false;
         persons.add(person);
-
         repository.saveUsers(persons);
         return true;
     }
@@ -66,26 +61,43 @@ public class VaccineModel {
     }
 
     public OperationResult vaccinate(String documentNumber, String vaccineName, Date applicationDate) {
+        OperationResult validation = validations(documentNumber, vaccineName);
+        if (validation != null) return validation;
+
         Person person = getUserByDocument(documentNumber);
         Vaccine vaccine = getVaccineByName(vaccineName);
-        OperationResult operationResult = validations(documentNumber, vaccineName);
-        if (operationResult != null)
-            return operationResult;
+
+        if (person == null) return new OperationResult(false, "Usuario no encontrado");
+        if (vaccine == null) return new OperationResult(false, "Vacuna no encontrada");
 
         int appliedDoses = getAppledDoses(documentNumber, vaccineName);
         int totalDoses = vaccine.getDose();
 
         if (appliedDoses >= totalDoses)
-            return new OperationResult(false,
-                    "Esta persona ya recibió todas las dosis (" + totalDoses + ") de la vacuna " + vaccineName);
+            return new OperationResult(false, "Esta persona ya recibió todas las dosis (" + totalDoses + ") de la vacuna " + vaccineName);
 
         int currentDoseNumber = appliedDoses + 1;
 
-        Vaccinate existingRecord = null;
         BinaryTree<Vaccinate> vaccinates = person.getMyVacinations();
-        Vaccinate vaccinateRecord = vaccinates.get(new Vaccinate(vaccine));
-        if (isSameDay(vaccinateRecord.getApplicationDate(), applicationDate)) {
-            existingRecord = vaccinateRecord;
+        if (vaccinates == null) {
+            vaccinates = new BinaryTree<>();
+            person.setMyVacinations(vaccinates);
+        }
+
+        Vaccinate search = new Vaccinate();
+        search.setVaccine(vaccine);
+        Vaccinate vaccinateRecord = null;
+        try {
+            vaccinateRecord = vaccinates.get(search);
+        } catch (Exception e) {
+            vaccinateRecord = null;
+        }
+
+        Vaccinate existingRecord = null;
+        if (vaccinateRecord != null && applicationDate != null && vaccinateRecord.getApplicationDate() != null) {
+            if (isSameDay(vaccinateRecord.getApplicationDate(), applicationDate)) {
+                existingRecord = vaccinateRecord;
+            }
         }
 
         if (existingRecord != null) {
@@ -116,21 +128,6 @@ public class VaccineModel {
         return null;
     }
 
-    // private Vaccine createVaccineWithDoseNumber(Vaccinate vaccinate, int
-    // doseNumber){
-    // Vaccine vaccineWithDose = originalVaccine;
-    // vaccineWithDose.setTotalDose(doseNumber);
-
-    // vaccineWithDose.setVaccineName(originalVaccine.getVaccineName());
-    // vaccineWithDose.setManufacterName(originalVaccine.getManufacterName());
-    // vaccineWithDose.setDiseaseName(originalVaccine.getDiseaseName());
-    // vaccineWithDose.setExpirationDate(originalVaccine.getExpirationDate());
-    // vaccineWithDose.setVaccineType(originalVaccine.getVaccineType());
-    // vaccineWithDose.setBatchNumber(originalVaccine.getBatchNumber());
-    // vaccineWithDose.setDose(doseNumber);
-    // return vaccineWithDose;
-    // }
-
     public List<String> getVaccineNames() {
         loadVaccinesData();
         return vaccines.inOrder()
@@ -146,7 +143,10 @@ public class VaccineModel {
 
     public List<Vaccinate> getVaccinesForUsers(String documentNumber) {
         Person person = getUserByDocument(documentNumber);
-        return person.getMyVacinations().inOrder();
+        if (person == null) return List.of();
+        BinaryTree<Vaccinate> tree = person.getMyVacinations();
+        if (tree == null) return List.of();
+        return tree.inOrder();
     }
 
     public Person getUserByDocument(String documentNumber) {
@@ -161,48 +161,25 @@ public class VaccineModel {
             return;
         }
 
-        // Convertir el árbol a lista para iterar
         List<Vaccinate> vaccinateList = person.getMyVacinations().inOrder();
         if (rowIndex < 0 || rowIndex >= vaccinateList.size()) {
             return;
         }
 
-        // Buscar el registro por fecha
         for (Vaccinate record : vaccinateList) {
-            if (isSameDay(record.getApplicationDate(), applicationDate)) {
-                // Actualiza la vacuna en la posición indicada
+            if (record.getApplicationDate() != null && applicationDate != null && isSameDay(record.getApplicationDate(), applicationDate)) {
                 record.setVaccine(updatedVaccine);
                 break;
             }
         }
 
-        // Reconstruir el árbol con los cambios
         BinaryTree<Vaccinate> updatedTree = new BinaryTree<>();
         for (Vaccinate v : vaccinateList) {
             updatedTree.add(v);
         }
         person.setMyVacinations(updatedTree);
-
-        // Guardar cambios
         saveUsersData();
     }
-
-    // public void updateVaccineFromTable(int rowIndex, Vaccine updateVaccine, Date
-    // applicationDate, String documentNumber) {
-    // BinaryTree<Vaccinate> vaccinate =
-    // getUserByDocument(documentNumber).getMyVacinations();
-    // for (Vaccinate record : history) {
-    // if (record.getPerson().getDocumentNumber() == documentNumber &&
-    // isSameDay(record.getApplicationDate(), applicationDate) ) {
-    // List<Vaccine> vaccines = record.getVaccines();
-    // if (rowIndex < vaccines.size()) {
-    // vaccines.set(rowIndex, updateVaccine);
-    // saveJsonHistory(history);
-    // return;
-    // }
-    // }
-    // }
-    // }
 
     private boolean userExist(String documentNumber) {
         Person tempPerson = new Person();
@@ -217,6 +194,7 @@ public class VaccineModel {
     }
 
     private boolean isSameDay(Date date1, Date date2) {
+        if (date1 == null || date2 == null) return false;
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(date1);
         Calendar cal2 = Calendar.getInstance();

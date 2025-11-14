@@ -9,6 +9,7 @@
   "phoneNumber" : "3203472792",
   "bornDate" : 1115701200000,
   "myVaccinations" : [ {
+    "documentNumber" : null,
     "vaccine" : {
       "vaccineName" : "Covid-19 Pfizer",
       "manufacterName" : "Pfizer",
@@ -19,8 +20,7 @@
       "dose" : 1
     },
     "applicationDate" : 1749484342274,
-    "dose" : 0,
-    "documentNumber" : null
+    "dose" : 0
   } ]
 }, {
   "firstName" : "Juan",
@@ -33,6 +33,7 @@
   "phoneNumber" : "3101234567",
   "bornDate" : 642729600000,
   "myVaccinations" : [ {
+    "documentNumber" : null,
     "vaccine" : {
       "vaccineName" : "Covid-19 Pfizer",
       "manufacterName" : "Pfizer",
@@ -43,21 +44,7 @@
       "dose" : 2
     },
     "applicationDate" : 1718409600000,
-    "dose" : 0,
-    "documentNumber" : null
-  }, {
-    "vaccine" : {
-      "vaccineName" : "Vacuna Meningocócica",
-      "manufacterName" : "Pfizer",
-      "diseaseName" : "Enfermedad meningocócica (meningitis)",
-      "vaccineType" : "ARNm",
-      "batchNumber" : "ADB1234S",
-      "expirationDate" : 1765987473059,
-      "dose" : 1
-    },
-    "applicationDate" : 1748534880505,
-    "dose" : 0,
-    "documentNumber" : null
+    "dose" : 0
   } ]
 }, {
   "firstName" : "Jeison",
@@ -70,6 +57,7 @@
   "phoneNumber" : "3203472792",
   "bornDate" : 1115701200000,
   "myVaccinations" : [ {
+    "documentNumber" : null,
     "vaccine" : {
       "vaccineName" : "Influenza",
       "manufacterName" : "Sanofi",
@@ -80,21 +68,7 @@
       "dose" : 1
     },
     "applicationDate" : 1748534241355,
-    "dose" : 0,
-    "documentNumber" : null
-  }, {
-    "vaccine" : {
-      "vaccineName" : "Vacuna Tétanos",
-      "manufacterName" : "Sanofi Pasteur",
-      "diseaseName" : "Tétanos, difteria y tosferina",
-      "vaccineType" : "Toxoide",
-      "batchNumber" : "BS123N",
-      "expirationDate" : 1758171600000,
-      "dose" : 1
-    },
-    "applicationDate" : 1749483328056,
-    "dose" : 0,
-    "documentNumber" : null
+    "dose" : 0
   } ]
 }, {
   "firstName" : "Ana",
@@ -107,6 +81,7 @@
   "phoneNumber" : "3209876543",
   "bornDate" : 816998400000,
   "myVaccinations" : [ {
+    "documentNumber" : null,
     "vaccine" : {
       "vaccineName" : "Influenza",
       "manufacterName" : "Sanofi",
@@ -117,8 +92,7 @@
       "dose" : 1
     },
     "applicationDate" : 1716163200000,
-    "dose" : 0,
-    "documentNumber" : null
+    "dose" : 0
   } ]
 }, {
   "firstName" : "Nicolas",
@@ -130,7 +104,59 @@
   "documentNumber" : "1058352643",
   "phoneNumber" : "3224512568",
   "bornDate" : 1762578000000,
-  "myVaccinations" : [ ]
+  "myVaccinations" : [ {
+    "documentNumber" : "1058352643",
+    "vaccine" : {
+      "vaccineName" : "Vacuna HPV (Virus del Papiloma Humano)",
+      "manufacterName" : "Merck (Gardasil)",
+      "diseaseName" : "Infecciones por VPH",
+      "vaccineType" : "Subunidad",
+      "batchNumber" : "AS12324",
+      "expirationDate" : 1764259384781,
+      "dose" : 3
+    },
+    "applicationDate" : 1763098849000,
+    "dose" : 1
+  }, {
+    "documentNumber" : "1058352643",
+    "vaccine" : {
+      "vaccineName" : "Covid-19 Pfizer",
+      "manufacterName" : "Pfizer",
+      "diseaseName" : "Coronavirus",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "A1234",
+      "expirationDate" : 1767139200000,
+      "dose" : 2
+    },
+    "applicationDate" : 1763098871000,
+    "dose" : 1
+  }, {
+    "documentNumber" : "1058352643",
+    "vaccine" : {
+      "vaccineName" : "Covid-19 Pfizer",
+      "manufacterName" : "Pfizer",
+      "diseaseName" : "Coronavirus",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "A1234",
+      "expirationDate" : 1767139200000,
+      "dose" : 2
+    },
+    "applicationDate" : 1763098907000,
+    "dose" : 2
+  }, {
+    "documentNumber" : "1058352643",
+    "vaccine" : {
+      "vaccineName" : "Fiebre Amarilla",
+      "manufacterName" : "Pfizer",
+      "diseaseName" : "Fiebre Amarilla",
+      "vaccineType" : "Toxoide",
+      "batchNumber" : "FAFDS1",
+      "expirationDate" : 1750827600000,
+      "dose" : 1
+    },
+    "applicationDate" : 1763098918000,
+    "dose" : 1
+  } ]
 }, {
   "firstName" : "Maria",
   "middleName" : "Valentina",
@@ -142,6 +168,7 @@
   "phoneNumber" : "3173540929",
   "bornDate" : 1097855380567,
   "myVaccinations" : [ {
+    "documentNumber" : null,
     "vaccine" : {
       "vaccineName" : "Vacuna HPV (Virus del Papiloma Humano)",
       "manufacterName" : "Merck (Gardasil)",
@@ -152,8 +179,7 @@
       "dose" : 3
     },
     "applicationDate" : 1748620273848,
-    "dose" : 0,
-    "documentNumber" : null
+    "dose" : 0
   } ]
 }, {
   "firstName" : "Israel",
@@ -166,6 +192,7 @@
   "phoneNumber" : "3112279267",
   "bornDate" : -637814441202,
   "myVaccinations" : [ {
+    "documentNumber" : null,
     "vaccine" : {
       "vaccineName" : "Influenza",
       "manufacterName" : "Sanofi",
@@ -176,8 +203,7 @@
       "dose" : 1
     },
     "applicationDate" : 1748640019441,
-    "dose" : 0,
-    "documentNumber" : null
+    "dose" : 0
   } ]
 }, {
   "firstName" : "Jorge",
@@ -190,6 +216,7 @@
   "phoneNumber" : "3112279267",
   "bornDate" : 489042000000,
   "myVaccinations" : [ {
+    "documentNumber" : null,
     "vaccine" : {
       "vaccineName" : "Covid-19 Pfizer",
       "manufacterName" : "Pfizer",
@@ -200,7 +227,6 @@
       "dose" : 2
     },
     "applicationDate" : 1748639696261,
-    "dose" : 0,
-    "documentNumber" : null
+    "dose" : 0
   } ]
 } ]

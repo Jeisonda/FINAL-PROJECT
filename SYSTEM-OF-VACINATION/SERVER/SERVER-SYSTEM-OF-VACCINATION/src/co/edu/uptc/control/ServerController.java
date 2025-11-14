@@ -13,6 +13,7 @@ import co.edu.uptc.net.Connection;
 import co.edu.uptc.net.dto.Request;
 import co.edu.uptc.net.dto.Response;
 import co.edu.uptc.net.dto.UpdateVaccinatePayLoad;
+import co.edu.uptc.net.OperationResult;
 
 public class ServerController extends Thread {
    private Connection connection;
@@ -67,7 +68,7 @@ public class ServerController extends Thread {
             case "CREATE_PERSON" -> createUser(request);
             case "CREATE_VACCINE" -> createVaccine(request);
             case "VACCINATE" -> vaccined(request);
-            case "CLOSE_CONNECTION" -> closeClient(request); // 🔹 nuevo
+            case "CLOSE_CONNECTION" -> closeClient(request);
             default -> programOptions(option, request);
          }
       } catch (Exception e) {
@@ -143,15 +144,22 @@ public class ServerController extends Thread {
             vaccinate.setApplicationDate(new Date());
          }
 
-         model.vaccinate(
+         OperationResult result = model.vaccinate(
                vaccinate.getDocumentNumber(),
                vaccinate.getVaccine().getVaccineName(),
                vaccinate.getApplicationDate());
 
-         Response<String> response = new Response<>(true, "Vacunación registrada correctamente", null);
-         String jsonResponse = connection.getMyGson().toJson(response);
-         connection.getOutput().writeUTF(jsonResponse);
-         System.out.println("DEBUG Servidor -> " + jsonResponse);
+         if (result != null && result.isSuccess()) {
+            Response<String> response = new Response<>(true, result.getMessage(), null);
+            String jsonResponse = connection.getMyGson().toJson(response);
+            connection.getOutput().writeUTF(jsonResponse);
+            System.out.println("DEBUG Servidor -> " + jsonResponse);
+         } else {
+            String msg = (result != null && result.getMessage() != null) ? result.getMessage() : "Error al registrar vacunación";
+            Response<String> response = new Response<>(false, msg, null);
+            connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
+            System.out.println("DEBUG Servidor -> " + connection.getMyGson().toJson(response));
+         }
 
       } catch (Exception e) {
          e.printStackTrace();
@@ -171,6 +179,9 @@ public class ServerController extends Thread {
             Response<Vaccine> response = new Response<>(true, null, vaccine);
             String jsonResponse = connection.getMyGson().toJson(response);
             connection.getOutput().writeUTF(jsonResponse);
+         } else {
+            Response<String> response = new Response<>(false, "Vacuna no encontrada", null);
+            connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
          }
       } catch (IOException e) {
          e.printStackTrace();
@@ -183,16 +194,10 @@ public class ServerController extends Thread {
          Person person = model.getUserByDocument(documentNumber);
 
          if (person != null) {
-            // Obtenemos también las vacunas
             List<Vaccinate> vaccinateList = model.getVaccinesForUsers(documentNumber);
-
-            // Combinamos ambos objetos
             PersonData personData = new PersonData(person, vaccinateList);
-
-            // Enviamos la respuesta completa
             Response<co.edu.uptc.model.pojos.PersonData> response = new Response<>(true,
                   "Usuario encontrado con su historial", personData);
-
             String jsonResponse = connection.getMyGson().toJson(response);
             System.out.println("DEBUG Servidor -> " + jsonResponse);
             connection.getOutput().writeUTF(jsonResponse);
@@ -216,7 +221,6 @@ public class ServerController extends Thread {
          List<String> names = model.getVaccineNames();
          Response<List<String>> response = new Response<>(true, "Lista de vacunas obtenida", names);
          String jsonResponse = connection.getMyGson().toJson(response);
-         // DEBUG: ver lo que vamos a enviar
          System.out.println("DEBUG Servidor -> " + jsonResponse);
          connection.getOutput().writeUTF(jsonResponse);
       } catch (IOException e) {
@@ -253,37 +257,6 @@ public class ServerController extends Thread {
          e.printStackTrace();
       }
    }
-
-   /*
-    * public void searchUser(Request request) {
-    * try {
-    * Person person = this.model.getUserByDocument(request.getData());
-    * if (person != null) {
-    * PersonData personPojo = new PersonData(person,
-    * getVaccinesForUsers(person.getDocumentNumber()));
-    * Response<PersonData> response = new Response<>(true, "Usuario encontrado",
-    * personPojo);
-    * connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
-    * } else {
-    * Response<PersonData> response = new Response<>(false,
-    * "Usuario no encontrado", null);
-    * connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
-    * }
-    * } catch (Exception e) {
-    * e.printStackTrace();
-    * Response<PersonData> response = new Response<>(false,
-    * "Error al buscar usuario: " + e.getMessage(), null);
-    * try {
-    * connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
-    * } catch (Exception ex) {
-    * }
-    * }
-    * }
-    */
-   // /* */
-   // public List<String> getVaccineNames() {
-   // return this.model.getVaccineNames();
-   // }/* */
 
    public List<Vaccinate> getVaccinesForUsers(String documentNumber) {
       return this.model.getVaccinesForUsers(documentNumber);

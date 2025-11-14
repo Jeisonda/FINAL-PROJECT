@@ -2,8 +2,6 @@ package co.edu.uptc.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Vaccine implements Comparable<Vaccine> {
     private String vaccineName;
     private String manufacterName;
@@ -11,14 +9,17 @@ public class Vaccine implements Comparable<Vaccine> {
     private String vaccineType;
     private String batchNumber;
     private Date expirationDate;
-    @JsonProperty("dose")
     private int dose;
 
-    public Vaccine(){
+    public Vaccine() {
     }
 
-    public Vaccine(String vaccineName, String manufacterName, String diseaseName, String vaccineType,
-            String batchNumber, Date expirationDate, int dose) {
+    public Vaccine(String vaccineName) {
+        this.vaccineName = vaccineName;
+    }
+
+    public Vaccine(String vaccineName, String manufacterName, String diseaseName,
+            String vaccineType, String batchNumber, Date expirationDate, int dose) {
         this.vaccineName = vaccineName;
         this.manufacterName = manufacterName;
         this.diseaseName = diseaseName;
@@ -26,14 +27,6 @@ public class Vaccine implements Comparable<Vaccine> {
         this.batchNumber = batchNumber;
         this.expirationDate = expirationDate;
         this.dose = dose;
-    }
-
-    public Vaccine(String vaccineName) {
-        this.vaccineName = vaccineName;
-    }
-
-    public String getVaccineName() {
-        return vaccineName;
     }
 
     public void setVaccineName(String vaccineName) {
@@ -88,9 +81,12 @@ public class Vaccine implements Comparable<Vaccine> {
         this.dose = dose;
     }
 
-    @Override
-    public int compareTo(Vaccine compareVaccine){
-        return vaccineName.compareTo(compareVaccine.getVaccineName());
+    public String getVaccineName() {
+        return vaccineName;
     }
-    
+
+    @Override
+    public int compareTo(Vaccine o) {
+        return vaccineName.compareTo(o.getVaccineName());
+    }
 }
