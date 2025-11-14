@@ -123,6 +123,69 @@
     "dose" : 1
   } ]
 }, {
+  "firstName" : "Camila",
+  "middleName" : "",
+  "lastName" : "Puin",
+  "secondLastName" : "Coronel",
+  "documentType" : "TI ",
+  "email" : "camila@gmail.com",
+  "documentNumber" : "1052389274",
+  "phoneNumber" : "3123213213",
+  "bornDate" : 1197262800000,
+  "myVaccinations" : [ {
+    "documentNumber" : "1052389274",
+    "vaccine" : {
+      "vaccineName" : "DANISEX",
+      "manufacterName" : "LISASEX",
+      "diseaseName" : "SEX",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "0982XES",
+      "expirationDate" : 1827032400000,
+      "dose" : 1
+    },
+    "applicationDate" : 1763152659000,
+    "dose" : 1
+  }, {
+    "documentNumber" : "1052389274",
+    "vaccine" : {
+      "vaccineName" : "Covid-19 Pfizer",
+      "manufacterName" : "Pfizer",
+      "diseaseName" : "Coronavirus",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "A1234",
+      "expirationDate" : 1767139200000,
+      "dose" : 2
+    },
+    "applicationDate" : 1763152674000,
+    "dose" : 1
+  }, {
+    "documentNumber" : "1052389274",
+    "vaccine" : {
+      "vaccineName" : "Covid-19 Pfizer",
+      "manufacterName" : "Pfizer",
+      "diseaseName" : "Coronavirus",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "A1234",
+      "expirationDate" : 1767139200000,
+      "dose" : 2
+    },
+    "applicationDate" : 1763152681000,
+    "dose" : 2
+  }, {
+    "documentNumber" : "1052389274",
+    "vaccine" : {
+      "vaccineName" : "Fiebre Amarilla",
+      "manufacterName" : "Pfizer",
+      "diseaseName" : "Fiebre Amarilla",
+      "vaccineType" : "Toxoide",
+      "batchNumber" : "FAFDS1",
+      "expirationDate" : 1750827600000,
+      "dose" : 1
+    },
+    "applicationDate" : 1763152750000,
+    "dose" : 1
+  } ]
+}, {
   "firstName" : "Ana",
   "middleName" : "María",
   "lastName" : "López",
@@ -232,7 +295,20 @@
   "documentNumber" : "12345678",
   "phoneNumber" : "123455562",
   "bornDate" : 1762373574000,
-  "myVaccinations" : [ ]
+  "myVaccinations" : [ {
+    "documentNumber" : "12345678",
+    "vaccine" : {
+      "vaccineName" : "SIDA",
+      "manufacterName" : "AsJs",
+      "diseaseName" : "Sida",
+      "vaccineType" : "Toxoide",
+      "batchNumber" : "DV2",
+      "expirationDate" : 1756184400000,
+      "dose" : 2
+    },
+    "applicationDate" : 1763152379000,
+    "dose" : 1
+  } ]
 }, {
   "firstName" : "Maria",
   "middleName" : "Valentina",
