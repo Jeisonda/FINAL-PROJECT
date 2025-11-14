@@ -4,6 +4,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import co.edu.uptc.interfaces.ViewInterface;
+import co.edu.uptc.pojos.PersonData;
+import co.edu.uptc.pojos.Vaccinate;
+import co.edu.uptc.pojos.Vaccine;
 import co.edu.uptc.presenter.Presenter;
 import co.edu.uptc.views.panelCenter.MainPanelCenter;
 import co.edu.uptc.views.panelLeft.MainPanelLeft;
@@ -19,8 +23,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements ViewInterface{
     private Image icon;
     private JPanel contentPanel;
     private MainPanelCenter panelCenter;
@@ -39,6 +44,7 @@ public class MainFrame extends JFrame {
     
     private void frameConfiguration(){
         System.out.println("llegue");
+        selectPort();
         setSize(940,630);
         setTitle("ATENAS");
         icon = Toolkit.getDefaultToolkit().getImage("images/partenon.png");
@@ -116,5 +122,36 @@ public class MainFrame extends JFrame {
                 }
             }
         });
+    }
+
+    private void selectPort(){
+        String port = JOptionPane.showInputDialog(null, "Ingrese el puerto");
+        String host = JOptionPane.showInputDialog(null, "Ingrese el host");
+        presenter.selectHostAndPort(host, Integer.parseInt(port));
+        
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+    }
+
+    @Override
+    public void showConfirmMessage(String message) {
+    }
+
+    @Override
+    public void fillUserLabels(PersonData person) {
+    }
+
+    @Override
+    public void fillVaccineTable(List<Vaccinate> vaccines) {
+    }
+
+    @Override
+    public void fillVaccineLabels(Vaccine vaccine) {
+    }
+
+    @Override
+    public void refreshComboFindVaccine() {
     }
 }

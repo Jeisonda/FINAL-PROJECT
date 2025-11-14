@@ -21,14 +21,14 @@ public class Presenter implements PresenterInterface {
 
     private ViewInterface view;
     private ServerConnection connection;
+    private int port1;
+    private String host2;
 
     public Presenter(ViewInterface view) {
         this.view = view;
-        try {
-            connection = new ServerConnection("localhost", 12890);
-        } catch (Exception e) {
-            view.showErrorMessage("No se pudo conectar al servidor");
-        }
+    }
+
+    public Presenter() {
     }
 
     @Override
@@ -186,12 +186,10 @@ public class Presenter implements PresenterInterface {
         }
     }
 
-    @SuppressWarnings({ "unchecked" })
     public List<String> getVaccineNames() {
         try {
             Request request = new Request("GET_VACCINE_NAMES", "");
-
-            // ✅ Uso correcto de TypeToken para conservar el tipo genérico
+            
             Type responseType = new TypeToken<Response<List<String>>>() {
             }.getType();
             Response<List<String>> response = connection.sendResponse(request, responseType);
@@ -260,6 +258,25 @@ public class Presenter implements PresenterInterface {
             System.out.println("Servidor confirmó cierre: " + response.getMessage());
         } catch (Exception e) {
             System.out.println("No se pudo notificar al servidor el cierre de conexión.");
+        }
+    }
+
+    public void run() {
+        MainFrame main = new MainFrame(this);
+        main.setVisible(true);
+    }
+
+    public void selectHostAndPort(String host, int port) {
+        this.host2 = host;
+        this.port1 = port;
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+            connection = new ServerConnection(host2, port1);
+            view.showConfirmMessage("Conectado al servidor correctamente");
+        } catch (Exception e) {
+            view.showErrorMessage("No se pudo conectar al servidor: " + e.getMessage());
         }
     }
 }
