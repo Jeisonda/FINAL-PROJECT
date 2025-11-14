@@ -18,11 +18,10 @@ public class Person implements Comparable<Person> {
     private String documentNumber;
     private String phoneNumber;
     private Date bornDate;
-    // Este campo NO se deserializa directamente
+
     @JsonIgnore
     private BinaryTree<Vaccinate> myVacinations = new BinaryTree<>();
 
-    // Este sí se carga desde JSON como una lista normal
     @JsonProperty("myVaccinations")
     private List<Vaccinate> tempVaccinateList;
     

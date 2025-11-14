@@ -52,8 +52,6 @@ public class Vaccinate implements Comparable<Vaccinate> {
 
     @Override
     public int compareTo(Vaccinate other) {
-
-        // 1. Comparar documento (nunca usar compareTo con null)
         String thisDoc = this.documentNumber;
         String otherDoc = other.documentNumber;
 
@@ -64,7 +62,6 @@ public class Vaccinate implements Comparable<Vaccinate> {
         int cmp = thisDoc.compareTo(otherDoc);
         if (cmp != 0) return cmp;
 
-        // 2. Comparar fechas
         Date thisDate = this.applicationDate;
         Date otherDate = other.applicationDate;
 
