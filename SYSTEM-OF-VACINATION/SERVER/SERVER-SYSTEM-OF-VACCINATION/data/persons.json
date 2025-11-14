@@ -69,6 +69,32 @@
     },
     "applicationDate" : 1748534241355,
     "dose" : 0
+  }, {
+    "documentNumber" : "1049607536",
+    "vaccine" : {
+      "vaccineName" : "Fiebre Amarilla",
+      "manufacterName" : "Pfizer",
+      "diseaseName" : "Fiebre Amarilla",
+      "vaccineType" : "Toxoide",
+      "batchNumber" : "FAFDS1",
+      "expirationDate" : 1750827600000,
+      "dose" : 1
+    },
+    "applicationDate" : 1763147684000,
+    "dose" : 1
+  }, {
+    "documentNumber" : "1049607536",
+    "vaccine" : {
+      "vaccineName" : "Covid-19 Pfizer",
+      "manufacterName" : "Pfizer",
+      "diseaseName" : "Coronavirus",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "A1234",
+      "expirationDate" : 1767139200000,
+      "dose" : 2
+    },
+    "applicationDate" : 1763147892000,
+    "dose" : 1
   } ]
 }, {
   "firstName" : "Ana",

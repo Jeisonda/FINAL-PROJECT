@@ -2,15 +2,13 @@ package co.edu.uptc.views.panelLeft.popupPanel.createUser;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-
 import javax.swing.JPanel;
 
 public class CreateUserPanel extends JPanel{
-    
     private HeaderUserPanel headerUserPanel;
     private FormatUserPanel formatUserPanel;
-    
-    public CreateUserPanel(){
+
+    public CreateUserPanel() {
         setLayout(new BorderLayout());
         initComponents();
     }
@@ -42,7 +40,7 @@ public class CreateUserPanel extends JPanel{
     private void addPanelDown(){
        JPanel panelDown = new JPanel();
        panelDown.setPreferredSize(new Dimension(0,25));
-       add(panelDown, BorderLayout.SOUTH); 
+       add(panelDown, BorderLayout.SOUTH);
     }
 
     private void addPanelRigth(){

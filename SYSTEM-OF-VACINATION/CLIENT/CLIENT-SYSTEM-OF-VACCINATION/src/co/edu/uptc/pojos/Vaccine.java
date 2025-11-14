@@ -19,7 +19,7 @@ public class Vaccine {
     }
 
     public Vaccine(String vaccineName, String manufacterName, String diseaseName,
-            Date expirationDate, String vaccineType, String batchNumber, int dose) {
+                   Date expirationDate, String vaccineType, String batchNumber, int dose) {
         this.vaccineName = vaccineName;
         this.manufacterName = manufacterName;
         this.diseaseName = diseaseName;
@@ -33,55 +33,57 @@ public class Vaccine {
         return vaccineName;
     }
 
-    public void setVaccineName(String vaccineName) {
-        this.vaccineName = vaccineName;
-    }
-
     public String getManufacterName() {
         return manufacterName;
-    }
-
-    public void setManufacterName(String manufacterName) {
-        this.manufacterName = manufacterName;
     }
 
     public String getDiseaseName() {
         return diseaseName;
     }
 
-    public void setDiseaseName(String diseaseName) {
-        this.diseaseName = diseaseName;
-    }
-
     public Date getExpirationDate() {
         return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
     }
 
     public String getVaccineType() {
         return vaccineType;
     }
 
-    public void setVaccineType(String vaccineType) {
-        this.vaccineType = vaccineType;
-    }
-
     public String getBatchNumber() {
         return batchNumber;
-    }
-
-    public void setBatchNumber(String batchNumber) {
-        this.batchNumber = batchNumber;
     }
 
     public int getDose() {
         return dose;
     }
 
+    public void setVaccineName(String vaccineName) {
+        this.vaccineName = vaccineName;
+    }
+
+    public void setManufacterName(String manufacterName) {
+        this.manufacterName = manufacterName;
+    }
+
+    public void setDiseaseName(String diseaseName) {
+        this.diseaseName = diseaseName;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public void setVaccineType(String vaccineType) {
+        this.vaccineType = vaccineType;
+    }
+
+    public void setBatchNumber(String batchNumber) {
+        this.batchNumber = batchNumber;
+    }
+
     public void setDose(int dose) {
         this.dose = dose;
     }
+
+    
 }

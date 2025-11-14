@@ -17,28 +17,19 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import co.edu.uptc.interfaces.ViewInterface;
-import co.edu.uptc.pojos.Person;
 import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
-import co.edu.uptc.pojos.Vaccine;
-import co.edu.uptc.presenter.Presenter;
+import co.edu.uptc.views.MainFrame;
 
-public class FormatHistoryPanel extends JPanel implements ViewInterface {
+public class FormatHistoryPanel extends JPanel {
 
     private int arcWidth = 50;
     private int arcHeight = 50;
-
-    private Presenter presenter;
-
+    private MainFrame mainFrame;
     private Image iconOriginal, scaletImage;
-
     private PanelTable panelTable;
-
     private JLabel labelFullName;
     private JLabel labelFullNameContainer;
     private JLabel labelDocumentNumber;
@@ -49,15 +40,12 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
     private JLabel labelEmailContainer;
     private JLabel labelAge;
     private JLabel labelAgeContainer;
-
     private JLabel labelFindUser;
-
     private JTextField txtFindName;
-
     private boolean placeholderActivo = true;
 
-    public FormatHistoryPanel() {
-        presenter = new Presenter(this);
+    public FormatHistoryPanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         setBackground(new Color(220, 220, 220));
         setLayout(null);
         setOpaque(false);
@@ -132,11 +120,10 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
         labelFindUser.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                presenter.searchUser(txtFindName.getText());
+                mainFrame.listenerSearchUserPerformed(txtFindName.getText());
             }
         });
         add(labelFindUser);
-
     }
 
     private void addLabelFullName() {
@@ -219,10 +206,9 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
     }
 
     private void addPanelTable() {
-        panelTable = new PanelTable();
+        panelTable = new PanelTable(mainFrame);
         panelTable.setBounds(20, 240, 630, 200);
         add(panelTable);
-
     }
 
     private void labelConfiguration(JLabel label) {
@@ -252,29 +238,11 @@ public class FormatHistoryPanel extends JPanel implements ViewInterface {
 
     public void fillUserLabels(PersonData person) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-        String fullName = person.getPerson().getFirstName()+ " " + person.getPerson().getMiddleName()+ " " + person.getPerson().getLastName()+ " " + person.getPerson().getSecondLastName();
+        String fullName = person.getPerson().getFirstName() + " " + person.getPerson().getMiddleName() + " " + person.getPerson().getLastName() + " " + person.getPerson().getSecondLastName();
         labelFullNameContainer.setText(fullName);
         labelDocumentNumberContainer.setText(String.valueOf(person.getPerson().getDocumentNumber()));
         labelTipeDocumentContainer.setText(person.getPerson().getDocumentType());
         labelAgeContainer.setText(sdf.format(person.getPerson().getBornDate()));
         labelEmailContainer.setText(person.getPerson().getEmail());
-    }
-
-    @Override
-    public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "UNSUCCES", JOptionPane.ERROR_MESSAGE);
-    }
-
-    @Override
-    public void showConfirmMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "SUCCES", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    @Override
-    public void fillVaccineLabels(Vaccine vaccine) {
-    }
-
-    @Override
-    public void refreshComboFindVaccine() {
     }
 }

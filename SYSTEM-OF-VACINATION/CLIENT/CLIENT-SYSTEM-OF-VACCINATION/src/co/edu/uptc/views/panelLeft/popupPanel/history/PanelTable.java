@@ -5,32 +5,27 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
-
-import co.edu.uptc.interfaces.ViewInterface;
-import co.edu.uptc.pojos.Person;
 import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
 import co.edu.uptc.pojos.Vaccine;
-import co.edu.uptc.presenter.Presenter;
+import co.edu.uptc.views.MainFrame;
 
-public class PanelTable extends JPanel implements ViewInterface{
+public class PanelTable extends JPanel {
 
     private JTable table;
     private JScrollPane scrollPane;
-    private Presenter presenter;
-
+    private MainFrame main;
     private List<Vaccinate> vaccinateList;
 
-    public PanelTable() {
+    public PanelTable(MainFrame main) {
         setLayout(new BorderLayout());
         vaccinateList = new ArrayList<>();
-        presenter = new Presenter(this);
+        this.main = main;
         initComponents();
     }
 
@@ -39,8 +34,7 @@ public class PanelTable extends JPanel implements ViewInterface{
     }
 
     private void addTable() {
-        String[] columns = { "DOSIS", "NOMBRE", "N°LOTE","LABORATORIO", "FECHA VENCIMIENTO", 
-        "ENFERMEDAD OBJETIVO", "FECHA VACUNACIÓN"};
+        String[] columns = { "DOSIS", "NOMBRE", "N°LOTE","LABORATORIO", "FECHA VENCIMIENTO", "ENFERMEDAD OBJETIVO", "FECHA VACUNACIÓN"};
         DefaultTableModel model = new DefaultTableModel(columns, 0){
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -59,11 +53,10 @@ public class PanelTable extends JPanel implements ViewInterface{
         model.addTableModelListener(e->{
             if (e.getType() == TableModelEvent.UPDATE) {
                 int row = e.getFirstRow();
-                if (row >= 0 && presenter != null && row < vaccinateList.size()) {
+                if (row >= 0 && main != null && row < vaccinateList.size()) {
                     try {
                         DefaultTableModel m = (DefaultTableModel) table.getModel();
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
                         Vaccine updated = new Vaccine();
                         updated.setDose(Integer.parseInt(m.getValueAt(row, 0).toString()));
                         updated.setVaccineName(m.getValueAt(row, 1).toString());
@@ -71,18 +64,15 @@ public class PanelTable extends JPanel implements ViewInterface{
                         updated.setManufacterName(m.getValueAt(row, 3).toString());
                         updated.setExpirationDate((sdf.parse(m.getValueAt(row, 4).toString())));
                         updated.setDiseaseName(m.getValueAt(row, 5).toString());
-
-                        Date appicationDate = sdf.parse(m.getValueAt(row, 6).toString());
+                        Date applicationDate = sdf.parse(m.getValueAt(row, 6).toString());
                         String docNum = vaccinateList.get(row).getDocumentNumber();
-
-                        presenter.updateVaccineFromTable(row, updated, appicationDate, Long.parseLong(docNum));
+                        main.listenerUpdateVaccinePerformed(row, updated, applicationDate, Long.parseLong(docNum));
                     } catch (Exception ex) {
-                        showErrorMessage("Error al actualizar");
+                        if (main != null) main.presenter.showErrorMessage("Error al actualizar");
                     }
                 }
             }
         });
-
     }
 
     public void fillTable(List<Vaccinate> vaccines){
@@ -105,30 +95,4 @@ public class PanelTable extends JPanel implements ViewInterface{
             vaccinateList.add(vaccinate);
         }
     }
-
-    @Override
-    public void showErrorMessage(String message) {
-    }
-
-    @Override
-    public void showConfirmMessage(String message) {
-    }
-
-    @Override
-    public void fillUserLabels(PersonData person) {
-    }
-
-    @Override
-    public void fillVaccineTable(List<Vaccinate> vaccines) {
-    }
-
-    @Override
-    public void fillVaccineLabels(Vaccine vaccine) {
-
-    }
-
-    @Override
-    public void refreshComboFindVaccine() {
-    }
-
 }

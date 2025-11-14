@@ -8,25 +8,17 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-
+import java.util.Date;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import com.toedter.calendar.JDateChooser;
+import co.edu.uptc.views.MainFrame;
 
-import co.edu.uptc.interfaces.ViewInterface;
-import co.edu.uptc.pojos.Person;
-import co.edu.uptc.pojos.PersonData;
-import co.edu.uptc.pojos.Vaccinate;
-import co.edu.uptc.pojos.Vaccine;
-import co.edu.uptc.presenter.Presenter;
-
-public class FormatUserPanel extends JPanel implements ViewInterface {
+public class FormatUserPanel extends JPanel {
+    public FormatUserPanel(){
+    }
 
     private int arcWidth = 50;
     private int arcHeight = 50;
@@ -51,14 +43,14 @@ public class FormatUserPanel extends JPanel implements ViewInterface {
 
     private JDateChooser dateChooser;
 
-    private JComboBox comboTipeDocument;
+    private javax.swing.JComboBox<String> comboTypeDocument;
 
     private JButton btnRegister;
 
-    private Presenter presenter;
+    private MainFrame mainFrame;
 
-    public FormatUserPanel() {
-        presenter = new Presenter(this);
+    public FormatUserPanel(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
         panelConfiguration();
     }
 
@@ -161,10 +153,10 @@ public class FormatUserPanel extends JPanel implements ViewInterface {
 
     private void addComboTipeDocument() {
         String[] items = {"CC", "TI ", "PAS"};
-        comboTipeDocument = new JComboBox<>(items);
-        comboTipeDocument.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
-        comboTipeDocument.setBounds(60, 170, 250, 25);
-        add(comboTipeDocument);
+        comboTypeDocument = new javax.swing.JComboBox<>(items);
+        comboTypeDocument.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        comboTypeDocument.setBounds(60, 170, 250, 25);
+        add(comboTypeDocument);
     }
 
     private void addLabelDocumentNumber() {
@@ -228,8 +220,8 @@ public class FormatUserPanel extends JPanel implements ViewInterface {
         btnRegister.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                presenter.createUser(txtFirstName.getText(), txtMiddleName.getText(), txtLastName.getText(),
-                        txtSecondLastName.getText(), comboTipeDocument.getSelectedItem().toString(),
+                mainFrame.listenerCreateUserPerformed(txtFirstName.getText(), txtMiddleName.getText(), txtLastName.getText(),
+                        txtSecondLastName.getText(), comboTypeDocument.getSelectedItem().toString(),
                         txtDocumentNumber.getText(),
                         dateChooser.getDate(), txtPhoneNumber.getText(), txtEmail.getText());
 
@@ -237,9 +229,9 @@ public class FormatUserPanel extends JPanel implements ViewInterface {
                 txtMiddleName.setText("");
                 txtLastName.setText("");
                 txtSecondLastName.setText("");
-                comboTipeDocument.setSelectedIndex(0);
+                comboTypeDocument.setSelectedIndex(0);
                 txtDocumentNumber.setText("");
-                dateChooser.setDate(null); 
+                dateChooser.setDate(null);
                 txtPhoneNumber.setText("");
                 txtEmail.setText("");
             }
@@ -254,33 +246,4 @@ public class FormatUserPanel extends JPanel implements ViewInterface {
         label.setBackground(new Color(220, 220, 220));
         label.setOpaque(true);
     }
-
-    @Override
-    public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "UNSUCCES", JOptionPane.ERROR_MESSAGE);
-    }
-
-    @Override
-    public void showConfirmMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "SUCCES", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-
-
-    @Override
-    public void refreshComboFindVaccine() {
-    }
-
-    @Override
-    public void fillUserLabels(PersonData person) {
-    }
-
-    @Override
-    public void fillVaccineLabels(Vaccine vaccine) {
-    }
-
-    @Override
-    public void fillVaccineTable(List<Vaccinate> vaccines) {
-    }
 }
-

@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 import co.edu.uptc.views.MainFrame;
 
-
 public class VaccinatePanel extends JPanel {
 
     private HeaderVaccinatePanel headerVaccinatePanel;

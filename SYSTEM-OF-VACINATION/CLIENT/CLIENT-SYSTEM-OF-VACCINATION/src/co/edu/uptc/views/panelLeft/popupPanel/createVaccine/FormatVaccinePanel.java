@@ -8,29 +8,23 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import com.toedter.calendar.JDateChooser;
-
-import co.edu.uptc.interfaces.ViewInterface;
-import co.edu.uptc.pojos.Person;
 import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
 import co.edu.uptc.pojos.Vaccine;
-import co.edu.uptc.presenter.Presenter;
+import co.edu.uptc.views.MainFrame;
 import co.edu.uptc.views.panelLeft.popupPanel.vacination.FormatVaccinationPanel;
 
-public class FormatVaccinePanel extends JPanel implements ViewInterface {
+public class FormatVaccinePanel extends JPanel {
 
-    private Presenter presenter;
+    private MainFrame mainFrame;
 
     private int arcWidth = 30;
     private int arcHeight = 30;
@@ -48,22 +42,21 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
     private JTextField txtDiseaseName;
     private JTextField txtBatchNumber;
     private JTextField txtDose;
-    private JTextField txtVaccineId;
 
     private JDateChooser dateChooser;
 
-    private JComboBox comboTipeVaccine;
+    private JComboBox<String> comboTipeVaccine;
 
     private JButton btnRegister;
 
     private FormatVaccinationPanel vaccine;
 
-    public FormatVaccinePanel(FormatVaccinationPanel vaccine) {
+    public FormatVaccinePanel(FormatVaccinationPanel vaccine, MainFrame mainFrame) {
         if (vaccine == null) {
             throw new IllegalArgumentException("FormatVaccinationPanel no puede ser null");
         }
         this.vaccine = vaccine;
-        presenter = new Presenter(this);
+        this.mainFrame = mainFrame;
         panelConfiguration();
     }
 
@@ -98,7 +91,6 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
         addTxtDocumentoNumber();
         addLabelAge();
         addTxtAge();
-
         addButtonRegister();
     }
 
@@ -204,9 +196,8 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
         btnRegister.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-                presenter.createVaccine(txtNameVacination.getText(), txtManufacterName.getText(),
-                        txtDiseaseName.getText(), dateChooser.getDate(),
-                        comboTipeVaccine.getSelectedItem().toString(), txtBatchNumber.getText(), txtDose.getText());
+                mainFrame.listenerCreateVaccinePerformed(txtNameVacination.getText(), txtManufacterName.getText(),
+                        txtDiseaseName.getText(), dateChooser.getDate(), comboTipeVaccine.getSelectedItem().toString(), txtBatchNumber.getText(), txtDose.getText());
 
                 txtNameVacination.setText("");
                 txtManufacterName.setText("");
@@ -215,9 +206,8 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
                 comboTipeVaccine.setSelectedIndex(0);
                 txtBatchNumber.setText("");
                 txtDose.setText("");
-             
-                vaccine.update();
 
+                vaccine.update();
             }
 
         });
@@ -231,34 +221,4 @@ public class FormatVaccinePanel extends JPanel implements ViewInterface {
         label.setOpaque(true);
     }
 
-    @Override
-    public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "UNSUCCES", JOptionPane.ERROR_MESSAGE);
-    }
-
-    @Override
-    public void showConfirmMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "SUCCES", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-
-
-    @Override
-    public void refreshComboFindVaccine() {
-        if (vaccine != null) {
-            vaccine.refreshComboFindVaccine();
-        }
-    }
-
-    @Override
-    public void fillUserLabels(PersonData person) {
-    }
-
-    @Override
-    public void fillVaccineLabels(Vaccine vaccine) {
-    }
-
-    @Override
-    public void fillVaccineTable(List<Vaccinate> vaccines) {
-    }
 }

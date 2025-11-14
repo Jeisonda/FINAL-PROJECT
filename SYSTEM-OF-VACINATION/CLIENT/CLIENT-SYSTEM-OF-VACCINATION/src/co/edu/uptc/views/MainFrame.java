@@ -3,7 +3,6 @@ package co.edu.uptc.views;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
 import co.edu.uptc.interfaces.ViewInterface;
 import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
@@ -14,18 +13,20 @@ import co.edu.uptc.views.panelLeft.MainPanelLeft;
 import co.edu.uptc.views.panelLeft.popupPanel.createUser.CreateUserPanel;
 import co.edu.uptc.views.panelLeft.popupPanel.createVaccine.CreateVaccinePanel;
 import co.edu.uptc.views.panelLeft.popupPanel.history.HistoryPanel;
+import co.edu.uptc.views.panelLeft.popupPanel.history.FormatHistoryPanel;
 import co.edu.uptc.views.panelLeft.popupPanel.vacination.FormatVaccinationPanel;
 import co.edu.uptc.views.panelLeft.popupPanel.vacination.VaccinatePanel;
-
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Date;
 import java.util.List;
 
-public class MainFrame extends JFrame implements ViewInterface{
+public class MainFrame extends JFrame implements ViewInterface {
+
     private Image icon;
     private JPanel contentPanel;
     private MainPanelCenter panelCenter;
@@ -34,18 +35,18 @@ public class MainFrame extends JFrame implements ViewInterface{
     private CreateVaccinePanel createVacinationPanel;
     private VaccinatePanel vacinationPanel;
     private HistoryPanel historyPanel;
+    private FormatHistoryPanel formatHistoryPanel;
     public FormatVaccinationPanel vaccine;
-    private Presenter presenter;
+    public Presenter presenter;
 
-    public MainFrame(Presenter presenter){
+    public MainFrame(Presenter presenter) {
         this.presenter = presenter;
+        presenter.setView(this);
         frameConfiguration();
     }
-    
-    private void frameConfiguration(){
-        System.out.println("llegue");
-        selectPort();
-        setSize(940,630);
+
+    private void frameConfiguration() {
+        setSize(940, 630);
         setTitle("ATENAS");
         icon = Toolkit.getDefaultToolkit().getImage("images/partenon.png");
         setIconImage(icon);
@@ -53,49 +54,82 @@ public class MainFrame extends JFrame implements ViewInterface{
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        initComponents(); 
+        initComponents();
         addCloseBehavior();
     }
-    
-    public void initComponents(){
+
+    public void initComponents() {
         addContentPanel();
         addPanelLeft();
     }
-    
-    private void addPanelLeft(){
+
+    private void addPanelLeft() {
         panelLeft = new MainPanelLeft(this);
         add(panelLeft, BorderLayout.WEST);
     }
-    
-    private void addContentPanel(){
+
+    private void addContentPanel() {
         contentPanel = new JPanel(new CardLayout());
         panelCenter = new MainPanelCenter();
         createUserPanel = new CreateUserPanel();
         vacinationPanel = new VaccinatePanel(this);
-        vaccine = new FormatVaccinationPanel(vacinationPanel);
-        System.out.println("d");
+        vaccine = new FormatVaccinationPanel(vacinationPanel, this);
         vacinationPanel.setFormatPanel(vaccine);
-        System.out.println("a");
-        createVacinationPanel = new CreateVaccinePanel(vaccine);
-        System.out.println("b");
-        historyPanel = new HistoryPanel();
-        System.out.println("n");
-
+        createVacinationPanel = new CreateVaccinePanel(vaccine, this);
+        historyPanel = new HistoryPanel(this);
+        formatHistoryPanel = historyPanel.getFormatPanel();
         contentPanel.add(panelCenter, "main");
         contentPanel.add(createUserPanel, "createUser");
         contentPanel.add(createVacinationPanel, "createVacination");
         contentPanel.add(historyPanel, "history");
-        
-        contentPanel.add(vacinationPanel,"vacination");
+        contentPanel.add(vacinationPanel, "vacination");
         add(contentPanel, BorderLayout.CENTER);
         changePanelCenter("main");
-        
     }
-    public void changePanelCenter(String panelName){
+
+    public void changePanelCenter(String panelName) {
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel, panelName);
         revalidate();
         repaint();
+    }
+
+    public void listenerSearchUserPerformed(String document) {
+        presenter.searchUser(document);
+    }
+
+    public void listenerCreateUserPerformed(String firstName, String middleName, String lastName, String secondLastName, String typeDoc, String document, Date bornDate, String phone, String email) {
+        presenter.createUser(firstName, middleName, lastName, secondLastName, typeDoc, document, bornDate, phone, email);
+    }
+
+    public void listenerCreateVaccinePerformed(String name, String manuName, String disease, Date expDate, String vaccineType, String batchNumber, String dose) {
+        presenter.createVaccine(name, manuName, disease, expDate, vaccineType, batchNumber, dose);
+    }
+
+    public void listenerApplyVaccinePerformed(String document, String vaccineName, Date date) {
+        presenter.vaccined(document, vaccineName, date);
+    }
+
+    public void listenerFindHistoryPerformed(String document) {
+        presenter.searchPersonById(document);
+    }
+
+    public void listenerRefreshVaccinesPerformed() {
+        formatVaccinesRefresh();
+    }
+
+    public void listenerUpdateVaccinePerformed(int rowIndex, Vaccine vaccineData, Date applicationDate, long documentNumber) {
+        presenter.updateVaccineFromTable(rowIndex, vaccineData, applicationDate, documentNumber);
+    }
+
+    public void listenerFindVaccineByNamePerformed(String vaccineName) {
+        presenter.searchVaccineByName(vaccineName);
+    }
+
+    private void formatVaccinesRefresh() {
+        if (vaccine != null) {
+            vaccine.refreshComboFindVaccine();
+        }
     }
 
     private void addCloseBehavior() {
@@ -103,16 +137,14 @@ public class MainFrame extends JFrame implements ViewInterface{
             @Override
             public void windowClosing(WindowEvent e) {
                 int option = JOptionPane.showConfirmDialog(
-                    MainFrame.this,
-                    "¿Desea cerrar la aplicación?",
-                    "Confirmar salida",
-                    JOptionPane.YES_NO_OPTION
-                );
-
+                        MainFrame.this,
+                        "¿Desea cerrar la aplicación?",
+                        "Confirmar salida",
+                        JOptionPane.YES_NO_OPTION);
                 if (option == JOptionPane.YES_OPTION) {
                     try {
                         presenter.sendCloseMessage();
-                        presenter.closeConnection(); 
+                        presenter.closeConnection();
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     } finally {
@@ -124,34 +156,49 @@ public class MainFrame extends JFrame implements ViewInterface{
         });
     }
 
-    private void selectPort(){
-        String port = JOptionPane.showInputDialog(null, "Ingrese el puerto");
-        String host = JOptionPane.showInputDialog(null, "Ingrese el host");
-        presenter.selectHostAndPort(host, Integer.parseInt(port));
-        
-    }
-
     @Override
     public void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public void showConfirmMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
     @Override
     public void fillUserLabels(PersonData person) {
+        if (formatHistoryPanel != null) {
+            formatHistoryPanel.fillUserLabels(person);
+        }
+        if (vaccine != null) {
+            vaccine.fillUserLabels(person);
+        }
     }
 
     @Override
     public void fillVaccineTable(List<Vaccinate> vaccines) {
+        if (formatHistoryPanel != null) {
+            formatHistoryPanel.fillVaccineTable(vaccines);
+        }
     }
 
     @Override
     public void fillVaccineLabels(Vaccine vaccine) {
+        if (this.vaccine != null) {
+            this.vaccine.fillVaccineLabels(vaccine);
+        }
     }
 
     @Override
     public void refreshComboFindVaccine() {
+        if (vaccine != null) {
+            vaccine.refreshComboFindVaccine();
+        }
+    }
+
+    @Override
+    public String askInput(String message) {
+        return JOptionPane.showInputDialog(this, message);
     }
 }

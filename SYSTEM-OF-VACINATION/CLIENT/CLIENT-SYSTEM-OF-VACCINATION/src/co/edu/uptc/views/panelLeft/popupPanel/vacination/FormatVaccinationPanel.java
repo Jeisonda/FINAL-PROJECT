@@ -18,7 +18,6 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,20 +26,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import co.edu.uptc.interfaces.ViewInterface;
-import co.edu.uptc.pojos.Person;
 import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
 import co.edu.uptc.pojos.Vaccine;
-import co.edu.uptc.presenter.Presenter;
+import co.edu.uptc.views.MainFrame;
 
-public class FormatVaccinationPanel extends JPanel implements ViewInterface {
+public class FormatVaccinationPanel extends JPanel {
+
     private int arcWidth = 50;
     private int arcHeight = 50;
-
     private boolean placeholderActivo = true;
-
     private JLabel labelFullName;
     private JLabel labelFullNameFontainer;
     private JLabel labelDocumentNumber;
@@ -63,21 +58,16 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
     private JLabel labelDiseaseNameContainer;
     private JLabel labelFindUser;
     private JLabel labelFindVaccine;
-
     private JTextField txtFindUser;
-    private JComboBox comboFindVaccine;
-
-    private Presenter presenter;
-
+    private JComboBox<String> comboFindVaccine;
+    private MainFrame mainFrame;
     private JButton btnVaccinate;
-
     private Image iconOriginal, scaletImage;
-
     private VaccinatePanel vaccinate;
 
-    public FormatVaccinationPanel(VaccinatePanel vaccinate) {
+    public FormatVaccinationPanel(VaccinatePanel vaccinate, MainFrame mainFrame) {
         this.vaccinate = vaccinate;
-        presenter = new Presenter(this);
+        this.mainFrame = mainFrame;
         setBackground(new Color(220, 220, 220));
         setLayout(null);
         setOpaque(false);
@@ -148,7 +138,6 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
                     txtFindUser.setForeground(Color.black);
                     placeholderActivo = false;
                 }
-
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     btnVaccinate.doClick();
                 }
@@ -167,11 +156,10 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
         labelFindUser.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                presenter.searchPersonById(txtFindUser.getText());
+                mainFrame.listenerSearchUserPerformed(txtFindUser.getText());
             }
         });
         add(labelFindUser);
-
     }
 
     private void addLabelFullName() {
@@ -244,7 +232,7 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
         add(labelEmailContainer);
     }
 
-    private void addComboFindVaccine() { 
+    private void addComboFindVaccine() {
         comboFindVaccine = new JComboBox<>();
         refreshComboFindVaccine();
         comboFindVaccine.setBounds(40, 200, 200, 25);
@@ -252,8 +240,8 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
     }
 
     public void refreshComboFindVaccine() {
-       List<String> vaccineNames = presenter.getVaccineNames();
-       DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
+        List<String> vaccineNames = mainFrame.presenter.getVaccineNames();
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
         for (String name : vaccineNames) {
             model.addElement(name);
         }
@@ -271,7 +259,10 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
         labelFindVaccine.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                presenter.searchVaccineByName(comboFindVaccine.getSelectedItem().toString());
+                String selected = (String) comboFindVaccine.getSelectedItem();
+                if (selected != null && !selected.isEmpty()) {
+                    mainFrame.listenerFindVaccineByNamePerformed(selected);
+                }
             }
         });
         add(labelFindVaccine);
@@ -353,14 +344,17 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
         btnVaccinate.setBounds(270, 420, 150, 30);
         btnVaccinate.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnVaccinate.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 Date applicationDate = new Date();
-                presenter.vaccined(txtFindUser.getText(), comboFindVaccine.getSelectedItem().toString(),
-                        applicationDate);
+                String document = txtFindUser.getText();
+                String vaccineName = labelVaccineNameContainer.getText();
+                if (vaccineName == null || vaccineName.isEmpty()) {
+                    JOptionPane.showMessageDialog(FormatVaccinationPanel.this, "Seleccione una vacuna primero", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                mainFrame.listenerApplyVaccinePerformed(document, vaccineName, applicationDate);
             }
-
         });
         add(btnVaccinate);
     }
@@ -386,43 +380,34 @@ public class FormatVaccinationPanel extends JPanel implements ViewInterface {
         super.paintComponent(g);
     }
 
-    @Override
-    public void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "UNSUCCES", JOptionPane.ERROR_MESSAGE);
+    public void fillUserLabels(PersonData person) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fullName = person.getPerson().getFirstName() + " " + person.getPerson().getMiddleName() + " " + person.getPerson().getLastName() + " "
+                + person.getPerson().getSecondLastName();
+        labelFullNameFontainer.setText(fullName);
+        labelDocumentNumberContainer.setText(String.valueOf(person.getPerson().getDocumentNumber()));
+        labelTipeDocumentContainer.setText(person.getPerson().getDocumentType());
+        labelAgeContainer.setText(sdf.format(person.getPerson().getBornDate()));
+        labelEmailContainer.setText(person.getPerson().getEmail());
     }
 
-    @Override
-    public void showConfirmMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "SUCCES", JOptionPane.INFORMATION_MESSAGE);
-        }
-
-        @Override
-        public void fillUserLabels(PersonData person) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            String fullName = person.getPerson().getFirstName() + " " + person.getPerson().getMiddleName() + " " + person.getPerson().getLastName() + " "
-                    + person.getPerson().getSecondLastName();
-            labelFullNameFontainer.setText(fullName);
-            labelDocumentNumberContainer.setText(String.valueOf(person.getPerson().getDocumentNumber()));
-            labelTipeDocumentContainer.setText(person.getPerson().getDocumentType());
-            labelAgeContainer.setText(sdf.format(person.getPerson().getBornDate()));
-            labelEmailContainer.setText(person.getPerson().getEmail());
-        }
-
-        @Override
-        public void fillVaccineTable(List<Vaccinate> vaccines) {
-        }
-
-        @Override
-        public void fillVaccineLabels(Vaccine vaccine) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            labelVaccineNameContainer.setText(vaccine.getVaccineName());
-            labelBatchNumberContainer.setText(vaccine.getBatchNumber());
-            labelExpirationDateContainer.setText(sdf.format(vaccine.getExpirationDate()));
-            labelDiseaseNameContainer.setText(vaccine.getDiseaseName());
-            labelDoseContainer.setText(String.valueOf(vaccine.getDose()));
-        }
-
-        public void update(){
-            vaccinate.updateData();
-        }
+    public void fillVaccineTable(List<Vaccinate> vaccines) {
     }
+
+    public void fillVaccineLabels(Vaccine vaccine) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        labelVaccineNameContainer.setText(vaccine.getVaccineName());
+        labelBatchNumberContainer.setText(vaccine.getBatchNumber());
+        labelExpirationDateContainer.setText(sdf.format(vaccine.getExpirationDate()));
+        labelDiseaseNameContainer.setText(vaccine.getDiseaseName());
+        labelDoseContainer.setText(String.valueOf(vaccine.getDose()));
+    }
+
+    public String askInput(String message) {
+        return "";
+    }
+
+    public void update() {
+        vaccinate.updateData();
+    }
+}
