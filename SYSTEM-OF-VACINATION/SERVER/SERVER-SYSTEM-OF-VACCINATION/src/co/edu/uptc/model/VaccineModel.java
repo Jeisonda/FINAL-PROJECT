@@ -1,6 +1,5 @@
 package co.edu.uptc.model;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -113,6 +112,122 @@ public class VaccineModel {
             saveUsersData();
             return new OperationResult(true, "Nuevo registro de vacunación creado");
         }
+    }
+
+    public OperationResult vaccinate(String documentNumber, String vaccineName, Date applicationDate) {
+        OperationResult validation = validations(documentNumber, vaccineName);
+        if (validation != null) return validation;
+        Person person = getUserByDocument(documentNumber);
+        Vaccine vaccine = getVaccineByName(vaccineName);
+
+        OperationResult entityValidation = validateEntities(person, vaccine);
+        if (entityValidation != null) return entityValidation;
+
+        OperationResult doseCheck = checkDoseLimit(documentNumber, vaccineName, vaccine);
+        if (doseCheck != null) return doseCheck;
+
+        int currentDoseNumber = getAppledDoses(documentNumber, vaccineName) + 1;
+
+        BinaryTree<Vaccinate> vaccinations = getOrCreateVaccinations(person);
+
+        Vaccinate vaccinateRecord = findExistingVaccinateRecord(vaccinations, vaccine);
+
+        Vaccinate existingRecordToday = findSameDayRecord(vaccinateRecord, applicationDate);
+
+        if (existingRecordToday != null) {
+            return updateExistingRecord(person, vaccinateRecord, existingRecordToday, currentDoseNumber);
+        } else {
+            return createNewVaccinationRecord(person, vaccineName, applicationDate, currentDoseNumber);
+        }
+    }
+
+    private OperationResult validateEntities(Person person, Vaccine vaccine) {
+        if (person == null) return new OperationResult(false, "Usuario no encontrado");
+        if (vaccine == null) return new OperationResult(false, "Vacuna no encontrada");
+        return null; // Éxito
+    }
+
+    /**
+     * Verifica si la persona ya alcanzó el límite de dosis para esta vacuna.
+     * (Extraído del Bloque 3)
+     */
+    private OperationResult checkDoseLimit(String documentNumber, String vaccineName, Vaccine vaccine) {
+        int appliedDoses = getAppledDoses(documentNumber, vaccineName);
+        int totalDoses = vaccine.getDose();
+
+        if (appliedDoses >= totalDoses) {
+            return new OperationResult(false, "Esta persona ya recibió todas las dosis (" + totalDoses + ") de la vacuna " + vaccineName);
+        }
+        return null; // Límite no alcanzado
+    }
+
+    /**
+     * Obtiene el árbol de vacunaciones de la persona. Si es nulo, lo inicializa.
+     * (Extraído del Bloque 4)
+     */
+    private BinaryTree<Vaccinate> getOrCreateVaccinations(Person person) {
+        BinaryTree<Vaccinate> vaccinates = person.getMyVacinations();
+        if (vaccinates == null) {
+            vaccinates = new BinaryTree<>();
+            person.setMyVacinations(vaccinates);
+        }
+        return vaccinates;
+    }
+
+    /**
+     * Intenta encontrar un registro de vacunación (de cualquier fecha) para esa vacuna.
+     * (Extraído del Bloque 5, preservando el try-catch)
+     */
+    private Vaccinate findExistingVaccinateRecord(BinaryTree<Vaccinate> vaccinates, Vaccine vaccine) {
+        Vaccinate search = new Vaccinate();
+        search.setVaccine(vaccine);
+        try {
+            return vaccinates.get(search);
+        } catch (Exception e) {
+            return null; // La lógica original silenciaba la excepción
+        }
+    }
+
+    /**
+     * Verifica si un registro encontrado es del mismo día que la aplicación actual.
+     * (Extraído del Bloque 6)
+     */
+    private Vaccinate findSameDayRecord(Vaccinate vaccinateRecord, Date applicationDate) {
+        if (vaccinateRecord != null && applicationDate != null && vaccinateRecord.getApplicationDate() != null) {
+            if (isSameDay(vaccinateRecord.getApplicationDate(), applicationDate)) {
+                return vaccinateRecord; // Es el mismo registro, del mismo día
+            }
+        }
+        return null; // No hay registro o no es del mismo día
+    }
+
+    /**
+     * Actualiza un registro existente.
+     * (Extraído del Bloque 7, preservando la lógica remove/add)
+     */
+    private OperationResult updateExistingRecord(Person person, Vaccinate vaccinateRecord, Vaccinate existingRecord, int currentDoseNumber) {
+        existingRecord.setDose(currentDoseNumber);
+        
+        // Se respeta la lógica original de acceder vía 'persons.get(person)'
+        persons.get(person).getMyVacinations().remove(vaccinateRecord);
+        persons.get(person).getMyVacinations().add(existingRecord);
+        
+        saveUsersData();
+        return new OperationResult(true, "Vacuna agregada al registro existente");
+    }
+
+    /**
+     * Crea un nuevo registro de vacunación.
+     * (Extraído del Bloque 8, preservando la llamada duplicada a getVaccineByName)
+     */
+    private OperationResult createNewVaccinationRecord(Person person, String vaccineName, Date applicationDate, int currentDoseNumber) {
+        // Se respeta la lógica original de llamar a getVaccineByName() de nuevo
+        Vaccinate newRecord = new Vaccinate(getVaccineByName(vaccineName), applicationDate, currentDoseNumber,
+                person.getDocumentNumber());
+        
+        persons.get(person).getMyVacinations().add(newRecord);
+        saveUsersData();
+        return new OperationResult(true, "Nuevo registro de vacunación creado");
     }
 
     private OperationResult validations(String documentNumber, String vaccineName) {
