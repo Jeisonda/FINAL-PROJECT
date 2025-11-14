@@ -1,8 +1,6 @@
 package co.edu.uptc;
-import co.edu.uptc.interfaces.ViewInterface;
 import co.edu.uptc.presenter.Presenter;
 import co.edu.uptc.views.MainFrame;
-import co.edu.uptc.views.inputString.AskInputView;
 
 public class App {
     public static void main(String[] args) throws Exception {

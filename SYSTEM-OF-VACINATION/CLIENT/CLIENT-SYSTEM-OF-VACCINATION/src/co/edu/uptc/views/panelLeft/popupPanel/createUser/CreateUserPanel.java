@@ -4,11 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JPanel;
 
+import co.edu.uptc.views.MainFrame;
+
 public class CreateUserPanel extends JPanel{
     private HeaderUserPanel headerUserPanel;
     private FormatUserPanel formatUserPanel;
+    private MainFrame main;
 
-    public CreateUserPanel() {
+    public CreateUserPanel(MainFrame main) {
+        this.main = main;
         setLayout(new BorderLayout());
         initComponents();
     }
@@ -27,7 +31,7 @@ public class CreateUserPanel extends JPanel{
     }
 
     private void addPanelFormat(){
-        formatUserPanel = new FormatUserPanel();
+        formatUserPanel = new FormatUserPanel(main);
         add(formatUserPanel, BorderLayout.CENTER);
     }
 

@@ -95,6 +95,32 @@
     },
     "applicationDate" : 1763147892000,
     "dose" : 1
+  }, {
+    "documentNumber" : "1049607536",
+    "vaccine" : {
+      "vaccineName" : "VIH",
+      "manufacterName" : "AASDF",
+      "diseaseName" : "Vih",
+      "vaccineType" : "Toxoide",
+      "batchNumber" : "F1",
+      "expirationDate" : 1749531600000,
+      "dose" : 1
+    },
+    "applicationDate" : 1763148955000,
+    "dose" : 1
+  }, {
+    "documentNumber" : "1049607536",
+    "vaccine" : {
+      "vaccineName" : "DANISEX",
+      "manufacterName" : "LISASEX",
+      "diseaseName" : "SEX",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "0982XES",
+      "expirationDate" : 1827032400000,
+      "dose" : 1
+    },
+    "applicationDate" : 1763149146000,
+    "dose" : 1
   } ]
 }, {
   "firstName" : "Ana",
@@ -182,7 +208,31 @@
     },
     "applicationDate" : 1763098918000,
     "dose" : 1
+  }, {
+    "documentNumber" : "1058352643",
+    "vaccine" : {
+      "vaccineName" : "Influenza",
+      "manufacterName" : "Sanofi",
+      "diseaseName" : "Influenza",
+      "vaccineType" : "Inactiva",
+      "batchNumber" : "B5678",
+      "expirationDate" : 1727740800000,
+      "dose" : 1
+    },
+    "applicationDate" : 1763149025000,
+    "dose" : 1
   } ]
+}, {
+  "firstName" : "Lizasexo",
+  "middleName" : "Danisex",
+  "lastName" : "Reina",
+  "secondLastName" : "Espinel",
+  "documentType" : "CC",
+  "email" : "sex@gmail.com",
+  "documentNumber" : "12345678",
+  "phoneNumber" : "123455562",
+  "bornDate" : 1762373574000,
+  "myVaccinations" : [ ]
 }, {
   "firstName" : "Maria",
   "middleName" : "Valentina",

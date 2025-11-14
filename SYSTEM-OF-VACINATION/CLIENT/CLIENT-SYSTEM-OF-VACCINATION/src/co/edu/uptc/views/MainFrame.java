@@ -71,7 +71,7 @@ public class MainFrame extends JFrame implements ViewInterface {
     private void addContentPanel() {
         contentPanel = new JPanel(new CardLayout());
         panelCenter = new MainPanelCenter();
-        createUserPanel = new CreateUserPanel();
+        createUserPanel = new CreateUserPanel(this);
         vacinationPanel = new VaccinatePanel(this);
         vaccine = new FormatVaccinationPanel(vacinationPanel, this);
         vacinationPanel.setFormatPanel(vaccine);
