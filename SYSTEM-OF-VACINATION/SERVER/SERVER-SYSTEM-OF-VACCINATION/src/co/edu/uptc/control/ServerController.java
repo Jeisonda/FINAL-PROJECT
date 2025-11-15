@@ -43,22 +43,15 @@ public class ServerController extends Thread {
          Request request = new Request();
          try {
             String raw = connection.getInput().readUTF();
-            System.out.println("DEBUG Servidor <- " + raw);
-
             request = connection.getMyGson().fromJson(raw, Request.class);
             String option = request.getAction();
-            System.out.println("DEBUG Servidor: action=" + option + " data=" + request.getData());
             handleOptions(option, request);
-
-         } catch (IOException e) {
-            System.out.println("Cliente desconectado: cerrando hilo...");
-            break;
-         } catch (Exception e) {
+         } catch (IOException e) { break; } 
+         catch (Exception e) {
             e.printStackTrace();
             break;
          }
       }
-
       closeConnection();
    }
 
@@ -140,35 +133,34 @@ public class ServerController extends Thread {
    public void vaccined(Request request) {
       try {
          Vaccinate vaccinate = connection.getMyGson().fromJson(request.getData(), Vaccinate.class);
-         if (vaccinate.getApplicationDate() == null) {
-            vaccinate.setApplicationDate(new Date());
-         }
-
-         OperationResult result = model.vaccinate(
-               vaccinate.getDocumentNumber(),
-               vaccinate.getVaccine().getVaccineName(),
+         if (vaccinate.getApplicationDate() == null) vaccinate.setApplicationDate(new Date());
+         OperationResult result = model.vaccinate(vaccinate.getDocumentNumber(), vaccinate.getVaccine().getVaccineName(),
                vaccinate.getApplicationDate());
-
-         if (result != null && result.isSuccess()) {
-            Response<String> response = new Response<>(true, result.getMessage(), null);
-            String jsonResponse = connection.getMyGson().toJson(response);
-            connection.getOutput().writeUTF(jsonResponse);
-            System.out.println("DEBUG Servidor -> " + jsonResponse);
-         } else {
-            String msg = (result != null && result.getMessage() != null) ? result.getMessage() : "Error al registrar vacunación";
-            Response<String> response = new Response<>(false, msg, null);
-            connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
-            System.out.println("DEBUG Servidor -> " + connection.getMyGson().toJson(response));
-         }
-
+         if (result != null && result.isSuccess()) responseSuccessfullVacinate(result);
+         else responseUnsuccessfullVacinate(result);
       } catch (Exception e) {
-         e.printStackTrace();
-         try {
-            Response<String> response = new Response<>(false, "Error al registrar vacunación", null);
-            connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
-         } catch (IOException ex) {
-            ex.printStackTrace();
-         }
+         catchVacciante();
+      }
+   }
+
+   private void responseSuccessfullVacinate(OperationResult result) throws IOException {
+      Response<String> response = new Response<>(true, result.getMessage(), null);
+      String jsonResponse = connection.getMyGson().toJson(response);
+      connection.getOutput().writeUTF(jsonResponse);
+   }
+
+   private void responseUnsuccessfullVacinate(OperationResult result) throws IOException {
+      String msg = (result != null && result.getMessage() != null) ? result.getMessage() : "Error al registrar vacunación";
+      Response<String> response = new Response<>(false, msg, null);
+      connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
+   }
+
+   private void catchVacciante() {
+      try {
+         Response<String> response = new Response<>(false, "Error al registrar vacunación", null);
+         connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
+      } catch (IOException ex) {
+         ex.printStackTrace();
       }
    }
 
@@ -176,9 +168,7 @@ public class ServerController extends Thread {
       try {
          Vaccine vaccine = this.model.getVaccineByName(vaccineName);
          if (vaccine != null) {
-            Response<Vaccine> response = new Response<>(true, null, vaccine);
-            String jsonResponse = connection.getMyGson().toJson(response);
-            connection.getOutput().writeUTF(jsonResponse);
+            responseSuccesfullSearchVaccine(vaccine);
          } else {
             Response<String> response = new Response<>(false, "Vacuna no encontrada", null);
             connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
@@ -188,31 +178,42 @@ public class ServerController extends Thread {
       }
    }
 
+   private void responseSuccesfullSearchVaccine(Vaccine vaccine) throws IOException {
+      Response<Vaccine> response = new Response<>(true, null, vaccine);
+      String jsonResponse = connection.getMyGson().toJson(response);
+      connection.getOutput().writeUTF(jsonResponse);
+   }
+
    private void searchUserById(Request request) {
       try {
          String documentNumber = request.getData();
          Person person = model.getUserByDocument(documentNumber);
 
-         if (person != null) {
-            List<Vaccinate> vaccinateList = model.getVaccinesForUsers(documentNumber);
-            PersonData personData = new PersonData(person, vaccinateList);
-            Response<co.edu.uptc.model.pojos.PersonData> response = new Response<>(true,
-                  "Usuario encontrado con su historial", personData);
-            String jsonResponse = connection.getMyGson().toJson(response);
-            System.out.println("DEBUG Servidor -> " + jsonResponse);
-            connection.getOutput().writeUTF(jsonResponse);
-         } else {
+         if (person != null)
+            responseSuccesfullSearchUser(documentNumber, person);
+         else {
             Response<String> response = new Response<>(false, "Usuario no encontrado", null);
             connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
          }
       } catch (Exception e) {
-         e.printStackTrace();
-         try {
-            Response<String> response = new Response<>(false, "Error al buscar usuario: " + e.getMessage(), null);
-            connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
-         } catch (IOException ex) {
-            ex.printStackTrace();
-         }
+         catchSearchUser(e);
+      }
+   }
+
+   private void responseSuccesfullSearchUser(String documentNumber, Person person) throws IOException {
+      List<Vaccinate> vaccinateList = model.getVaccinesForUsers(documentNumber);
+      PersonData personData = new PersonData(person, vaccinateList);
+      Response<PersonData> response = new Response<>(true,"Usuario encontrado con su historial", personData);
+      String jsonResponse = connection.getMyGson().toJson(response);
+      connection.getOutput().writeUTF(jsonResponse);
+   }
+
+   private void catchSearchUser(Exception e) {
+      try {
+         Response<String> response = new Response<>(false, "Error al buscar usuario: " + e.getMessage(), null);
+         connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
+      } catch (IOException ex) {
+         ex.printStackTrace();
       }
    }
 
@@ -221,7 +222,6 @@ public class ServerController extends Thread {
          List<String> names = model.getVaccineNames();
          Response<List<String>> response = new Response<>(true, "Lista de vacunas obtenida", names);
          String jsonResponse = connection.getMyGson().toJson(response);
-         System.out.println("DEBUG Servidor -> " + jsonResponse);
          connection.getOutput().writeUTF(jsonResponse);
       } catch (IOException e) {
          e.printStackTrace();
@@ -241,15 +241,10 @@ public class ServerController extends Thread {
 
    private void updateVaccine(Request request) {
       try {
-         co.edu.uptc.net.dto.UpdateVaccinatePayLoad payload = connection.getMyGson().fromJson(request.getData(),
+         UpdateVaccinatePayLoad payload = connection.getMyGson().fromJson(request.getData(),
                UpdateVaccinatePayLoad.class);
-
-         model.updateVaccineFromTable(
-               payload.getRowIndex(),
-               payload.getVaccine(),
-               payload.getApplicationDate(),
-               payload.getDocumentNumber());
-
+         model.updateVaccineFromTable(payload.getRowIndex(), payload.getVaccine(), payload.getApplicationDate(), 
+            payload.getDocumentNumber());
          Response<String> response = new Response<>(true, "Vacunación actualizada", null);
          String json = connection.getMyGson().toJson(response);
          connection.getOutput().writeUTF(json);
@@ -269,7 +264,6 @@ public class ServerController extends Thread {
 
    private void closeClient(Request request) {
       try {
-         System.out.println("Cliente solicita cierre: " + request.getData());
          Response<String> response = new Response<>(true, "Conexión cerrada correctamente", null);
          connection.getOutput().writeUTF(connection.getMyGson().toJson(response));
       } catch (Exception e) {

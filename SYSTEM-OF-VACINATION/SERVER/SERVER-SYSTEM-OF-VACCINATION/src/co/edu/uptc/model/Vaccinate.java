@@ -52,6 +52,10 @@ public class Vaccinate implements Comparable<Vaccinate> {
 
     @Override
     public int compareTo(Vaccinate other) {
+        return compareDocumentNumber(other);
+    }
+
+    private int compareDocumentNumber(Vaccinate other) {
         String thisDoc = this.documentNumber;
         String otherDoc = other.documentNumber;
 
@@ -61,12 +65,14 @@ public class Vaccinate implements Comparable<Vaccinate> {
 
         int cmp = thisDoc.compareTo(otherDoc);
         if (cmp != 0) return cmp;
+        return compareDate(other, cmp);
+    }
 
+    private int compareDate(Vaccinate other, int cmp) {
         Date thisDate = this.applicationDate;
         Date otherDate = other.applicationDate;
 
         if (thisDate == null && otherDate == null) {
-            // seguimos al paso 3
         } else if (thisDate == null) {
             return -1;
         } else if (otherDate == null) {
@@ -74,9 +80,11 @@ public class Vaccinate implements Comparable<Vaccinate> {
         } else {
             cmp = thisDate.compareTo(otherDate);
             if (cmp != 0) return cmp;
-        }
+        } 
+        return compareVaccineName(other);
+    }
 
-        // 3. Comparar nombre de vacuna
+    private int compareVaccineName(Vaccinate other) {
         String thisVaccine = (vaccine != null && vaccine.getVaccineName() != null)
                 ? vaccine.getVaccineName()
                 : "";

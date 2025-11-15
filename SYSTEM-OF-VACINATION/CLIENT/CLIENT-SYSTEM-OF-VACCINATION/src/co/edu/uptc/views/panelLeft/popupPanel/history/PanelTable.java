@@ -10,7 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
-import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
 import co.edu.uptc.pojos.Vaccine;
 import co.edu.uptc.views.MainFrame;
@@ -50,6 +49,10 @@ public class PanelTable extends JPanel {
             table.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
         }
         add(scrollPane, BorderLayout.CENTER);
+        addTableListener(model);
+    }
+
+    private void addTableListener(DefaultTableModel model) {
         model.addTableModelListener(e->{
             if (e.getType() == TableModelEvent.UPDATE) {
                 int row = e.getFirstRow();
@@ -68,7 +71,7 @@ public class PanelTable extends JPanel {
                         String docNum = vaccinateList.get(row).getDocumentNumber();
                         main.listenerUpdateVaccinePerformed(row, updated, applicationDate, Long.parseLong(docNum));
                     } catch (Exception ex) {
-                        if (main != null) main.presenter.showErrorMessage("Error al actualizar");
+                        if (main != null) main.showErrorMessage("Error al actualizar");
                     }
                 }
             }
@@ -80,8 +83,26 @@ public class PanelTable extends JPanel {
         model.setRowCount(0);
         vaccinateList.clear();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        // for (Vaccinate vaccinate : vaccines) {
+        //     Vaccine v = vaccinate.getVaccine();
+        //     Object[] row = {
+        //         vaccinate.getDose(),
+        //         v.getVaccineName(),
+        //         v.getBatchNumber(),
+        //         v.getManufacterName(),
+        //         sdf.format(v.getExpirationDate()),
+        //         v.getDiseaseName(),
+        //         sdf.format(vaccinate.getApplicationDate())
+        //     };
+        //     model.addRow(row);
+        //     vaccinateList.add(vaccinate);
+        // }
+
         for (Vaccinate vaccinate : vaccines) {
-            Vaccine v = vaccinate.getVaccine();
+        Vaccine v = vaccinate.getVaccine();
+        
+        // --- INICIO DE LA CORRECCIÓN ---
+        if (v != null) { // Comprueba si la vacuna existe
             Object[] row = {
                 vaccinate.getDose(),
                 v.getVaccineName(),
@@ -93,6 +114,17 @@ public class PanelTable extends JPanel {
             };
             model.addRow(row);
             vaccinateList.add(vaccinate);
+        } else {
+            // Opcional: Muestra un error en la fila
+             Object[] row = {
+                vaccinate.getDose(),
+                "ERROR: Vacuna no encontrada",
+                "N/A", "N/A", "N/A", "N/A",
+                sdf.format(vaccinate.getApplicationDate())
+            };
+            model.addRow(row);
         }
+        // --- FIN DE LA CORRECCIÓN ---
+    }
     }
 }

@@ -6,29 +6,19 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
-import co.edu.uptc.pojos.PersonData;
-import co.edu.uptc.pojos.Vaccinate;
-import co.edu.uptc.pojos.Vaccine;
 import co.edu.uptc.views.MainFrame;
 import co.edu.uptc.views.panelLeft.popupPanel.vacination.FormatVaccinationPanel;
 
 public class FormatVaccinePanel extends JPanel {
-
     private MainFrame mainFrame;
-
     private int arcWidth = 30;
     private int arcHeight = 30;
-
     private JLabel labelNameVaccine;
     private JLabel labelManufacterName;
     private JLabel labelDiseaseName;
@@ -36,19 +26,14 @@ public class FormatVaccinePanel extends JPanel {
     private JLabel labelTipeVacination;
     private JLabel labelBatchNumber;
     private JLabel label_dose;
-
     private JTextField txtNameVacination;
     private JTextField txtManufacterName;
     private JTextField txtDiseaseName;
     private JTextField txtBatchNumber;
     private JTextField txtDose;
-
     private JDateChooser dateChooser;
-
     private JComboBox<String> comboTipeVaccine;
-
     private JButton btnRegister;
-
     private FormatVaccinationPanel vaccine;
 
     public FormatVaccinePanel(FormatVaccinationPanel vaccine, MainFrame mainFrame) {
@@ -193,12 +178,14 @@ public class FormatVaccinePanel extends JPanel {
         btnRegister.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         btnRegister.setBounds(270, 360, 150, 30);
         btnRegister.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnRegister.addActionListener(new ActionListener() {
+        addButtonListener();
+        add(btnRegister);
+    }
 
-            public void actionPerformed(ActionEvent e) {
-                mainFrame.listenerCreateVaccinePerformed(txtNameVacination.getText(), txtManufacterName.getText(),
+    private void addButtonListener() {
+        btnRegister.addActionListener(e -> {
+            mainFrame.listenerCreateVaccinePerformed(txtNameVacination.getText(), txtManufacterName.getText(),
                         txtDiseaseName.getText(), dateChooser.getDate(), comboTipeVaccine.getSelectedItem().toString(), txtBatchNumber.getText(), txtDose.getText());
-
                 txtNameVacination.setText("");
                 txtManufacterName.setText("");
                 txtDiseaseName.setText("");
@@ -206,12 +193,8 @@ public class FormatVaccinePanel extends JPanel {
                 comboTipeVaccine.setSelectedIndex(0);
                 txtBatchNumber.setText("");
                 txtDose.setText("");
-
                 vaccine.update();
-            }
-
         });
-        add(btnRegister);
     }
 
     private void labelConfiguration(JLabel label) {

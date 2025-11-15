@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import co.edu.uptc.views.MainFrame;
 
 public class HistoryPanel extends JPanel{
-
     private FormatHistoryPanel formatHistoryPanel;
     private HeaderHistoryPanel headerHistoryPanel;
 

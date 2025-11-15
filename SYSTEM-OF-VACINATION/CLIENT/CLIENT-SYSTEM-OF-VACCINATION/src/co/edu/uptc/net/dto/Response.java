@@ -7,7 +7,7 @@ public class Response<T> {
 
     public Response() {}
 
-    public Response(boolean s, String message, T data) {
+    public Response(boolean success, String message, T data) {
         this.success = success;
         this.message = message;
         this.data = data;

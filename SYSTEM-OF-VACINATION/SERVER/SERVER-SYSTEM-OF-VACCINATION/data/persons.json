@@ -108,85 +108,6 @@
     },
     "applicationDate" : 1763148955000,
     "dose" : 1
-  }, {
-    "documentNumber" : "1049607536",
-    "vaccine" : {
-      "vaccineName" : "DANISEX",
-      "manufacterName" : "LISASEX",
-      "diseaseName" : "SEX",
-      "vaccineType" : "ARNm",
-      "batchNumber" : "0982XES",
-      "expirationDate" : 1827032400000,
-      "dose" : 1
-    },
-    "applicationDate" : 1763149146000,
-    "dose" : 1
-<<<<<<< HEAD
-  } ]
-}, {
-  "firstName" : "Camila",
-  "middleName" : "",
-  "lastName" : "Puin",
-  "secondLastName" : "Coronel",
-  "documentType" : "TI ",
-  "email" : "camila@gmail.com",
-  "documentNumber" : "1052389274",
-  "phoneNumber" : "3123213213",
-  "bornDate" : 1197262800000,
-  "myVaccinations" : [ {
-    "documentNumber" : "1052389274",
-    "vaccine" : {
-      "vaccineName" : "DANISEX",
-      "manufacterName" : "LISASEX",
-      "diseaseName" : "SEX",
-      "vaccineType" : "ARNm",
-      "batchNumber" : "0982XES",
-      "expirationDate" : 1827032400000,
-      "dose" : 1
-    },
-    "applicationDate" : 1763152659000,
-    "dose" : 1
-  }, {
-    "documentNumber" : "1052389274",
-    "vaccine" : {
-      "vaccineName" : "Covid-19 Pfizer",
-      "manufacterName" : "Pfizer",
-      "diseaseName" : "Coronavirus",
-      "vaccineType" : "ARNm",
-      "batchNumber" : "A1234",
-      "expirationDate" : 1767139200000,
-      "dose" : 2
-    },
-    "applicationDate" : 1763152674000,
-    "dose" : 1
-  }, {
-    "documentNumber" : "1052389274",
-    "vaccine" : {
-      "vaccineName" : "Covid-19 Pfizer",
-      "manufacterName" : "Pfizer",
-      "diseaseName" : "Coronavirus",
-      "vaccineType" : "ARNm",
-      "batchNumber" : "A1234",
-      "expirationDate" : 1767139200000,
-      "dose" : 2
-    },
-    "applicationDate" : 1763152681000,
-    "dose" : 2
-  }, {
-    "documentNumber" : "1052389274",
-    "vaccine" : {
-      "vaccineName" : "Fiebre Amarilla",
-      "manufacterName" : "Pfizer",
-      "diseaseName" : "Fiebre Amarilla",
-      "vaccineType" : "Toxoide",
-      "batchNumber" : "FAFDS1",
-      "expirationDate" : 1750827600000,
-      "dose" : 1
-    },
-    "applicationDate" : 1763152750000,
-    "dose" : 1
-=======
->>>>>>> cc2ac48276fa25dfd1b0a018c43d3927df815052
   } ]
 }, {
   "firstName" : "Ana",
@@ -287,45 +208,83 @@
     },
     "applicationDate" : 1763149025000,
     "dose" : 1
-<<<<<<< HEAD
-  } ]
-}, {
-  "firstName" : "Lizasexo",
-  "middleName" : "Danisex",
-  "lastName" : "Reina",
-  "secondLastName" : "Espinel",
-  "documentType" : "CC",
-  "email" : "sex@gmail.com",
-  "documentNumber" : "12345678",
-  "phoneNumber" : "123455562",
-  "bornDate" : 1762373574000,
-  "myVaccinations" : [ {
-    "documentNumber" : "12345678",
+  }, {
+    "documentNumber" : "1058352643",
     "vaccine" : {
-      "vaccineName" : "SIDA",
-      "manufacterName" : "AsJs",
-      "diseaseName" : "Sida",
+      "vaccineName" : "Vacuna Tétanos",
+      "manufacterName" : "Sanofi Pasteur",
+      "diseaseName" : "Tétanos, difteria y tosferina",
       "vaccineType" : "Toxoide",
-      "batchNumber" : "DV2",
-      "expirationDate" : 1756184400000,
-      "dose" : 2
+      "batchNumber" : "BS123N",
+      "expirationDate" : 1758171600000,
+      "dose" : 1
     },
-    "applicationDate" : 1763152379000,
+    "applicationDate" : 1763176503000,
     "dose" : 1
-=======
->>>>>>> cc2ac48276fa25dfd1b0a018c43d3927df815052
   } ]
 }, {
-  "firstName" : "Lizasexo",
-  "middleName" : "Danisex",
-  "lastName" : "Reina",
-  "secondLastName" : "Espinel",
+  "firstName" : "test",
+  "middleName" : "test",
+  "lastName" : "test",
+  "secondLastName" : "test",
   "documentType" : "CC",
-  "email" : "sex@gmail.com",
-  "documentNumber" : "12345678",
-  "phoneNumber" : "123455562",
-  "bornDate" : 1762373574000,
-  "myVaccinations" : [ ]
+  "email" : "test@gmail.com",
+  "documentNumber" : "1234",
+  "phoneNumber" : "3224567891",
+  "bornDate" : 1211864400000,
+  "myVaccinations" : [ {
+    "documentNumber" : "1234",
+    "vaccine" : {
+      "vaccineName" : "vacTest",
+      "manufacterName" : "test",
+      "diseaseName" : "ads",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "1235",
+      "expirationDate" : 1762146000000,
+      "dose" : 4
+    },
+    "applicationDate" : 1763181845000,
+    "dose" : 1
+  }, {
+    "documentNumber" : "1234",
+    "vaccine" : {
+      "vaccineName" : "vacTest",
+      "manufacterName" : "test",
+      "diseaseName" : "ads",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "1235",
+      "expirationDate" : 1762146000000,
+      "dose" : 4
+    },
+    "applicationDate" : 1763181855000,
+    "dose" : 2
+  }, {
+    "documentNumber" : "1234",
+    "vaccine" : {
+      "vaccineName" : "vacTest",
+      "manufacterName" : "test",
+      "diseaseName" : "ads",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "1235",
+      "expirationDate" : 1762146000000,
+      "dose" : 4
+    },
+    "applicationDate" : 1763181858000,
+    "dose" : 3
+  }, {
+    "documentNumber" : "1234",
+    "vaccine" : {
+      "vaccineName" : "vacTest",
+      "manufacterName" : "test",
+      "diseaseName" : "ads",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "1235",
+      "expirationDate" : 1762146000000,
+      "dose" : 4
+    },
+    "applicationDate" : 1763181860000,
+    "dose" : 4
+  } ]
 }, {
   "firstName" : "Maria",
   "middleName" : "Valentina",
@@ -349,6 +308,30 @@
     },
     "applicationDate" : 1748620273848,
     "dose" : 0
+  } ]
+}, {
+  "firstName" : "Nic",
+  "middleName" : "",
+  "lastName" : "Liz",
+  "secondLastName" : "Ro",
+  "documentType" : "CC",
+  "email" : "nic@gmail.com",
+  "documentNumber" : "1452123645",
+  "phoneNumber" : "3214568974",
+  "bornDate" : 1762316811000,
+  "myVaccinations" : [ {
+    "documentNumber" : "1452123645",
+    "vaccine" : {
+      "vaccineName" : "vac",
+      "manufacterName" : "test",
+      "diseaseName" : "ac",
+      "vaccineType" : "ARNm",
+      "batchNumber" : "14521365874",
+      "expirationDate" : 1764478800000,
+      "dose" : 5
+    },
+    "applicationDate" : 1763180919000,
+    "dose" : 1
   } ]
 }, {
   "firstName" : "Israel",

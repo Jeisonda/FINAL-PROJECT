@@ -17,21 +17,14 @@ public class JsonRepository {
 
     public void saveUsers(BinaryTree<Person> data) {
         try (FileWriter writer = new FileWriter(ConfigGlobal.userData)) {
-
-            // Convertir el BinaryTree de personas a lista
             List<Person> personsList = data.inOrder();
 
-            // Por cada persona, convertir su árbol interno de vacunaciones a lista
             for (Person p : personsList) {
                 if (p.getMyVacinations() != null) {
                     p.setTempVaccinateList(p.getMyVacinations().inOrder());
                 }
             }
-
-            // Guardar todo como JSON
             mapper.writerWithDefaultPrettyPrinter().writeValue(writer, personsList);
-
-            // Limpiar el campo temporal para no dejarlo en memoria
             for (Person p : personsList) {
                 p.setTempVaccinateList(null);
             }
@@ -43,11 +36,7 @@ public class JsonRepository {
 
     public List<Person> loadUsers() {
         try (FileReader reader = new FileReader(ConfigGlobal.userData)) {
-            System.out.println("holas");
-            // Leer lista simple de personas
             List<Person> persons = mapper.readValue(reader, new TypeReference<List<Person>>() {});
-
-            // Reconstruir el árbol interno de vacunaciones
             for (Person p : persons) {
                 if (p.getTempVaccinateList() != null) {
                     BinaryTree<Vaccinate> vaccinateTree = new BinaryTree<>();
@@ -58,9 +47,7 @@ public class JsonRepository {
                     p.setTempVaccinateList(null);
                 }
             }
-
             return persons;
-
         } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();

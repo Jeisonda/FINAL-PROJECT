@@ -125,17 +125,14 @@ public class BinaryTree<T extends Comparable<T>> {
         } else if (comparison > 0) {
             node.setRight(removeRecursive(node.getRight(), value));
         } else {
-            // Caso 1: sin hijos
             if (node.getLeft() == null && node.getRight() == null) {
                 return null;
             }
-            // Caso 2: un hijo
             if (node.getLeft() == null) {
                 return node.getRight();
             } else if (node.getRight() == null) {
                 return node.getLeft();
             }
-            // Caso 3: dos hijos
             Node<T> successor = findMin(node.getRight());
             node.setValue(successor.getValue());
             node.setRight(removeRecursive(node.getRight(), successor.getValue()));

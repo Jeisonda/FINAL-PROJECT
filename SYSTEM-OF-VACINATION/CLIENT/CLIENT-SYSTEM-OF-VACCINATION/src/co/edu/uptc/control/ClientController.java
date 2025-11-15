@@ -1,7 +1,8 @@
-package co.edu.uptc.presenter;
+package co.edu.uptc.control;
 
 import java.util.Date;
 import java.util.List;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 import co.edu.uptc.interfaces.PresenterInterface;
@@ -9,25 +10,25 @@ import co.edu.uptc.interfaces.ViewInterface;
 import co.edu.uptc.net.dto.Request;
 import co.edu.uptc.net.dto.Response;
 import co.edu.uptc.net.dto.UpdateVaccinatePayLoad;
-import co.edu.uptc.netWork.ServerConnection;
 import co.edu.uptc.pojos.Person;
 import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
 import co.edu.uptc.pojos.Vaccine;
 import co.edu.uptc.views.inputString.AskInputView;
+import co.edu.uptc.netWork.ServerConnection;
 
-public class Presenter implements PresenterInterface {
+public class ClientController implements PresenterInterface {
 
     private ViewInterface view;
     private ServerConnection connection;
     private int port1;
     private String host2;
 
-    public Presenter(ViewInterface view) {
+    public ClientController(ViewInterface view) {
         this.view = view;
     }
 
-    public Presenter() {
+    public ClientController() {
         askForConnectionData(new AskInputView());
     }
 
@@ -38,17 +39,18 @@ public class Presenter implements PresenterInterface {
             return;
         }
         try {
-            Person person = new Person(firstName, middleName, lastName, seconLastName, documentType, documentNumber, bornDate, phoneNumber, email);
-            Request request = new Request("CREATE_PERSON", connection.getGson().toJson(person));
-            Response<String> response = connection.sendResponse(request, String.class);
-            if (response.isSuccess()) {
-                view.showConfirmMessage(response.getMessage());
-            } else {
-                view.showErrorMessage(response.getMessage());
-            }
+            tryCreateUserPerson(firstName, middleName, lastName, seconLastName, documentType, documentNumber, bornDate, phoneNumber, email);
         } catch (Exception e) {
             view.showErrorMessage("Error al crear usuario");
         }
+    }
+
+    private void tryCreateUserPerson(String firstName, String middleName, String lastName, String seconLastName, String documentType, String documentNumber, Date bornDate, String phoneNumber, String email) throws IOException {
+        Person person = new Person(firstName, middleName, lastName, seconLastName, documentType, documentNumber, bornDate, phoneNumber, email);
+        Request request = new Request("CREATE_PERSON", connection.getGson().toJson(person));
+        Response<String> response = connection.sendResponse(request, String.class);
+        if (response.isSuccess()) view.showConfirmMessage(response.getMessage());
+        else view.showErrorMessage(response.getMessage());
     }
 
     @Override
@@ -58,17 +60,20 @@ public class Presenter implements PresenterInterface {
             return;
         }
         try {
-            Vaccine vaccine = new Vaccine(vaccineName, manuName, disease, expiDate, vaccineType, batchNumber, Integer.parseInt(dose));
-            Request request = new Request("CREATE_VACCINE", connection.getGson().toJson(vaccine));
-            Response<String> response = connection.sendResponse(request, String.class);
-            if (response.isSuccess()) {
-                view.showConfirmMessage(response.getMessage());
-                view.refreshComboFindVaccine();
-            } else
-                view.showErrorMessage(response.getMessage());
+            tryCreateVaccine(vaccineName, manuName, disease, expiDate, vaccineType, batchNumber, dose);
         } catch (Exception e) {
             view.showErrorMessage("Error al crear vacuna");
         }
+    }
+
+    private void tryCreateVaccine(String vaccineName, String manuName, String disease, Date expiDate, String vaccineType, String batchNumber, String dose) throws IOException {
+        Vaccine vaccine = new Vaccine(vaccineName, manuName, disease, expiDate, vaccineType, batchNumber, Integer.parseInt(dose));
+        Request request = new Request("CREATE_VACCINE", connection.getGson().toJson(vaccine));
+        Response<String> response = connection.sendResponse(request, String.class);
+        if (response.isSuccess()) {
+            view.showConfirmMessage(response.getMessage());
+            view.refreshComboFindVaccine();
+        } else view.showErrorMessage(response.getMessage());
     }
 
     @Override
@@ -78,39 +83,47 @@ public class Presenter implements PresenterInterface {
             return;
         }
         try {
-            if (applicatoinDate == null) {
-                applicatoinDate = new Date();
-            }
-            Vaccinate vaccinate = new Vaccinate(documentNumber, new Vaccine(vaccineName), applicatoinDate, 1);
-            Request request = new Request("VACCINATE", connection.getGson().toJson(vaccinate));
-            Response<String> response = connection.sendResponse(request, String.class);
-            if (response != null && response.isSuccess()) {
-                view.showConfirmMessage(response.getMessage() != null ? response.getMessage() : "Vacunación registrada con éxito");
-            } else {
-                String msg = (response != null) ? response.getMessage() : "Respuesta inválida del servidor";
-                view.showErrorMessage(msg != null ? msg : "Error al registrar vacunación");
-            }
+            tryVaccined(documentNumber, vaccineName, applicatoinDate);
         } catch (Exception e) {
             view.showErrorMessage("Error al registrar vacunación");
         }
     }
 
+    private void tryVaccined(String documentNumber, String vaccineName, Date applicatoinDate) throws IOException {
+        Vaccinate vaccinate = new Vaccinate(documentNumber, new Vaccine(vaccineName), applicatoinDate, 1);
+        Request request = new Request("VACCINATE", connection.getGson().toJson(vaccinate));
+        Response<String> response = connection.sendResponse(request, String.class);
+        if (response != null && response.isSuccess())
+            view.showConfirmMessage(response.getMessage() != null ? response.getMessage() : "Vacunación registrada con éxito");
+        else {
+            String msg = (response != null) ? response.getMessage() : "Respuesta inválida del servidor";
+            view.showErrorMessage(msg != null ? msg : "Error al registrar vacunación");
+        }
+    }
+
     public void searchPersonById(String documentNumber) {
         try {
-            Request request = new Request("SEARCH_PERSON", documentNumber);
-            Type type = new TypeToken<Response<PersonData>>() {}.getType();
-            Response<PersonData> response = connection.sendResponse(request, type);
-            if (response.isSuccess() && response.getData() != null) {
-                PersonData data = response.getData();
-                view.fillUserLabels(data);
-                view.fillVaccineTable(data.getVaccinateList());
-            } else {
-                view.showErrorMessage(response.getMessage());
-            }
+            trySearchPersonById(documentNumber);
         } catch (Exception e) {
             e.printStackTrace();
             view.showErrorMessage("Error al buscar usuario");
         }
+    }
+
+    private void trySearchPersonById(String documentNumber) throws IOException {
+        Request request = new Request("SEARCH_PERSON", documentNumber);
+        Type type = new TypeToken<Response<PersonData>>() {}.getType();
+        Response<PersonData> response = connection.sendResponse(request, type);
+        searchPersonViewActions(documentNumber, response);
+    }
+
+    private void searchPersonViewActions(String documentNumber, Response<PersonData> response) {
+        if (response.isSuccess() && response.getData() != null) {
+            PersonData data = response.getData();
+            view.fillUserLabels(data);
+            view.fillVaccineTable(data.getVaccinateList());
+        } else
+            view.showErrorMessage(response.getMessage());
     }
 
     public void searchVaccineByName(String vaccineName) {
@@ -149,20 +162,22 @@ public class Presenter implements PresenterInterface {
 
     public List<String> getVaccineNames() {
         try {
-            Request request = new Request("GET_VACCINE_NAMES", "");
-            Type responseType = new TypeToken<Response<List<String>>>() {}.getType();
-            Response<List<String>> response = connection.sendResponse(request, responseType);
-            if (!response.isSuccess() || response.getData() == null) {
-                view.showErrorMessage("No se pudieron cargar los nombres de las vacunas");
-                return List.of();
-            }
-            return response.getData();
+            return tryGetVaccineNames();
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println(e.getMessage());
             view.showErrorMessage("Error al cargar nombres de vacunas");
             return List.of();
         }
+    }
+
+    private List<String> tryGetVaccineNames() throws IOException {
+        Request request = new Request("GET_VACCINE_NAMES", "");
+        Type responseType = new TypeToken<Response<List<String>>>() {}.getType();
+        Response<List<String>> response = connection.sendResponse(request, responseType);
+        if (!response.isSuccess() || response.getData() == null) {
+            view.showErrorMessage("No se pudieron cargar los nombres de las vacunas");
+            return List.of();
+        }
+        return response.getData();
     }
 
     public void closeConnection() {
@@ -177,11 +192,10 @@ public class Presenter implements PresenterInterface {
         try {
             Request request = new Request("GET_VACCINE_FOR_USER", documentNumber);
             Response<Vaccinate[]> response = connection.sendResponse(request, Vaccinate[].class);
-            if (response.isSuccess() && response.getData() != null) {
+            if (response.isSuccess() && response.getData() != null)
                 return List.of(response.getData());
-            } else {
+            else 
                 return List.of();
-            }
         } catch (Exception e) {
             view.showErrorMessage("Error al obtener vacunas del usuario");
             return List.of();
@@ -196,9 +210,8 @@ public class Presenter implements PresenterInterface {
             if (response.isSuccess()) {
                 List<Vaccinate> vaccines = getVaccinesForUsers(String.valueOf(documentNumber));
                 view.fillVaccineTable(vaccines);
-            } else {
+            } else
                 view.showErrorMessage(response.getMessage());
-            }
         } catch (Exception e) {
             view.showErrorMessage("Error al cargar datos");
         }
@@ -208,9 +221,7 @@ public class Presenter implements PresenterInterface {
         try {
             Request request = new Request("CLOSE_CONNECTION", "Cliente cerrando sesión");
             Response<String> response = connection.sendResponse(request, String.class);
-            System.out.println("Servidor confirmó cierre: " + response.getMessage());
         } catch (Exception e) {
-            System.out.println("No se pudo notificar al servidor el cierre de conexión.");
         }
     }
 
@@ -221,7 +232,7 @@ public class Presenter implements PresenterInterface {
             connection = new ServerConnection(host2, port1);
             inputView.showConfirmMessage("Conectado al servidor correctamente");
         } catch (Exception e) {
-            inputView.showErrorMessage("No se pudo conectar al servidor: " + e.getMessage());
+            inputView.showErrorMessage("No se pudo conectar al servidor.\nSe recomienda verificar:\n -El servidor esta corriendo\n -El host y el port son correctos\n -Reinicie el programa");
         }
     }
 
@@ -238,10 +249,5 @@ public class Presenter implements PresenterInterface {
 
     public void setView(ViewInterface view) {
         this.view = view;
-    }
-
-    public void showErrorMessage(String string) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'showErrorMessage'");
     }
 }

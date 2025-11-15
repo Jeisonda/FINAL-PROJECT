@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,12 +16,8 @@ import com.toedter.calendar.JDateChooser;
 import co.edu.uptc.views.MainFrame;
 
 public class FormatUserPanel extends JPanel {
-    public FormatUserPanel(){
-    }
-
     private int arcWidth = 50;
     private int arcHeight = 50;
-
     private JLabel labelFirstName;
     private JLabel labelMiddleName;
     private JLabel labelLastName;
@@ -32,7 +27,6 @@ public class FormatUserPanel extends JPanel {
     private JLabel labelAge;
     private JLabel labelPhoneNumber;
     private JLabel labelEmail;
-
     private JTextField txtFirstName;
     private JTextField txtMiddleName;
     private JTextField txtLastName;
@@ -40,19 +34,17 @@ public class FormatUserPanel extends JPanel {
     private JTextField txtDocumentNumber;
     private JTextField txtPhoneNumber;
     private JTextField txtEmail;
-
     private JDateChooser dateChooser;
-
     private javax.swing.JComboBox<String> comboTypeDocument;
-
     private JButton btnRegister;
-
     private MainFrame mainFrame;
 
     public FormatUserPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         panelConfiguration();
     }
+
+    public FormatUserPanel(){}
 
     private void panelConfiguration() {
         setBackground(new Color(220, 220, 220));

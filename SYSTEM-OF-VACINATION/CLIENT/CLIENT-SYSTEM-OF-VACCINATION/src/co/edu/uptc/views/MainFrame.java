@@ -3,11 +3,12 @@ package co.edu.uptc.views;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import co.edu.uptc.control.ClientController;
 import co.edu.uptc.interfaces.ViewInterface;
 import co.edu.uptc.pojos.PersonData;
 import co.edu.uptc.pojos.Vaccinate;
 import co.edu.uptc.pojos.Vaccine;
-import co.edu.uptc.presenter.Presenter;
 import co.edu.uptc.views.panelCenter.MainPanelCenter;
 import co.edu.uptc.views.panelLeft.MainPanelLeft;
 import co.edu.uptc.views.panelLeft.popupPanel.createUser.CreateUserPanel;
@@ -26,7 +27,6 @@ import java.util.Date;
 import java.util.List;
 
 public class MainFrame extends JFrame implements ViewInterface {
-
     private Image icon;
     private JPanel contentPanel;
     private MainPanelCenter panelCenter;
@@ -37,9 +37,10 @@ public class MainFrame extends JFrame implements ViewInterface {
     private HistoryPanel historyPanel;
     private FormatHistoryPanel formatHistoryPanel;
     public FormatVaccinationPanel vaccine;
-    public Presenter presenter;
+    public ClientController presenter;
+    private String activePanelName;
 
-    public MainFrame(Presenter presenter) {
+    public MainFrame(ClientController presenter) {
         this.presenter = presenter;
         presenter.setView(this);
         frameConfiguration();
@@ -76,6 +77,10 @@ public class MainFrame extends JFrame implements ViewInterface {
         vaccine = new FormatVaccinationPanel(vacinationPanel, this);
         vacinationPanel.setFormatPanel(vaccine);
         createVacinationPanel = new CreateVaccinePanel(vaccine, this);
+        addContentPanel2();
+    }
+
+    private void addContentPanel2() {
         historyPanel = new HistoryPanel(this);
         formatHistoryPanel = historyPanel.getFormatPanel();
         contentPanel.add(panelCenter, "main");
@@ -90,6 +95,7 @@ public class MainFrame extends JFrame implements ViewInterface {
     public void changePanelCenter(String panelName) {
         CardLayout layout = (CardLayout) contentPanel.getLayout();
         layout.show(contentPanel, panelName);
+        this.activePanelName = panelName;
         revalidate();
         repaint();
     }
@@ -168,17 +174,17 @@ public class MainFrame extends JFrame implements ViewInterface {
 
     @Override
     public void fillUserLabels(PersonData person) {
-        if (formatHistoryPanel != null) {
+        if ("history".equals(activePanelName) && formatHistoryPanel != null) {
             formatHistoryPanel.fillUserLabels(person);
         }
-        if (vaccine != null) {
+        else if ("vacination".equals(activePanelName) && vaccine != null) {
             vaccine.fillUserLabels(person);
         }
     }
 
     @Override
     public void fillVaccineTable(List<Vaccinate> vaccines) {
-        if (formatHistoryPanel != null) {
+        if ("history".equals(activePanelName) && formatHistoryPanel != null) {
             formatHistoryPanel.fillVaccineTable(vaccines);
         }
     }

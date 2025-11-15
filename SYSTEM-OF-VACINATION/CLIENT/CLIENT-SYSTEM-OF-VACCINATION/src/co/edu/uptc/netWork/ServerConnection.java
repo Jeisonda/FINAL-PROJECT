@@ -26,22 +26,14 @@ public class ServerConnection {
         gson = new Gson();
     }
 
-    // Método definitivo: recibe un Type que representa Response<T>
     public <T> Response<T> sendResponse(Request request, Type responseType) throws IOException {
         String jsonRequest = gson.toJson(request);
-        // DEBUG: ver lo que enviamos
-        System.out.println("DEBUG Cliente -> " + jsonRequest);
         output.writeUTF(jsonRequest);
-
         String jsonResponse = input.readUTF();
-        // DEBUG: ver lo que llegó
-        System.out.println("DEBUG Cliente <- " + jsonResponse);
-
         Response<T> response = gson.fromJson(jsonResponse, responseType);
         return response;
     }
 
-    // Sobrecarga práctica para mantener compatibilidad con llamadas antiguas
     public <T> Response<T> sendResponse(Request request, Class<T> responseClass) throws IOException {
         Type type = TypeToken.getParameterized(Response.class, responseClass).getType();
         return sendResponse(request, type);

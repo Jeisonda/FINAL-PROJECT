@@ -20,7 +20,6 @@ public class ConfigManager {
         try {
             properties.load(new InputStreamReader(new FileInputStream(data), "UTF-8"));
         } catch (FileNotFoundException e) {
-            System.out.println("Archivo no encontrado");
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -29,9 +28,6 @@ public class ConfigManager {
     public String getValue(String key){
         if (properties.isEmpty()) {
             loadProperties();
-        }
-        if (properties.getProperty(key) == null) {
-            System.out.println("Ruta no encontrada");
         }
 
         return properties.getProperty(key);

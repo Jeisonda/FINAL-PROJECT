@@ -64,11 +64,19 @@ public class VaccineModel {
         if (validation != null) return validation;
         Person person = getUserByDocument(documentNumber);
         Vaccine vaccine = getVaccineByName(vaccineName);
+        return vaccinateActions(documentNumber, vaccineName, vaccine, person, applicationDate);
+    }
+
+    private OperationResult vaccinateActions(String documentNumber, String vaccineName, Vaccine vaccine, Person person, Date applicationDate) {
         OperationResult entityValidation = validateEntities(person, vaccine);
         if (entityValidation != null) return entityValidation;
         OperationResult doseCheck = checkDoseLimit(documentNumber, vaccineName, vaccine);
         if (doseCheck != null) return doseCheck;
         int currentDoseNumber = getAppledDoses(documentNumber, vaccineName) + 1;
+        return vaccinateOperationResultReturn(documentNumber, vaccineName, person, applicationDate, vaccine, currentDoseNumber);
+    }
+
+    private OperationResult vaccinateOperationResultReturn(String documentNumber, String vaccineName, Person person, Date applicationDate, Vaccine vaccine, int currentDoseNumber) {
         BinaryTree<Vaccinate> vaccinations = getOrCreateVaccinations(person);
         Vaccinate vaccinateRecord = findExistingVaccinateRecord(vaccinations, vaccine);
         Vaccinate existingRecordToday = findSameDayRecord(vaccinateRecord, applicationDate);
@@ -82,7 +90,7 @@ public class VaccineModel {
     private OperationResult validateEntities(Person person, Vaccine vaccine) {
         if (person == null) return new OperationResult(false, "Usuario no encontrado");
         if (vaccine == null) return new OperationResult(false, "Vacuna no encontrada");
-        return null; // Éxito
+        return null;
     }
 
     private OperationResult checkDoseLimit(String documentNumber, String vaccineName, Vaccine vaccine) {
@@ -144,14 +152,10 @@ public class VaccineModel {
 
     private OperationResult validations(String documentNumber, String vaccineName) {
         Person person = getUserByDocument(documentNumber);
-        if (person == null) {
-            return new OperationResult(false, "Usuario no encontrado");
-        }
+        if (person == null) return new OperationResult(false, "Usuario no encontrado");
 
         Vaccine vaccine = getVaccineByName(vaccineName);
-        if (vaccine == null) {
-            return new OperationResult(false, "Vacuna no encontrada");
-        }
+        if (vaccine == null) return new OperationResult(false, "Vacuna no encontrada");
         return null;
     }
 
@@ -184,22 +188,23 @@ public class VaccineModel {
     public void updateVaccineFromTable(int rowIndex, Vaccine updatedVaccine, Date applicationDate,
             String documentNumber) {
         Person person = getUserByDocument(documentNumber);
-        if (person == null || person.getMyVacinations() == null) {
-            return;
-        }
-
+        if (person == null || person.getMyVacinations() == null) return;
         List<Vaccinate> vaccinateList = person.getMyVacinations().inOrder();
-        if (rowIndex < 0 || rowIndex >= vaccinateList.size()) {
-            return;
-        }
+        if (rowIndex < 0 || rowIndex >= vaccinateList.size()) return;
+        updateVaccinateRecord(vaccinateList, updatedVaccine, applicationDate);
+        updatedTree(vaccinateList, person);
+    }
 
+    private void updateVaccinateRecord(List<Vaccinate> vaccinateList, Vaccine updatedVaccine, Date applicationDate) {
         for (Vaccinate record : vaccinateList) {
             if (record.getApplicationDate() != null && applicationDate != null && isSameDay(record.getApplicationDate(), applicationDate)) {
                 record.setVaccine(updatedVaccine);
                 break;
             }
         }
+    }
 
+    private void updatedTree(List<Vaccinate> vaccinateList, Person person) {
         BinaryTree<Vaccinate> updatedTree = new BinaryTree<>();
         for (Vaccinate v : vaccinateList) {
             updatedTree.add(v);
@@ -232,18 +237,13 @@ public class VaccineModel {
 
     private int getAppledDoses(String documentNumber, String vaccineName) {
         Person person = getUserByDocument(documentNumber);
-        if (person == null || person.getMyVacinations() == null) {
-            return 0;
-        }
-
+        if (person == null || person.getMyVacinations() == null) return 0;
         int appliedDoses = 0;
         List<Vaccinate> vaccinateList = person.getMyVacinations().inOrder();
-
         for (Vaccinate record : vaccinateList) {
             if (record.getVaccine() != null &&
-                    record.getVaccine().getVaccineName().equalsIgnoreCase(vaccineName)) {
+                    record.getVaccine().getVaccineName().equalsIgnoreCase(vaccineName))
                 appliedDoses++;
-            }
         }
         return appliedDoses;
     }

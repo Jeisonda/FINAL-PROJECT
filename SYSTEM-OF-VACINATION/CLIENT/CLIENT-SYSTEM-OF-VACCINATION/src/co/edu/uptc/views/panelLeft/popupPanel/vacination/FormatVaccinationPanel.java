@@ -153,13 +153,17 @@ public class FormatVaccinationPanel extends JPanel {
         labelFindUser.setBounds(250, 10, 25, 25);
         labelFindUser.setIcon(new ImageIcon(scaletImage));
         labelFindUser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        addLabelSearchListener();
+        add(labelFindUser);
+    }
+
+    private void addLabelSearchListener() {
         labelFindUser.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mainFrame.listenerSearchUserPerformed(txtFindUser.getText());
             }
         });
-        add(labelFindUser);
     }
 
     private void addLabelFullName() {
@@ -256,6 +260,11 @@ public class FormatVaccinationPanel extends JPanel {
         labelFindVaccine.setBounds(250, 200, 25, 25);
         labelFindVaccine.setIcon(new ImageIcon(scaletImage));
         labelFindVaccine.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        addMouseLabelImageFindVaccineListener();
+        add(labelFindVaccine);
+    }
+
+    private void addMouseLabelImageFindVaccineListener() {
         labelFindVaccine.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -265,7 +274,6 @@ public class FormatVaccinationPanel extends JPanel {
                 }
             }
         });
-        add(labelFindVaccine);
     }
 
     private void addLabelId() {
@@ -343,6 +351,11 @@ public class FormatVaccinationPanel extends JPanel {
         btnVaccinate.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         btnVaccinate.setBounds(270, 420, 150, 30);
         btnVaccinate.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        addBtnVaccinedListener();
+        add(btnVaccinate);
+    }
+
+    private void addBtnVaccinedListener() {
         btnVaccinate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -356,7 +369,6 @@ public class FormatVaccinationPanel extends JPanel {
                 mainFrame.listenerApplyVaccinePerformed(document, vaccineName, applicationDate);
             }
         });
-        add(btnVaccinate);
     }
 
     private void labelConfiguration(JLabel label) {

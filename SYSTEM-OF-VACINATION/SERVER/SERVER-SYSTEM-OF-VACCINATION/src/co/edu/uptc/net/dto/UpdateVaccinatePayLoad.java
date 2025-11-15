@@ -1,7 +1,7 @@
 package co.edu.uptc.net.dto;
 
 import java.util.Date;
-import co.edu.uptc.model.Vaccine; // nota: usa la clase del servidor, no la del cliente
+import co.edu.uptc.model.Vaccine;
 
 public class UpdateVaccinatePayLoad {
     private int rowIndex;
